@@ -43,54 +43,7 @@ jobs:
           NODE_ENV: production
 
       - name: Generate index.html for GitHub Pages
-        run: |
-          python3 - << 'PYEOF'
-          import os, glob
-
-          pub = ".output/public"
-          assets = os.path.join(pub, "assets")
-
-          js_files  = sorted(glob.glob(os.path.join(assets, "index-*.js")))
-          css_files = sorted(glob.glob(os.path.join(assets, "styles-*.css")))
-
-          js_entry  = os.path.basename(js_files[0])  if js_files  else ""
-          css_entry = os.path.basename(css_files[0]) if css_files else ""
-
-          print(f"JS  entry: {js_entry}")
-          print(f"CSS entry: {css_entry}")
-
-          css_tag = f'<link rel="stylesheet" crossorigin href="./assets/{css_entry}">' if css_entry else ""
-          js_tag  = f'<script type="module" crossorigin src="./assets/{js_entry}"></script>' if js_entry else ""
-
-          html = f"""<!doctype html>
-          <html lang="en">
-            <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <title>Touch by Bel'voma | Luxury Jewelry in Ghana</title>
-              <meta name="description" content="Luxury handcrafted gold-plated jewelry. Shop earrings, necklaces, rings and bracelets in Ghana." />
-              <link rel="icon" href="./favicon.png" />
-              {css_tag}
-              {js_tag}
-            </head>
-            <body>
-              <div id="root"></div>
-            </body>
-          </html>"""
-
-          with open(os.path.join(pub, "index.html"), "w") as f:
-              f.write(html)
-
-          with open(os.path.join(pub, "404.html"), "w") as f:
-              f.write(html)
-
-          open(os.path.join(pub, ".nojekyll"), "w").close()
-
-          print("Done! index.html and 404.html created.")
-          print("Contents of .output/public:")
-          for item in sorted(os.listdir(pub)):
-              print(f"  {item}")
-          PYEOF
+        run: python3 .github/scripts/make_index.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
