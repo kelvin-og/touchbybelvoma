@@ -5,8 +5,17 @@ import { routeTree } from "./routeTree.gen";
 export const getRouter = () => {
   const queryClient = new QueryClient();
 
+  // Use the repo subpath as basepath when deployed to GitHub Pages
+  // In dev/Cloudflare this is ignored (basepath defaults to "/")
+  const basepath =
+    typeof window !== "undefined" &&
+    window.location.hostname.endsWith("github.io")
+      ? "/-touch-by-bel-voma"
+      : "/";
+
   const router = createRouter({
     routeTree,
+    basepath,
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,

@@ -30,9 +30,11 @@ const routesEntry = assets.find((f) => f.startsWith("routes-") && f.endsWith(".j
 
 console.log("JS:", jsEntry, "| CSS:", cssEntry);
 
+const BASE = "/-touch-by-bel-voma";
+
 const preloads = [proxyEntry, jsxEntry, routesEntry]
   .filter(Boolean)
-  .map((f) => `    <link rel="modulepreload" crossorigin href="/assets/${f}" />`)
+  .map((f) => `    <link rel="modulepreload" crossorigin href="${BASE}/assets/${f}" />`)
   .join("\n");
 
 const html = `<!doctype html>
@@ -42,13 +44,13 @@ const html = `<!doctype html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Touch by Bel'voma | Luxury Jewelry in Ghana</title>
     <meta name="description" content="Luxury handcrafted gold-plated jewelry. Shop earrings, necklaces, rings, bracelets and anklets in Ghana." />
-    <link rel="icon" href="/favicon.png" />
+    <link rel="icon" href="${BASE}/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300..700&family=Poppins:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" crossorigin href="/assets/${cssEntry}">
+    <link rel="stylesheet" crossorigin href="${BASE}/assets/${cssEntry}">
 ${preloads}
-    <script type="module" crossorigin src="/assets/${jsEntry}"></script>
+    <script type="module" crossorigin src="${BASE}/assets/${jsEntry}"></script>
   </head>
   <body>
   </body>
