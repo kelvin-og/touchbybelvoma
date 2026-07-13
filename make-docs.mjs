@@ -1,5 +1,12 @@
-import { readdirSync, copyFileSync, mkdirSync, writeFileSync, existsSync } from "fs";
-import { join, basename } from "path";
+import {
+  readdirSync,
+  copyFileSync,
+  mkdirSync,
+  writeFileSync,
+  existsSync,
+  readFileSync,
+} from "fs";
+import { join } from "path";
 
 const src = ".output/public";
 const dest = "docs";
@@ -22,11 +29,16 @@ copyDir(src, dest);
 
 // Find entry files
 const assets = readdirSync(join(dest, "assets"));
-const jsEntry = assets.find((f) => f.startsWith("index-") && f.endsWith(".js")) || "";
-const cssEntry = assets.find((f) => f.startsWith("styles-") && f.endsWith(".css")) || "";
-const proxyEntry = assets.find((f) => f.startsWith("proxy-") && f.endsWith(".js")) || "";
-const jsxEntry = assets.find((f) => f.startsWith("jsx-runtime-") && f.endsWith(".js")) || "";
-const routesEntry = assets.find((f) => f.startsWith("routes-") && f.endsWith(".js")) || "";
+const jsEntry =
+  assets.find((f) => f.startsWith("index-") && f.endsWith(".js")) || "";
+const cssEntry =
+  assets.find((f) => f.startsWith("styles-") && f.endsWith(".css")) || "";
+const proxyEntry =
+  assets.find((f) => f.startsWith("proxy-") && f.endsWith(".js")) || "";
+const jsxEntry =
+  assets.find((f) => f.startsWith("jsx-runtime-") && f.endsWith(".js")) || "";
+const routesEntry =
+  assets.find((f) => f.startsWith("routes-") && f.endsWith(".js")) || "";
 
 console.log("JS:", jsEntry, "| CSS:", cssEntry);
 
@@ -57,9 +69,16 @@ ${preloads}
 </html>
 `;
 
+// Write to docs/ (used when Pages is set to /docs)
 writeFileSync(join(dest, "index.html"), html);
 writeFileSync(join(dest, "404.html"), html);
 writeFileSync(join(dest, ".nojekyll"), "");
 
-console.log("✅ docs/ folder ready with index.html, 404.html, .nojekyll");
-console.log("Files:", readdirSync(dest).join(", "));
+// Also write to root (used when Pages is set to / root)
+writeFileSync("index.html", html);
+writeFileSync("404.html", html);
+writeFileSync(".nojekyll", "");
+copyFileSync(join(dest, "favicon.png"), "favicon.png");
+
+console.log("✅ Built: docs/ + root index.html, 404.html, .nojekyll, favicon.png");
+console.log("docs/ files:", readdirSync(dest).join(", "));
