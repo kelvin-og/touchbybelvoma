@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Setup Node.js 22
         uses: actions/setup-node@v4
@@ -27,13 +28,20 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Auto-format with Prettier
-        run: npx prettier --write "src/**/*.{ts,tsx,css}" "eslint.config.js"
-
-      - name: Build
+      - name: Build production bundle
         run: npm run build
         env:
           NODE_ENV: production
 
-      - name: Generate docs/ folder
+      - name: Generate docs/ and root deploy files
         run: node make-docs.mjs
+
+      - name: Commit and push built files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Stage all deploy artifacts
+          git add docs/ assets/ index.html 404.html .nojekyll favicon.png robots.txt
+          # Only commit if something actually changed
+          git diff --cached --quiet || git commit -m "chore: deploy build [skip ci]"
+          git push origin main

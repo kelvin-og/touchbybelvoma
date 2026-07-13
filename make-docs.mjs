@@ -4,6 +4,7 @@ import {
   mkdirSync,
   writeFileSync,
   existsSync,
+  rmSync,
 } from "fs";
 import { join } from "path";
 
@@ -24,13 +25,23 @@ function copyDir(from, to) {
   }
 }
 
+// Clean and rebuild docs/ to avoid stale hashed assets accumulating
+if (existsSync(dest)) {
+  rmSync(dest, { recursive: true, force: true });
+}
+
+// Clean and rebuild root assets/ to keep it in sync
+if (existsSync("assets")) {
+  rmSync("assets", { recursive: true, force: true });
+}
+
 // Copy build output to docs/
 copyDir(src, dest);
 
-// Copy assets to root too (GitHub Pages serves from main root)
+// Copy build output to root (GitHub Pages serves index.html from main root)
 copyDir(src, ".");
 
-// Find entry files
+// Find entry files from freshly built assets
 const assets = readdirSync(join(dest, "assets"));
 const jsEntry =
   assets.find((f) => f.startsWith("index-") && f.endsWith(".js")) || "";
@@ -45,7 +56,12 @@ const routesEntry =
 
 console.log("JS:", jsEntry, "| CSS:", cssEntry);
 
-// Use relative paths — works for both / root and subpath
+if (!jsEntry || !cssEntry) {
+  console.error("❌ Missing entry files — build may have failed.");
+  process.exit(1);
+}
+
+// Use relative paths so they work from any subpath (e.g. /touch-by-bel-voma/)
 const preloads = [proxyEntry, jsxEntry, routesEntry]
   .filter(Boolean)
   .map((f) => `    <link rel="modulepreload" crossorigin href="assets/${f}" />`)
@@ -79,4 +95,3 @@ for (const dir of [dest, "."]) {
 }
 
 console.log("✅ Built: root + docs/ with index.html, 404.html, assets");
-console.log("Root files:", readdirSync(".").filter(f => !f.startsWith(".") && !["src","node_modules","docs",".output","public"].includes(f)).slice(0,10).join(", "));

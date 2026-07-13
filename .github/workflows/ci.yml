@@ -24,16 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Auto-format with Prettier
-        run: npx prettier --write "src/**/*.{ts,tsx,css}" "eslint.config.js"
-
       - name: Run ESLint
         run: npm run lint -- --max-warnings=50
 
       - name: Build production bundle
         run: npm run build
 
-      - name: Confirm build
+      - name: Confirm build output
         run: |
-          find .output -maxdepth 2 -type f | head -20
+          find .output/public -maxdepth 2 -type f | head -20
           echo "✅ Build complete"
