@@ -37,12 +37,13 @@ jobs:
       - name: Auto-format with Prettier
         run: npx prettier --write "src/**/*.{ts,tsx,css}" "eslint.config.js"
 
-      - name: Build
+      - name: Build with prerender
         run: npm run build
         env:
           NODE_ENV: production
+          NITRO_PRESET: static
 
-      - name: Generate index.html for GitHub Pages
+      - name: Generate index.html from prerendered output
         run: python3 .github/scripts/make_index.py
 
       - name: Setup Pages
