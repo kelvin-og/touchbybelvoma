@@ -1,11 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { useStore, Order, User } from "@/lib/store";
-import {
-  products as initialProducts,
-  formatPrice,
-  getCediMultiplier,
-} from "@/data/products";
+import { products as initialProducts, formatPrice, getCediMultiplier } from "@/data/products";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   TrendingUp,
@@ -29,8 +25,7 @@ export const Route = createFileRoute("/admin/dashboard")({
       { title: "Control Panel | Touch by Bel'voma Admin" },
       {
         name: "description",
-        content:
-          "Administrative management portal for Touch by Bel'voma luxury brand.",
+        content: "Administrative management portal for Touch by Bel'voma luxury brand.",
       },
     ],
   }),
@@ -237,8 +232,8 @@ function AdminDashboardComponent() {
               Touch by Bel'voma Control Panel
             </h1>
             <p className="text-xs font-light text-muted-foreground mt-1">
-              Logged in as <span className="font-semibold">{user.name}</span>{" "}
-              (Security Level: Principal Administrator)
+              Logged in as <span className="font-semibold">{user.name}</span> (Security Level:
+              Principal Administrator)
             </p>
           </div>
           <button
@@ -353,9 +348,7 @@ function AdminDashboardComponent() {
                       <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">
                         Processed Sales
                       </p>
-                      <h3 className="text-3xl font-semibold mt-1">
-                        {totalOrders} Purchases
-                      </h3>
+                      <h3 className="text-3xl font-semibold mt-1">{totalOrders} Purchases</h3>
                       <p className="text-[10px] text-muted-foreground mt-2 font-light">
                         Total verified transactions dispatched.
                       </p>
@@ -384,10 +377,7 @@ function AdminDashboardComponent() {
                     </h3>
                     <div className="h-48 w-full flex items-end gap-3 pt-6">
                       {[15, 30, 45, 25, 60, 80, 95].map((h, i) => (
-                        <div
-                          key={i}
-                          className="flex-1 flex flex-col items-center gap-2"
-                        >
+                        <div key={i} className="flex-1 flex flex-col items-center gap-2">
                           <motion.div
                             initial={{ height: 0 }}
                             animate={{ height: `${h}%` }}
@@ -395,16 +385,11 @@ function AdminDashboardComponent() {
                             className="w-full bg-gradient-to-t from-gold to-gold-light rounded-t-md relative group"
                           >
                             <span className="opacity-0 group-hover:opacity-100 absolute top-[-25px] left-1/2 -translate-x-1/2 text-[9px] font-semibold bg-charcoal text-white px-1.5 py-0.5 rounded transition-all whitespace-nowrap">
-                              GH₵{" "}
-                              {(h * 100 * getCediMultiplier()).toLocaleString()}
+                              GH₵ {(h * 100 * getCediMultiplier()).toLocaleString()}
                             </span>
                           </motion.div>
                           <span className="text-[9px] uppercase tracking-wider text-muted-foreground">
-                            {
-                              ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"][
-                                i
-                              ]
-                            }
+                            {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"][i]}
                           </span>
                         </div>
                       ))}
@@ -436,8 +421,8 @@ function AdminDashboardComponent() {
                         exit={{ opacity: 0 }}
                         className="p-3.5 bg-green-50 border border-green-200 text-green-700 text-xs font-light rounded-xl flex items-center gap-2"
                       >
-                        <CheckCircle className="h-4.5 w-4.5 text-green-600" />{" "}
-                        New jewelry catalog entry logged successfully.
+                        <CheckCircle className="h-4.5 w-4.5 text-green-600" /> New jewelry catalog
+                        entry logged successfully.
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -536,15 +521,11 @@ function AdminDashboardComponent() {
                       <tbody className="divide-y divide-border">
                         {productsList.map((prod) => (
                           <tr key={prod.id} className="hover:bg-accent/10">
-                            <td className="p-4 font-semibold text-foreground">
-                              {prod.name}
-                            </td>
+                            <td className="p-4 font-semibold text-foreground">{prod.name}</td>
                             <td className="p-4 text-muted-foreground uppercase tracking-widest text-[10px]">
                               {prod.category}
                             </td>
-                            <td className="p-4 text-muted-foreground">
-                              ${prod.price}
-                            </td>
+                            <td className="p-4 text-muted-foreground">${prod.price}</td>
                             <td className="p-4 font-semibold text-gold">
                               {formatPrice(prod.price)}
                             </td>
@@ -582,17 +563,14 @@ function AdminDashboardComponent() {
                         className="p-4 border border-border bg-card rounded-xl flex items-center justify-between shadow-soft"
                       >
                         <div className="text-xs space-y-1">
-                          <p className="font-semibold text-foreground">
-                            {prod.name}
-                          </p>
+                          <p className="font-semibold text-foreground">{prod.name}</p>
                           <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                             {prod.category}
                           </p>
                           <div className="flex items-center gap-1.5 pt-1">
                             {prod.stock < 10 ? (
                               <span className="text-[9px] uppercase tracking-wider font-semibold text-red-500 bg-red-50 px-2 py-0.5 rounded-full flex items-center gap-1">
-                                <ShieldAlert className="h-3 w-3" /> Critical
-                                Stock Level
+                                <ShieldAlert className="h-3 w-3" /> Critical Stock Level
                               </span>
                             ) : (
                               <span className="text-[9px] uppercase tracking-wider font-semibold text-green-700 bg-green-50 px-2 py-0.5 rounded-full flex items-center gap-1">
@@ -605,9 +583,7 @@ function AdminDashboardComponent() {
                         {/* Inventory adjustments */}
                         <div className="flex items-center gap-2 shrink-0">
                           <button
-                            onClick={() =>
-                              handleUpdateStock(prod.id, prod.stock - 5)
-                            }
+                            onClick={() => handleUpdateStock(prod.id, prod.stock - 5)}
                             className="h-8 w-8 rounded-lg border border-border flex items-center justify-center text-xs font-semibold bg-accent/30 hover:bg-accent transition-colors"
                           >
                             -5
@@ -616,9 +592,7 @@ function AdminDashboardComponent() {
                             {prod.stock}
                           </span>
                           <button
-                            onClick={() =>
-                              handleUpdateStock(prod.id, prod.stock + 5)
-                            }
+                            onClick={() => handleUpdateStock(prod.id, prod.stock + 5)}
                             className="h-8 w-8 rounded-lg border border-border flex items-center justify-center text-xs font-semibold bg-accent/30 hover:bg-accent transition-colors"
                           >
                             +5
@@ -647,12 +621,9 @@ function AdminDashboardComponent() {
                   {ordersList.length === 0 ? (
                     <div className="text-center py-12 border border-dashed border-border rounded-xl">
                       <ShoppingBag className="h-10 w-10 text-muted-foreground/50 mx-auto mb-3" />
-                      <h3 className="text-sm font-semibold">
-                        No transactions logged
-                      </h3>
+                      <h3 className="text-sm font-semibold">No transactions logged</h3>
                       <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
-                        No orders have been generated in system session
-                        database.
+                        No orders have been generated in system session database.
                       </p>
                     </div>
                   ) : (
@@ -667,9 +638,7 @@ function AdminDashboardComponent() {
                               <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
                                 Order Ref
                               </p>
-                              <p className="text-xs font-semibold">
-                                {order.id}
-                              </p>
+                              <p className="text-xs font-semibold">{order.id}</p>
                             </div>
                             <div>
                               <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
@@ -707,10 +676,8 @@ function AdminDashboardComponent() {
                           <div className="text-xs space-y-1 bg-accent/20 p-3 rounded-lg">
                             {order.items.map((i, idx) => (
                               <p key={idx} className="font-light">
-                                <span className="font-medium text-foreground">
-                                  {i.name}
-                                </span>{" "}
-                                x {i.qty} —{" "}
+                                <span className="font-medium text-foreground">{i.name}</span> x{" "}
+                                {i.qty} —{" "}
                                 <span className="text-gold font-medium">
                                   {formatPrice(i.price)} each
                                 </span>
@@ -724,8 +691,7 @@ function AdminDashboardComponent() {
                               <strong className="text-foreground uppercase">
                                 {order.shippingAddress.gpsAddress}
                               </strong>{" "}
-                              ({order.shippingAddress.streetAddress},{" "}
-                              {order.shippingAddress.city})
+                              ({order.shippingAddress.streetAddress}, {order.shippingAddress.city})
                             </span>
                             <span className="font-semibold text-gold text-sm">
                               {formatPrice(order.total)}
@@ -740,28 +706,17 @@ function AdminDashboardComponent() {
                             <select
                               value={order.status}
                               onChange={(e) =>
-                                handleProcessOrder(
-                                  order.id,
-                                  e.target.value as Order["status"],
-                                )
+                                handleProcessOrder(order.id, e.target.value as Order["status"])
                               }
                               className="text-xs border border-border bg-card p-2 rounded-xl focus:border-gold outline-none font-semibold text-gold"
                             >
-                              <option value="Payment Pending">
-                                Payment Pending
-                              </option>
-                              <option value="Order Received">
-                                Order Received
-                              </option>
-                              <option value="Payment Confirmed">
-                                Payment Confirmed
-                              </option>
+                              <option value="Payment Pending">Payment Pending</option>
+                              <option value="Order Received">Order Received</option>
+                              <option value="Payment Confirmed">Payment Confirmed</option>
                               <option value="Processing">Processing</option>
                               <option value="Packaging">Packaging</option>
                               <option value="Shipped">Shipped</option>
-                              <option value="Out for Delivery">
-                                Out for Delivery
-                              </option>
+                              <option value="Out for Delivery">Out for Delivery</option>
                               <option value="Delivered">Delivered</option>
                             </select>
                           </div>
@@ -800,15 +755,9 @@ function AdminDashboardComponent() {
                       <tbody className="divide-y divide-border">
                         {customersList.map((cust, idx) => (
                           <tr key={idx} className="hover:bg-accent/10">
-                            <td className="p-4 font-semibold text-foreground">
-                              {cust.name}
-                            </td>
-                            <td className="p-4 text-muted-foreground">
-                              {cust.email}
-                            </td>
-                            <td className="p-4 text-muted-foreground">
-                              {cust.phone}
-                            </td>
+                            <td className="p-4 font-semibold text-foreground">{cust.name}</td>
+                            <td className="p-4 text-muted-foreground">{cust.email}</td>
+                            <td className="p-4 text-muted-foreground">{cust.phone}</td>
                             <td className="p-4">
                               <span
                                 className={`inline-block text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full ${
@@ -847,8 +796,8 @@ function AdminDashboardComponent() {
 
                   {promoSuccess && (
                     <div className="p-3 bg-green-50 border border-green-200 text-green-700 text-xs font-light rounded-xl flex items-center gap-2">
-                      <Check className="h-4 w-4" /> Promotional discount code
-                      generated successfully.
+                      <Check className="h-4 w-4" /> Promotional discount code generated
+                      successfully.
                     </div>
                   )}
 
@@ -916,9 +865,7 @@ function AdminDashboardComponent() {
                             <td className="p-4 font-semibold text-foreground uppercase tracking-widest">
                               {promo.code}
                             </td>
-                            <td className="p-4 text-muted-foreground">
-                              {promo.discount}% Off
-                            </td>
+                            <td className="p-4 text-muted-foreground">{promo.discount}% Off</td>
                             <td className="p-4">
                               <span className="inline-block text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-green-50 text-green-700">
                                 {promo.status}

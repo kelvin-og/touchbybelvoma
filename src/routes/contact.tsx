@@ -1,14 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import {
-  Facebook,
-  Instagram,
-  Mail,
-  MapPin,
-  Phone,
-  Twitter,
-} from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -22,8 +15,7 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact Us — Touch by Bel'voma" },
       {
         property: "og:description",
-        content:
-          "Questions about orders, sizing or styling? We'd love to help.",
+        content: "Questions about orders, sizing or styling? We'd love to help.",
       },
     ],
   }),
@@ -42,12 +34,10 @@ function ContactPage() {
         className="text-center"
       >
         <p className="eyebrow">We'd love to hear from you</p>
-        <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">
-          Get in Touch
-        </h1>
+        <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">Get in Touch</h1>
         <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground">
-          Questions about an order, sizing, or styling advice? Our team replies
-          within one business day.
+          Questions about an order, sizing, or styling advice? Our team replies within one business
+          day.
         </p>
       </motion.div>
 
@@ -62,9 +52,7 @@ function ContactPage() {
           {sent ? (
             <div className="grid h-full min-h-64 place-items-center text-center">
               <div>
-                <p className="font-display text-2xl font-semibold text-gold">
-                  Message sent ✨
-                </p>
+                <p className="font-display text-2xl font-semibold text-gold">Message sent ✨</p>
                 <p className="mt-2 text-sm text-muted-foreground">
                   Thank you for reaching out — we'll be in touch shortly.
                 </p>
@@ -170,10 +158,7 @@ function ContactPage() {
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                 <div>
                   <p className="font-semibold">Phone</p>
-                  <a
-                    href="tel:+15551234567"
-                    className="text-muted-foreground hover:text-gold"
-                  >
+                  <a href="tel:+15551234567" className="text-muted-foreground hover:text-gold">
                     +1 (555) 123-4567
                   </a>
                 </div>

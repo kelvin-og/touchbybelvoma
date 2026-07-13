@@ -35,8 +35,7 @@ export const Route = createFileRoute("/checkout")({
       { title: "Secured Checkout | Touch by Bel'voma" },
       {
         name: "description",
-        content:
-          "Finalize your luxury jewelry purchase securely at Touch by Bel'voma.",
+        content: "Finalize your luxury jewelry purchase securely at Touch by Bel'voma.",
       },
     ],
   }),
@@ -169,12 +168,10 @@ function CheckoutComponent() {
     return (
       <div className="min-h-screen bg-background flex flex-col justify-center items-center py-20 px-4">
         <ShoppingBag className="h-12 w-12 text-gold mb-4" strokeWidth={1.5} />
-        <h2 className="text-xl font-semibold text-foreground">
-          Your shopping cart is empty
-        </h2>
+        <h2 className="text-xl font-semibold text-foreground">Your shopping cart is empty</h2>
         <p className="text-xs text-muted-foreground mt-2 max-w-xs text-center font-light">
-          There are no items currently queued for checkout. Return to our
-          boutique to select your jewelry.
+          There are no items currently queued for checkout. Return to our boutique to select your
+          jewelry.
         </p>
         <Link to="/shop" className="btn-gold mt-6">
           Explore Boutique
@@ -184,10 +181,7 @@ function CheckoutComponent() {
   }
 
   // Calculate pricing subtotals
-  const itemsSubtotal = items.reduce(
-    (acc, item) => acc + item.price * item.qty,
-    0,
-  );
+  const itemsSubtotal = items.reduce((acc, item) => acc + item.price * item.qty, 0);
   const itemsSubtotalGhs = itemsSubtotal * getCediMultiplier();
 
   // Coupon calculations (TBBGIFT triggers 15% off)
@@ -282,19 +276,7 @@ function CheckoutComponent() {
     if (nationalNumber.length !== 9) return false;
 
     const prefix2 = nationalNumber.slice(0, 2);
-    const validPrefixes = [
-      "24",
-      "54",
-      "55",
-      "59",
-      "53",
-      "20",
-      "50",
-      "26",
-      "56",
-      "27",
-      "57",
-    ];
+    const validPrefixes = ["24", "54", "55", "59", "53", "20", "50", "26", "56", "27", "57"];
     return validPrefixes.includes(prefix2);
   };
 
@@ -313,9 +295,7 @@ function CheckoutComponent() {
         return;
       }
       if (!validatePhone(phone)) {
-        setErrorMsg(
-          "Please provide a valid Ghana phone number starting with +233.",
-        );
+        setErrorMsg("Please provide a valid Ghana phone number starting with +233.");
         return;
       }
     }
@@ -326,9 +306,7 @@ function CheckoutComponent() {
         return;
       }
       if (!validateGhanaGPS(gpsAddress)) {
-        setErrorMsg(
-          "Invalid Ghana Post GPS format. Must be XX-XXX-XXXX (e.g. GA-182-9902).",
-        );
+        setErrorMsg("Invalid Ghana Post GPS format. Must be XX-XXX-XXXX (e.g. GA-182-9902).");
         return;
       }
     }
@@ -475,11 +453,7 @@ function CheckoutComponent() {
                       : "bg-card text-muted-foreground border-border group-hover:border-gold/30"
                   }`}
                 >
-                  {step > s.num ? (
-                    <CheckCircle className="h-4.5 w-4.5 text-white" />
-                  ) : (
-                    s.num
-                  )}
+                  {step > s.num ? <CheckCircle className="h-4.5 w-4.5 text-white" /> : s.num}
                 </div>
                 <span
                   className={`text-[10px] uppercase tracking-wider mt-2 transition-colors ${
@@ -505,9 +479,7 @@ function CheckoutComponent() {
               className="max-w-4xl mx-auto mb-6 p-4 bg-destructive/5 border border-destructive/10 rounded-xl flex items-center gap-3"
             >
               <ShieldAlert className="h-5 w-5 text-destructive shrink-0" />
-              <span className="text-xs font-light text-destructive/90">
-                {errorMsg}
-              </span>
+              <span className="text-xs font-light text-destructive/90">{errorMsg}</span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -527,9 +499,7 @@ function CheckoutComponent() {
                   className="space-y-6"
                 >
                   <div className="flex justify-between items-center border-b border-border pb-4">
-                    <h2 className="text-lg font-semibold text-foreground">
-                      Shopping Bag Review
-                    </h2>
+                    <h2 className="text-lg font-semibold text-foreground">Shopping Bag Review</h2>
                     <span className="text-xs font-light text-muted-foreground">
                       {items.length} unique pieces
                     </span>
@@ -539,8 +509,7 @@ function CheckoutComponent() {
                   {lastRemovedItem && (
                     <div className="p-3 bg-gold/5 border border-gold/15 text-xs rounded-xl flex items-center justify-between">
                       <span className="font-light text-muted-foreground flex items-center gap-1.5">
-                        <Trash2 className="h-4 w-4 text-gold" /> Item removed
-                        from checkout bag.
+                        <Trash2 className="h-4 w-4 text-gold" /> Item removed from checkout bag.
                       </span>
                       <button
                         onClick={handleUndoRemove}
@@ -565,9 +534,7 @@ function CheckoutComponent() {
                             className="h-16 w-16 rounded-xl object-cover border border-border"
                           />
                           <div>
-                            <h3 className="text-xs font-semibold text-foreground">
-                              {item.name}
-                            </h3>
+                            <h3 className="text-xs font-semibold text-foreground">{item.name}</h3>
                             <p className="text-xs font-semibold text-gold mt-1">
                               {formatPrice(item.price)}
                             </p>
@@ -578,9 +545,7 @@ function CheckoutComponent() {
                         <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto mt-3 sm:mt-0">
                           <div className="flex items-center border border-border rounded-lg bg-accent/20">
                             <button
-                              onClick={() =>
-                                handleQtyChange(item.id, item.qty, -1)
-                              }
+                              onClick={() => handleQtyChange(item.id, item.qty, -1)}
                               className="p-1.5 text-muted-foreground hover:text-gold transition-colors focus:outline-none"
                             >
                               <Minus className="h-3.5 w-3.5" />
@@ -589,9 +554,7 @@ function CheckoutComponent() {
                               {item.qty}
                             </span>
                             <button
-                              onClick={() =>
-                                handleQtyChange(item.id, item.qty, 1)
-                              }
+                              onClick={() => handleQtyChange(item.id, item.qty, 1)}
                               className="p-1.5 text-muted-foreground hover:text-gold transition-colors focus:outline-none"
                             >
                               <Plus className="h-3.5 w-3.5" />
@@ -624,14 +587,10 @@ function CheckoutComponent() {
                   {/* Coupon promotion code block */}
                   <div className="pt-6 border-t border-border space-y-3">
                     <h3 className="text-xs font-semibold uppercase tracking-wider text-gold flex items-center gap-1.5">
-                      <Gift className="h-4 w-4" /> Apply Promotional Campaign
-                      Coupon
+                      <Gift className="h-4 w-4" /> Apply Promotional Campaign Coupon
                     </h3>
 
-                    <form
-                      onSubmit={handleApplyPromo}
-                      className="flex gap-2 max-w-sm"
-                    >
+                    <form onSubmit={handleApplyPromo} className="flex gap-2 max-w-sm">
                       <input
                         type="text"
                         value={promoInput}
@@ -648,15 +607,12 @@ function CheckoutComponent() {
                     </form>
 
                     {promoError && (
-                      <p className="text-[10px] text-destructive font-light">
-                        {promoError}
-                      </p>
+                      <p className="text-[10px] text-destructive font-light">{promoError}</p>
                     )}
                     {appliedPromo && (
                       <p className="text-[10px] text-green-700 font-semibold uppercase tracking-wider flex items-center gap-1">
-                        <CheckCircle className="h-3.5 w-3.5 text-green-600" />{" "}
-                        Coupon "{appliedPromo}" verified ({discountPercent}%
-                        Discount)
+                        <CheckCircle className="h-3.5 w-3.5 text-green-600" /> Coupon "
+                        {appliedPromo}" verified ({discountPercent}% Discount)
                       </p>
                     )}
                   </div>
@@ -774,8 +730,8 @@ function CheckoutComponent() {
                         className="w-3.5 h-3.5 border-border rounded text-gold focus:ring-gold bg-transparent cursor-pointer mt-0.5"
                       />
                       <span className="text-muted-foreground group-hover:text-foreground transition-colors leading-relaxed">
-                        Create an account to track deliveries, earn loyalty
-                        points, and save addresses.
+                        Create an account to track deliveries, earn loyalty points, and save
+                        addresses.
                       </span>
                     </label>
                     <label className="flex items-start gap-2.5 cursor-pointer group text-xs font-light">
@@ -785,8 +741,7 @@ function CheckoutComponent() {
                         className="w-3.5 h-3.5 border-border rounded text-gold focus:ring-gold bg-transparent cursor-pointer mt-0.5"
                       />
                       <span className="text-muted-foreground group-hover:text-foreground transition-colors leading-relaxed">
-                        Subscribe to promo newsletters and alerts for new gold
-                        entries.
+                        Subscribe to promo newsletters and alerts for new gold entries.
                       </span>
                     </label>
                   </div>
@@ -1021,8 +976,7 @@ function CheckoutComponent() {
                             </span>
                           </p>
                           <p className="text-[11px] text-muted-foreground font-light mt-1">
-                            Dispatched via private courier by evening. Order
-                            before 1:00 PM.
+                            Dispatched via private courier by evening. Order before 1:00 PM.
                           </p>
                           <p className="text-[10px] text-gold font-medium mt-1">
                             Estimated: Today, before 6:00 PM
@@ -1055,8 +1009,7 @@ function CheckoutComponent() {
                             Next-Day Executive Delivery
                           </p>
                           <p className="text-[11px] text-muted-foreground font-light mt-1">
-                            Available for major cities (Accra, Kumasi, Takoradi,
-                            Tamale).
+                            Available for major cities (Accra, Kumasi, Takoradi, Tamale).
                           </p>
                           <p className="text-[10px] text-gold font-medium mt-1">
                             Estimated: Tomorrow, by afternoon
@@ -1089,8 +1042,7 @@ function CheckoutComponent() {
                             Standard Nationwide Delivery
                           </p>
                           <p className="text-[11px] text-muted-foreground font-light mt-1">
-                            Dispatched via Speedaf or DHL Courier. Reaches all
-                            16 regions.
+                            Dispatched via Speedaf or DHL Courier. Reaches all 16 regions.
                           </p>
                           <p className="text-[10px] text-gold font-medium mt-1">
                             Estimated: 3 - 5 business days
@@ -1119,21 +1071,17 @@ function CheckoutComponent() {
                           className="text-gold focus:ring-gold bg-transparent mt-1"
                         />
                         <div>
-                          <p className="text-xs font-semibold text-foreground">
-                            Showroom Pick-Up
-                          </p>
+                          <p className="text-xs font-semibold text-foreground">Showroom Pick-Up</p>
                           <p className="text-[11px] text-muted-foreground font-light mt-1">
-                            Pick up directly at our luxury showroom (Airport
-                            Residential Area, Accra).
+                            Pick up directly at our luxury showroom (Airport Residential Area,
+                            Accra).
                           </p>
                           <p className="text-[10px] text-gold font-medium mt-1">
                             Estimated: Ready in 2 hours
                           </p>
                         </div>
                       </div>
-                      <span className="text-xs font-semibold text-green-600">
-                        FREE
-                      </span>
+                      <span className="text-xs font-semibold text-green-600">FREE</span>
                     </label>
                   </div>
 
@@ -1222,26 +1170,18 @@ function CheckoutComponent() {
                   </div>
 
                   {/* MTN or Telecel Mobile Money Form */}
-                  {(paymentMethod === "momo_mtn" ||
-                    paymentMethod === "momo_telecel") && (
+                  {(paymentMethod === "momo_mtn" || paymentMethod === "momo_telecel") && (
                     <div className="space-y-4 p-5 border border-gold/15 bg-gold/5 rounded-2xl">
                       <h3 className="text-xs uppercase tracking-widest font-semibold text-gold">
-                        {paymentMethod === "momo_mtn"
-                          ? "MTN Mobile Money"
-                          : "Telecel Cash"}{" "}
-                        Gateway
+                        {paymentMethod === "momo_mtn" ? "MTN Mobile Money" : "Telecel Cash"} Gateway
                       </h3>
                       <p className="text-[11px] text-muted-foreground font-light leading-relaxed">
-                        A secure approval prompt (USSD code push) will be
-                        transmitted to your mobile number. Enter credentials
-                        below:
+                        A secure approval prompt (USSD code push) will be transmitted to your mobile
+                        number. Enter credentials below:
                       </p>
 
                       {!otpSent ? (
-                        <form
-                          onSubmit={handleTriggerMomoOtp}
-                          className="space-y-4"
-                        >
+                        <form onSubmit={handleTriggerMomoOtp} className="space-y-4">
                           <div className="relative">
                             <input
                               id="momoNumber"
@@ -1294,14 +1234,10 @@ function CheckoutComponent() {
                           </button>
                         </form>
                       ) : (
-                        <form
-                          onSubmit={handleVerifyMomoOtp}
-                          className="space-y-4"
-                        >
+                        <form onSubmit={handleVerifyMomoOtp} className="space-y-4">
                           <div className="p-3 bg-amber-50 border border-amber-100 text-amber-800 text-xs font-light rounded-xl leading-relaxed">
-                            A simulated USSD transaction code has been
-                            triggered. Please enter the 6-digit confirmation pin
-                            sent to {momoNumber}:
+                            A simulated USSD transaction code has been triggered. Please enter the
+                            6-digit confirmation pin sent to {momoNumber}:
                           </div>
 
                           <div className="relative">
@@ -1344,8 +1280,8 @@ function CheckoutComponent() {
                         Card Checkout Gateway
                       </h3>
                       <p className="text-xs font-light text-muted-foreground leading-relaxed max-w-sm mx-auto">
-                        Finalize checkout securely via Paystack/Flutterwave.
-                        Click below to launch the checkout popup interface:
+                        Finalize checkout securely via Paystack/Flutterwave. Click below to launch
+                        the checkout popup interface:
                       </p>
 
                       <button
@@ -1391,9 +1327,8 @@ function CheckoutComponent() {
                         Bank Wire Transfer Guidelines
                       </h3>
                       <p className="text-muted-foreground">
-                        Please deposit the grand total to the designated bank
-                        account below. Order processing will commence
-                        immediately upon confirmation of the deposit.
+                        Please deposit the grand total to the designated bank account below. Order
+                        processing will commence immediately upon confirmation of the deposit.
                       </p>
 
                       <div className="p-3 bg-card border border-border rounded-xl space-y-1.5">
@@ -1439,8 +1374,7 @@ function CheckoutComponent() {
                       <Lock className="h-3.5 w-3.5 text-gold" /> SSL Encrypted
                     </span>
                     <span className="text-[10px] font-semibold text-muted-foreground tracking-widest uppercase flex items-center gap-1">
-                      <ShieldCheck className="h-4 w-4 text-gold" /> PCI
-                      Compliant
+                      <ShieldCheck className="h-4 w-4 text-gold" /> PCI Compliant
                     </span>
                   </div>
 
@@ -1493,11 +1427,7 @@ function CheckoutComponent() {
                       <p className="font-semibold text-foreground uppercase mt-1">
                         GPS Digital: {gpsAddress}
                       </p>
-                      {landmark && (
-                        <p className="text-muted-foreground">
-                          Landmark: {landmark}
-                        </p>
-                      )}
+                      {landmark && <p className="text-muted-foreground">Landmark: {landmark}</p>}
                     </div>
 
                     <div className="p-4 border border-border rounded-xl space-y-1">
@@ -1514,9 +1444,7 @@ function CheckoutComponent() {
                       <h3 className="font-semibold text-foreground uppercase tracking-wider text-[10px] text-gold">
                         Selected Payment
                       </h3>
-                      <p className="uppercase">
-                        {paymentMethod.replace("_", " ")}
-                      </p>
+                      <p className="uppercase">{paymentMethod.replace("_", " ")}</p>
                     </div>
                   </div>
 
@@ -1604,13 +1532,9 @@ function CheckoutComponent() {
             {/* Micro items review */}
             <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
               {items.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex justify-between items-center text-xs font-light"
-                >
+                <div key={item.id} className="flex justify-between items-center text-xs font-light">
                   <span className="truncate max-w-[180px]">
-                    {item.name}{" "}
-                    <strong className="font-semibold">x{item.qty}</strong>
+                    {item.name} <strong className="font-semibold">x{item.qty}</strong>
                   </span>
                   <span className="font-semibold text-muted-foreground">
                     {formatPrice(item.price * item.qty)}
@@ -1623,14 +1547,10 @@ function CheckoutComponent() {
             <div className="border-t border-border pt-4 space-y-2.5 text-xs font-light">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Items Subtotal</span>
-                <span className="font-semibold text-foreground">
-                  {formatPrice(itemsSubtotal)}
-                </span>
+                <span className="font-semibold text-foreground">{formatPrice(itemsSubtotal)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">
-                  Shipping Delivery Fee
-                </span>
+                <span className="text-muted-foreground">Shipping Delivery Fee</span>
                 <span className="font-semibold text-foreground">
                   {shippingMethod === "pickup"
                     ? "Free"
@@ -1661,8 +1581,8 @@ function CheckoutComponent() {
               <Gift className="h-4 w-4 text-gold shrink-0 mt-0.5" />
               <span>
                 Free shipping applied on orders above GH₵{" "}
-                {getFreeShippingThreshold().toLocaleString("en-US")}. Apply
-                coupon <strong>TBBGIFT</strong> to deduct 15% off subtotals.
+                {getFreeShippingThreshold().toLocaleString("en-US")}. Apply coupon{" "}
+                <strong>TBBGIFT</strong> to deduct 15% off subtotals.
               </span>
             </div>
           </div>

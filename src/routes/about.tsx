@@ -101,25 +101,22 @@ function AboutPage() {
           transition={{ duration: 0.7, delay: 0.1 }}
         >
           <p className="eyebrow">The beginning</p>
-          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-            Born from a simple belief
-          </h2>
+          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Born from a simple belief</h2>
           <div className="mt-5 space-y-4 leading-relaxed text-muted-foreground">
             <p>
-              Touch by Bel'voma is a luxury jewelry brand devoted to timeless
-              elegance and refined craftsmanship. Every piece is designed to
-              feel personal — a quiet celebration of the woman who wears it.
+              Touch by Bel'voma is a luxury jewelry brand devoted to timeless elegance and refined
+              craftsmanship. Every piece is designed to feel personal — a quiet celebration of the
+              woman who wears it.
             </p>
             <p>
-              We work with skilled artisans who share our obsession with detail:
-              considered proportions, hand-finished settings, and materials
-              chosen to last. The result is jewelry that carries the weight of a
-              luxury house with the warmth of something made just for you.
+              We work with skilled artisans who share our obsession with detail: considered
+              proportions, hand-finished settings, and materials chosen to last. The result is
+              jewelry that carries the weight of a luxury house with the warmth of something made
+              just for you.
             </p>
             <p>
-              From everyday essentials to statement heirlooms, our collections
-              are here to help you express your unique style — and touch every
-              moment with a little more elegance.
+              From everyday essentials to statement heirlooms, our collections are here to help you
+              express your unique style — and touch every moment with a little more elegance.
             </p>
           </div>
         </motion.div>
@@ -135,9 +132,7 @@ function AboutPage() {
             className="text-center"
           >
             <p className="eyebrow">What we stand for</p>
-            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-              Our Values
-            </h2>
+            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Our Values</h2>
           </motion.div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (

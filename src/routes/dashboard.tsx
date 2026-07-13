@@ -284,9 +284,8 @@ function DashboardComponent() {
                         Welcome to your private lounge
                       </h2>
                       <p className="text-xs font-light text-muted-foreground mt-1 max-w-md">
-                        As a valued member, enjoy complimentary shipping within
-                        Accra and Kumasi, early access to new seasonal edits,
-                        and 10% points accumulation.
+                        As a valued member, enjoy complimentary shipping within Accra and Kumasi,
+                        early access to new seasonal edits, and 10% points accumulation.
                       </p>
                     </div>
                     <Link to="/shop" className="btn-gold shrink-0">
@@ -301,9 +300,7 @@ function DashboardComponent() {
                       <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                         Recent Purchases
                       </p>
-                      <h3 className="text-2xl font-semibold mt-1">
-                        {orders.length} Orders
-                      </h3>
+                      <h3 className="text-2xl font-semibold mt-1">{orders.length} Orders</h3>
                       <button
                         onClick={() => setActiveTab("orders")}
                         className="text-[10px] text-gold font-medium uppercase tracking-wider mt-3 inline-block"
@@ -317,9 +314,7 @@ function DashboardComponent() {
                       <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                         Saved Pieces
                       </p>
-                      <h3 className="text-2xl font-semibold mt-1">
-                        {wishlist.length} Items
-                      </h3>
+                      <h3 className="text-2xl font-semibold mt-1">{wishlist.length} Items</h3>
                       <button
                         onClick={() => setActiveTab("wishlist")}
                         className="text-[10px] text-gold font-medium uppercase tracking-wider mt-3 inline-block"
@@ -354,13 +349,10 @@ function DashboardComponent() {
                       <p className="text-[10px] text-gold-light tracking-[0.25em] uppercase font-semibold">
                         Special Offer
                       </p>
-                      <h3 className="text-2xl font-semibold mt-2">
-                        Unlock Your Welcome Gift
-                      </h3>
+                      <h3 className="text-2xl font-semibold mt-2">Unlock Your Welcome Gift</h3>
                       <p className="text-xs text-primary-foreground/75 mt-2 max-w-lg leading-relaxed">
-                        Spend your earned points on checkout or redeem them for
-                        a free Touch by Bel'voma Velvet Jewelry Roll on orders
-                        above GH₵ 1,000.
+                        Spend your earned points on checkout or redeem them for a free Touch by
+                        Bel'voma Velvet Jewelry Roll on orders above GH₵ 1,000.
                       </p>
                       <div className="mt-5 flex gap-2">
                         <span className="text-[10px] border border-gold-light/30 px-3 py-1 rounded-full text-gold-light font-medium uppercase">
@@ -391,8 +383,8 @@ function DashboardComponent() {
                       <ShoppingBag className="h-10 w-10 text-muted-foreground/60 mx-auto mb-3" />
                       <h3 className="text-sm font-semibold">No orders yet</h3>
                       <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
-                        Your jewelry box is empty. Begin shopping to build your
-                        timeless custom collection.
+                        Your jewelry box is empty. Begin shopping to build your timeless custom
+                        collection.
                       </p>
                       <Link to="/shop" className="btn-gold mt-6 inline-flex">
                         Shop Jewelry
@@ -411,9 +403,7 @@ function DashboardComponent() {
                                 Order Reference
                               </p>
                               <div className="flex items-center gap-2 mt-0.5">
-                                <p className="text-sm font-semibold">
-                                  {order.id}
-                                </p>
+                                <p className="text-sm font-semibold">{order.id}</p>
                                 <Link
                                   to="/track-order"
                                   search={{ orderId: order.id }}
@@ -427,17 +417,13 @@ function DashboardComponent() {
                               <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                                 Transaction Date
                               </p>
-                              <p className="text-xs font-light mt-0.5">
-                                {order.date}
-                              </p>
+                              <p className="text-xs font-light mt-0.5">{order.date}</p>
                             </div>
                             <div>
                               <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                                 Payment Method
                               </p>
-                              <p className="text-xs font-light mt-0.5">
-                                {order.paymentMethod}
-                              </p>
+                              <p className="text-xs font-light mt-0.5">{order.paymentMethod}</p>
                             </div>
                             <div>
                               <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
@@ -458,10 +444,7 @@ function DashboardComponent() {
                           {/* Order items */}
                           <div className="space-y-4">
                             {order.items.map((item, idx) => (
-                              <div
-                                key={idx}
-                                className="flex gap-4 items-center justify-between"
-                              >
+                              <div key={idx} className="flex gap-4 items-center justify-between">
                                 <div className="flex items-center gap-3">
                                   {/* Just a mock container if images aren't fully resolved paths */}
                                   <div className="h-12 w-12 rounded-lg bg-accent overflow-hidden border border-border flex items-center justify-center shrink-0">
@@ -495,9 +478,7 @@ function DashboardComponent() {
                           </div>
 
                           <div className="flex justify-between items-center border-t border-border mt-2 pt-2 text-sm">
-                            <span className="font-semibold text-foreground">
-                              Total Charged
-                            </span>
+                            <span className="font-semibold text-foreground">Total Charged</span>
                             <span className="font-semibold text-gold">
                               {formatPrice(order.total)}
                             </span>
@@ -526,12 +507,9 @@ function DashboardComponent() {
                   {wishlist.length === 0 ? (
                     <div className="text-center py-12 border border-dashed border-border rounded-2xl">
                       <Heart className="h-10 w-10 text-muted-foreground/60 mx-auto mb-3" />
-                      <h3 className="text-sm font-semibold">
-                        Wishlist is empty
-                      </h3>
+                      <h3 className="text-sm font-semibold">Wishlist is empty</h3>
                       <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
-                        Add items you desire to your wishlist while shopping to
-                        track availability.
+                        Add items you desire to your wishlist while shopping to track availability.
                       </p>
                       <Link to="/shop" className="btn-gold mt-6 inline-flex">
                         Shop Pieces
@@ -608,8 +586,7 @@ function DashboardComponent() {
                         exit={{ opacity: 0 }}
                         className="p-3 bg-green-50 border border-green-200 text-green-700 text-xs font-light rounded-xl flex items-center gap-2"
                       >
-                        <Check className="h-4 w-4" /> New delivery address saved
-                        successfully.
+                        <Check className="h-4 w-4" /> New delivery address saved successfully.
                       </motion.div>
                     )}
                     {addrError && (
@@ -739,9 +716,7 @@ function DashboardComponent() {
                         className="p-5 border border-border rounded-xl bg-card flex justify-between items-start gap-4"
                       >
                         <div className="text-xs space-y-1">
-                          <p className="font-semibold text-foreground">
-                            {addr.fullName}
-                          </p>
+                          <p className="font-semibold text-foreground">{addr.fullName}</p>
                           <p className="text-muted-foreground font-light">
                             {addr.streetAddress}, {addr.city}
                           </p>
@@ -785,12 +760,9 @@ function DashboardComponent() {
                   {recentlyViewed.length === 0 ? (
                     <div className="text-center py-12 border border-dashed border-border rounded-2xl">
                       <Clock className="h-10 w-10 text-muted-foreground/60 mx-auto mb-3" />
-                      <h3 className="text-sm font-semibold">
-                        No recent browsing
-                      </h3>
+                      <h3 className="text-sm font-semibold">No recent browsing</h3>
                       <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
-                        Explore our timeless collections to build your browsing
-                        history.
+                        Explore our timeless collections to build your browsing history.
                       </p>
                       <Link to="/shop" className="btn-gold mt-6 inline-flex">
                         Browse Shop
@@ -855,12 +827,10 @@ function DashboardComponent() {
 
                     <div className="text-xs font-light space-y-2">
                       <p>
-                        <span className="font-semibold">Registered Email:</span>{" "}
-                        {user.email}
+                        <span className="font-semibold">Registered Email:</span> {user.email}
                       </p>
                       <p>
-                        <span className="font-semibold">Account Level:</span>{" "}
-                        Premium Customer
+                        <span className="font-semibold">Account Level:</span> Premium Customer
                       </p>
                       <p>
                         <span className="font-semibold">Join Date:</span>{" "}
@@ -887,8 +857,7 @@ function DashboardComponent() {
                           className="w-3.5 h-3.5 border-border rounded text-gold focus:ring-gold"
                         />
                         <span className="text-muted-foreground group-hover:text-foreground transition-colors font-light">
-                          Subscribe to Ghana collection alerts and flash
-                          discounts
+                          Subscribe to Ghana collection alerts and flash discounts
                         </span>
                       </label>
                     </div>
@@ -899,9 +868,8 @@ function DashboardComponent() {
                       Account Safety
                     </h3>
                     <p className="text-xs font-light text-muted-foreground">
-                      Deactivating your account will permanently delete saved
-                      delivery settings, accrued points, and previous order
-                      transactions.
+                      Deactivating your account will permanently delete saved delivery settings,
+                      accrued points, and previous order transactions.
                     </p>
                     <button className="py-2.5 px-5 bg-red-600 hover:bg-red-700 text-white font-semibold tracking-wider text-[10px] uppercase rounded-xl transition-all">
                       Deactivate Account

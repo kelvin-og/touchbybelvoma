@@ -5,13 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { formatPrice, type Product } from "@/data/products";
 import { useStore } from "@/lib/store";
 
-export function ProductCard({
-  product,
-  index = 0,
-}: {
-  product: Product;
-  index?: number;
-}) {
+export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
   const { addToCart, toggleWishlist, isWishlisted } = useStore();
   const [quickView, setQuickView] = useState(false);
   const wished = isWishlisted(product.id);
@@ -44,9 +38,7 @@ export function ProductCard({
               height={1125}
               className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
             />
-            {(product.isNew ||
-              product.isBestSeller ||
-              product.originalPrice) && (
+            {(product.isNew || product.isBestSeller || product.originalPrice) && (
               <span className="absolute top-3 left-3 rounded-full bg-card/90 px-3 py-1 text-[0.62rem] font-semibold tracking-[0.15em] uppercase backdrop-blur-sm">
                 {product.originalPrice ? (
                   <span className="text-destructive">Sale</span>
@@ -89,9 +81,7 @@ export function ProductCard({
           <div className="flex items-center gap-1 text-gold">
             <Star className="h-3.5 w-3.5 fill-current" />
             <span className="text-xs font-medium">{product.rating}</span>
-            <span className="text-xs text-muted-foreground">
-              ({product.reviewCount})
-            </span>
+            <span className="text-xs text-muted-foreground">({product.reviewCount})</span>
           </div>
           <Link
             to="/product/$productId"
@@ -101,9 +91,7 @@ export function ProductCard({
             {product.name}
           </Link>
           <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-sm font-semibold">
-              {formatPrice(product.price)}
-            </span>
+            <span className="text-sm font-semibold">{formatPrice(product.price)}</span>
             {product.originalPrice && (
               <span className="text-xs text-muted-foreground line-through">
                 {formatPrice(product.originalPrice)}
@@ -157,17 +145,12 @@ export function ProductCard({
                     ({product.reviewCount} reviews)
                   </span>
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  {product.description}
-                </p>
+                <p className="mt-3 text-sm text-muted-foreground">{product.description}</p>
                 <p className="mt-3 text-xs text-muted-foreground">
-                  <span className="font-medium text-foreground">Material:</span>{" "}
-                  {product.material}
+                  <span className="font-medium text-foreground">Material:</span> {product.material}
                 </p>
                 <div className="mt-4 flex items-baseline gap-2">
-                  <span className="text-lg font-semibold">
-                    {formatPrice(product.price)}
-                  </span>
+                  <span className="text-lg font-semibold">{formatPrice(product.price)}</span>
                   {product.originalPrice && (
                     <span className="text-sm text-muted-foreground line-through">
                       {formatPrice(product.originalPrice)}

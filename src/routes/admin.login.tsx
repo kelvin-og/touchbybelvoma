@@ -50,14 +50,10 @@ function AdminLoginComponent() {
           navigate({ to: "/admin/dashboard" });
         }, 1500);
       } else {
-        setErrorMsg(
-          result.error || "Access Denied: Invalid administrator credentials.",
-        );
+        setErrorMsg(result.error || "Access Denied: Invalid administrator credentials.");
       }
     } catch (err) {
-      setErrorMsg(
-        "Security connection timeout. Please check your credentials.",
-      );
+      setErrorMsg("Security connection timeout. Please check your credentials.");
     } finally {
       setIsLoading(false);
     }
@@ -99,17 +95,11 @@ function AdminLoginComponent() {
                 animate={{ scale: 1, rotate: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
               >
-                <ShieldCheck
-                  className="h-16 w-16 text-gold mb-4"
-                  strokeWidth={1.5}
-                />
+                <ShieldCheck className="h-16 w-16 text-gold mb-4" strokeWidth={1.5} />
               </motion.div>
-              <h3 className="text-xl font-semibold text-gold-light">
-                Access Granted
-              </h3>
+              <h3 className="text-xl font-semibold text-gold-light">Access Granted</h3>
               <p className="text-xs text-primary-foreground/70 mt-2 max-w-xs">
-                Authorizing administrative protocols. Loading secure executive
-                databases...
+                Authorizing administrative protocols. Loading secure executive databases...
               </p>
               <div className="w-24 h-[1.5px] bg-white/10 mt-6 overflow-hidden relative">
                 <motion.div
@@ -144,9 +134,7 @@ function AdminLoginComponent() {
         {errorMsg && (
           <div className="mb-6 p-4 rounded-xl bg-destructive/10 border border-destructive/20 flex items-start gap-3">
             <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-            <span className="text-xs font-light text-red-200/90 leading-relaxed">
-              {errorMsg}
-            </span>
+            <span className="text-xs font-light text-red-200/90 leading-relaxed">{errorMsg}</span>
           </div>
         )}
 
@@ -191,11 +179,7 @@ function AdminLoginComponent() {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-4 top-4 text-primary-foreground/40 hover:text-gold transition-colors focus:outline-none"
             >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
 
@@ -207,11 +191,7 @@ function AdminLoginComponent() {
           >
             {isLoading ? (
               <span className="flex items-center gap-2 text-charcoal">
-                <svg
-                  className="animate-spin h-4 w-4 text-charcoal"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="animate-spin h-4 w-4 text-charcoal" fill="none" viewBox="0 0 24 24">
                   <circle
                     className="opacity-25"
                     cx="12"
@@ -238,8 +218,8 @@ function AdminLoginComponent() {
 
         {/* Security Warning */}
         <div className="mt-8 text-center text-[10px] font-light text-primary-foreground/45 border-t border-white/5 pt-4">
-          Default seed is available. Standard rate limiting policies are
-          enforced. IP address is logged.
+          Default seed is available. Standard rate limiting policies are enforced. IP address is
+          logged.
         </div>
       </motion.div>
     </div>

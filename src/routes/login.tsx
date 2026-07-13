@@ -29,8 +29,7 @@ export const Route = createFileRoute("/login")({
 
 function LoginComponent() {
   const navigate = useNavigate();
-  const { login, failedLoginAttempts, captchaRequired, resetFailedAttempts } =
-    useStore();
+  const { login, failedLoginAttempts, captchaRequired, resetFailedAttempts } = useStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -173,12 +172,10 @@ function LoginComponent() {
           >
             Touch by Bel'voma
           </motion.p>
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground">
-            Welcome Back
-          </h2>
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground">Welcome Back</h2>
           <p className="mt-2 text-xs font-light text-muted-foreground max-w-xs mx-auto">
-            Sign in to continue exploring timeless jewelry collections crafted
-            for elegance and confidence.
+            Sign in to continue exploring timeless jewelry collections crafted for elegance and
+            confidence.
           </p>
         </div>
 
@@ -196,17 +193,11 @@ function LoginComponent() {
                 animate={{ scale: 1, rotate: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
               >
-                <CheckCircle2
-                  className="h-16 w-16 text-gold mb-4"
-                  strokeWidth={1.5}
-                />
+                <CheckCircle2 className="h-16 w-16 text-gold mb-4" strokeWidth={1.5} />
               </motion.div>
-              <h3 className="text-xl font-semibold text-foreground">
-                Welcome Back
-              </h3>
+              <h3 className="text-xl font-semibold text-foreground">Welcome Back</h3>
               <p className="text-xs text-muted-foreground mt-2 max-w-xs">
-                Your luxury gallery is unlocked. Let us guide you back to
-                elegance...
+                Your luxury gallery is unlocked. Let us guide you back to elegance...
               </p>
               {/* Gold loading strip */}
               <div className="w-24 h-[1.5px] bg-border mt-6 overflow-hidden relative">
@@ -286,11 +277,7 @@ function LoginComponent() {
               className="absolute right-4 top-4 text-muted-foreground hover:text-gold transition-colors focus:outline-none"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
 
@@ -324,8 +311,7 @@ function LoginComponent() {
             >
               <div className="flex justify-between items-center text-xs">
                 <span className="font-medium text-foreground flex items-center gap-1.5">
-                  <ShieldCheck className="h-4 w-4 text-gold" /> Golden
-                  Verification
+                  <ShieldCheck className="h-4 w-4 text-gold" /> Golden Verification
                 </span>
                 <span className="text-[10px] text-muted-foreground uppercase tracking-widest">
                   {isCaptchaVerified ? "Verified" : "Slide to Unlock"}
@@ -361,9 +347,7 @@ function LoginComponent() {
                     sliderVal > 15 ? "opacity-20" : "opacity-70"
                   }`}
                 >
-                  {isCaptchaVerified
-                    ? "Identity Verified ✨"
-                    : "Slide Gold Bar to Right"}
+                  {isCaptchaVerified ? "Identity Verified ✨" : "Slide Gold Bar to Right"}
                 </span>
               </div>
             </motion.div>
@@ -378,11 +362,7 @@ function LoginComponent() {
             {isLoading ? (
               <span className="flex items-center gap-2">
                 {/* Elegant gold spinner */}
-                <svg
-                  className="animate-spin h-4 w-4 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                   <circle
                     className="opacity-25"
                     cx="12"
@@ -410,10 +390,7 @@ function LoginComponent() {
 
         {/* Separator */}
         <div className="relative my-8">
-          <div
-            className="absolute inset-0 flex items-center"
-            aria-hidden="true"
-          >
+          <div className="absolute inset-0 flex items-center" aria-hidden="true">
             <div className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">

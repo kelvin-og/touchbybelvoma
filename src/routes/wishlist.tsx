@@ -25,14 +25,9 @@ function WishlistPage() {
 
   return (
     <div className="container-lux pt-28 pb-20 sm:pt-32">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
         <p className="eyebrow">Saved with love</p>
-        <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">
-          Your Wishlist
-        </h1>
+        <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">Your Wishlist</h1>
       </motion.div>
 
       {items.length === 0 ? (

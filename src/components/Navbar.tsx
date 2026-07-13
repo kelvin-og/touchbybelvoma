@@ -31,9 +31,7 @@ export function Navbar() {
 
   const results =
     query.trim().length > 1
-      ? products
-          .filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
-          .slice(0, 5)
+      ? products.filter((p) => p.name.toLowerCase().includes(query.toLowerCase())).slice(0, 5)
       : [];
 
   return (
@@ -50,11 +48,7 @@ export function Navbar() {
           aria-label="Open menu"
           onClick={() => setMobileOpen((o) => !o)}
         >
-          {mobileOpen ? (
-            <X className="h-5 w-5" />
-          ) : (
-            <Menu className="h-5 w-5" />
-          )}
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
         <nav className="hidden items-center gap-7 lg:flex">
@@ -70,11 +64,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <Link
-          to="/"
-          className="min-w-0 justify-self-center"
-          aria-label="Touch by Bel'voma — Home"
-        >
+        <Link to="/" className="min-w-0 justify-self-center" aria-label="Touch by Bel'voma — Home">
           <img
             src={logo}
             alt="Touch by Bel'voma"
@@ -118,13 +108,7 @@ export function Navbar() {
             )}
           </Link>
           <Link
-            to={
-              user
-                ? user.role === "admin"
-                  ? "/admin/dashboard"
-                  : "/dashboard"
-                : "/login"
-            }
+            to={user ? (user.role === "admin" ? "/admin/dashboard" : "/dashboard") : "/login"}
             className="hidden h-10 w-10 place-items-center rounded-full transition-colors hover:bg-accent sm:grid"
             aria-label="Account"
           >
@@ -184,9 +168,7 @@ export function Navbar() {
                         <span className="min-w-0 flex-1 truncate text-sm font-medium">
                           {p.name}
                         </span>
-                        <span className="text-sm text-gold">
-                          {formatPrice(p.price)}
-                        </span>
+                        <span className="text-sm text-gold">{formatPrice(p.price)}</span>
                       </Link>
                     </li>
                   ))}
@@ -220,13 +202,7 @@ export function Navbar() {
               ))}
               <li className="border-t border-border mt-2 pt-2">
                 <Link
-                  to={
-                    user
-                      ? user.role === "admin"
-                        ? "/admin/dashboard"
-                        : "/dashboard"
-                      : "/login"
-                  }
+                  to={user ? (user.role === "admin" ? "/admin/dashboard" : "/dashboard") : "/login"}
                   onClick={() => setMobileOpen(false)}
                   className="block py-3 text-sm font-semibold tracking-[0.15em] text-gold uppercase"
                 >

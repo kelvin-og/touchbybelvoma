@@ -16,8 +16,8 @@ export function Footer() {
             loading="lazy"
           />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-            Luxury jewelry crafted to elevate your everyday style — timeless
-            elegance for every woman, every moment.
+            Luxury jewelry crafted to elevate your everyday style — timeless elegance for every
+            woman, every moment.
           </p>
           <div className="mt-5 flex gap-3">
             <a
@@ -51,52 +51,30 @@ export function Footer() {
         </div>
 
         <nav aria-label="Shop links">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase">
-            Shop
-          </p>
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase">Shop</p>
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             <li>
-              <Link
-                to="/shop"
-                search={{ category: "earrings" }}
-                className="hover:text-gold"
-              >
+              <Link to="/shop" search={{ category: "earrings" }} className="hover:text-gold">
                 Earrings
               </Link>
             </li>
             <li>
-              <Link
-                to="/shop"
-                search={{ category: "necklaces" }}
-                className="hover:text-gold"
-              >
+              <Link to="/shop" search={{ category: "necklaces" }} className="hover:text-gold">
                 Necklaces
               </Link>
             </li>
             <li>
-              <Link
-                to="/shop"
-                search={{ category: "rings" }}
-                className="hover:text-gold"
-              >
+              <Link to="/shop" search={{ category: "rings" }} className="hover:text-gold">
                 Rings
               </Link>
             </li>
             <li>
-              <Link
-                to="/shop"
-                search={{ category: "bracelets" }}
-                className="hover:text-gold"
-              >
+              <Link to="/shop" search={{ category: "bracelets" }} className="hover:text-gold">
                 Bracelets
               </Link>
             </li>
             <li>
-              <Link
-                to="/shop"
-                search={{ category: "sets" }}
-                className="hover:text-gold"
-              >
+              <Link to="/shop" search={{ category: "sets" }} className="hover:text-gold">
                 Sets
               </Link>
             </li>
@@ -104,9 +82,7 @@ export function Footer() {
         </nav>
 
         <nav aria-label="Company links">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase">
-            Company
-          </p>
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase">Company</p>
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             <li>
               <Link to="/about" className="hover:text-gold">
@@ -132,9 +108,7 @@ export function Footer() {
         </nav>
 
         <div>
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase">
-            Customer Care
-          </p>
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase">Customer Care</p>
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             <li>Free shipping over $75</li>
             <li>30-day easy returns</li>
@@ -147,10 +121,7 @@ export function Footer() {
         <p className="container-lux text-center text-xs text-muted-foreground flex justify-center items-center gap-1.5 flex-wrap">
           <span>© 2026 Touch by Bel'voma. All Rights Reserved.</span>
           <span className="text-muted-foreground/30">|</span>
-          <Link
-            to="/superadmin/login"
-            className="hover:text-gold transition-colors font-medium"
-          >
+          <Link to="/superadmin/login" className="hover:text-gold transition-colors font-medium">
             System Core
           </Link>
         </p>

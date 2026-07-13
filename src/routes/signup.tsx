@@ -98,19 +98,7 @@ function SignupComponent() {
     if (nationalNumber.length !== 9) return false;
 
     const prefix2 = nationalNumber.slice(0, 2);
-    const validPrefixes = [
-      "24",
-      "54",
-      "55",
-      "59",
-      "53",
-      "20",
-      "50",
-      "26",
-      "56",
-      "27",
-      "57",
-    ];
+    const validPrefixes = ["24", "54", "55", "59", "53", "20", "50", "26", "56", "27", "57"];
     return validPrefixes.includes(prefix2);
   };
 
@@ -235,12 +223,10 @@ function SignupComponent() {
           >
             Touch by Bel'voma
           </motion.p>
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground">
-            Create Account
-          </h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Create Account</h2>
           <p className="mt-2 text-xs font-light text-muted-foreground max-w-xs mx-auto">
-            Join our community and enjoy exclusive access to new arrivals,
-            special offers, and personalized shopping in Ghana.
+            Join our community and enjoy exclusive access to new arrivals, special offers, and
+            personalized shopping in Ghana.
           </p>
         </div>
 
@@ -258,17 +244,11 @@ function SignupComponent() {
                 animate={{ scale: 1, rotate: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
               >
-                <CheckCircle2
-                  className="h-16 w-16 text-gold mb-4"
-                  strokeWidth={1.5}
-                />
+                <CheckCircle2 className="h-16 w-16 text-gold mb-4" strokeWidth={1.5} />
               </motion.div>
-              <h3 className="text-xl font-semibold text-foreground">
-                Welcome to the Inner Circle
-              </h3>
+              <h3 className="text-xl font-semibold text-foreground">Welcome to the Inner Circle</h3>
               <p className="text-xs text-muted-foreground mt-2 max-w-xs">
-                Your luxury credentials have been established. Creating your
-                workspace...
+                Your luxury credentials have been established. Creating your workspace...
               </p>
               <div className="w-24 h-[1.5px] bg-border mt-6 overflow-hidden relative">
                 <motion.div
@@ -387,11 +367,7 @@ function SignupComponent() {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-4 top-4 text-muted-foreground hover:text-gold transition-colors focus:outline-none"
             >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
 
@@ -400,8 +376,7 @@ function SignupComponent() {
             <div className="space-y-1.5 px-1">
               <div className="flex justify-between items-center text-[10px] uppercase tracking-wider">
                 <span className="text-muted-foreground font-light flex items-center gap-1">
-                  <ShieldCheck className="h-3 w-3 text-gold" /> Security
-                  Strength:
+                  <ShieldCheck className="h-3 w-3 text-gold" /> Security Strength:
                 </span>
                 <span
                   className={`font-semibold ${
@@ -422,8 +397,8 @@ function SignupComponent() {
                 ))}
               </div>
               <p className="text-[9px] text-muted-foreground font-light leading-normal">
-                Requires at least 8 characters, numbers, uppercase/lowercase
-                letters, and special symbols.
+                Requires at least 8 characters, numbers, uppercase/lowercase letters, and special
+                symbols.
               </p>
             </div>
           )}
@@ -450,11 +425,7 @@ function SignupComponent() {
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               className="absolute right-4 top-4 text-muted-foreground hover:text-gold transition-colors focus:outline-none"
             >
-              {showConfirmPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
+              {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
 
@@ -470,10 +441,7 @@ function SignupComponent() {
               />
               <span className="text-muted-foreground group-hover:text-foreground transition-colors leading-relaxed">
                 I accept the{" "}
-                <a
-                  href="#terms"
-                  className="text-gold underline hover:text-gold-light"
-                >
+                <a href="#terms" className="text-gold underline hover:text-gold-light">
                   Terms & Conditions
                 </a>{" "}
                 and Privacy Policy.
@@ -488,8 +456,7 @@ function SignupComponent() {
                 className="w-3.5 h-3.5 border-border rounded text-gold focus:ring-gold bg-transparent cursor-pointer mt-0.5"
               />
               <span className="text-muted-foreground group-hover:text-foreground transition-colors leading-relaxed">
-                Subscribe to exclusive promotions, new arrivals, and
-                members-only pricing alerts.
+                Subscribe to exclusive promotions, new arrivals, and members-only pricing alerts.
               </span>
             </label>
           </div>
@@ -502,11 +469,7 @@ function SignupComponent() {
           >
             {isLoading ? (
               <span className="flex items-center gap-2">
-                <svg
-                  className="animate-spin h-4 w-4 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                   <circle
                     className="opacity-25"
                     cx="12"
@@ -534,10 +497,7 @@ function SignupComponent() {
 
         {/* Separator */}
         <div className="relative my-6">
-          <div
-            className="absolute inset-0 flex items-center"
-            aria-hidden="true"
-          >
+          <div className="absolute inset-0 flex items-center" aria-hidden="true">
             <div className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">

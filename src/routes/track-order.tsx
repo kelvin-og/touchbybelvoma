@@ -86,9 +86,7 @@ function TrackOrderComponent() {
   useEffect(() => {
     if (searchId) {
       setInputVal(searchId);
-      const found = orders.find(
-        (o) => o.id.toLowerCase() === searchId.toLowerCase(),
-      );
+      const found = orders.find((o) => o.id.toLowerCase() === searchId.toLowerCase());
       if (found) {
         setOrder(found);
       } else {
@@ -103,9 +101,7 @@ function TrackOrderComponent() {
     setErrorState(false);
     if (!inputVal.trim()) return;
 
-    const found = orders.find(
-      (o) => o.id.toLowerCase() === inputVal.trim().toLowerCase(),
-    );
+    const found = orders.find((o) => o.id.toLowerCase() === inputVal.trim().toLowerCase());
     if (found) {
       setOrder(found);
     } else {
@@ -138,16 +134,12 @@ function TrackOrderComponent() {
             Track Your Order
           </h1>
           <p className="text-xs font-light text-muted-foreground mt-2 max-w-sm mx-auto">
-            Input your Touch by Bel'voma order reference number to review
-            shipping metrics.
+            Input your Touch by Bel'voma order reference number to review shipping metrics.
           </p>
         </div>
 
         {/* Search input bar */}
-        <form
-          onSubmit={handleSearch}
-          className="mb-12 flex gap-2 max-w-md mx-auto"
-        >
+        <form onSubmit={handleSearch} className="mb-12 flex gap-2 max-w-md mx-auto">
           <div className="relative flex-1">
             <input
               type="text"
@@ -183,9 +175,7 @@ function TrackOrderComponent() {
                   <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
                     Order Reference
                   </p>
-                  <h2 className="text-lg font-semibold text-foreground">
-                    {order.id}
-                  </h2>
+                  <h2 className="text-lg font-semibold text-foreground">{order.id}</h2>
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
@@ -201,8 +191,7 @@ function TrackOrderComponent() {
                   </p>
                   <p className="text-xs font-semibold text-foreground flex items-center gap-1.5">
                     <Truck className="h-4 w-4 text-gold" />{" "}
-                    {order.shippingFee === 0 &&
-                    order.paymentMethod.includes("Pickup")
+                    {order.shippingFee === 0 && order.paymentMethod.includes("Pickup")
                       ? "Showroom Pick-Up"
                       : "Speedaf Express / DHL"}
                   </p>
@@ -235,9 +224,7 @@ function TrackOrderComponent() {
                           {isActive ? (
                             <CheckCircle className="h-3.5 w-3.5 text-gold fill-current bg-white rounded-full" />
                           ) : (
-                            <span className="text-[9px] font-bold">
-                              {idx + 1}
-                            </span>
+                            <span className="text-[9px] font-bold">{idx + 1}</span>
                           )}
                         </div>
 
@@ -256,9 +243,7 @@ function TrackOrderComponent() {
                           </h4>
                           <p
                             className={`text-xs font-light leading-relaxed ${
-                              isActive
-                                ? "text-muted-foreground"
-                                : "text-muted-foreground/50"
+                              isActive ? "text-muted-foreground" : "text-muted-foreground/50"
                             }`}
                           >
                             {s.desc}
@@ -283,16 +268,10 @@ function TrackOrderComponent() {
                       className="py-3 flex justify-between items-center text-xs font-light"
                     >
                       <span>
-                        {item.name}{" "}
-                        <strong className="font-semibold">x{item.qty}</strong>
+                        {item.name} <strong className="font-semibold">x{item.qty}</strong>
                       </span>
                       <span className="font-semibold text-gold">
-                        GH₵{" "}
-                        {(
-                          item.price *
-                          getCediMultiplier() *
-                          item.qty
-                        ).toLocaleString()}
+                        GH₵ {(item.price * getCediMultiplier() * item.qty).toLocaleString()}
                       </span>
                     </div>
                   ))}
@@ -308,18 +287,16 @@ function TrackOrderComponent() {
                   <div className="flex justify-between text-muted-foreground">
                     <span>Street Landmark Location</span>
                     <span className="text-foreground">
-                      {order.shippingAddress.streetAddress},{" "}
-                      {order.shippingAddress.area || ""}
+                      {order.shippingAddress.streetAddress}, {order.shippingAddress.area || ""}
                     </span>
                   </div>
                   <div className="flex justify-between border-t border-border pt-3 font-semibold text-sm">
                     <span>Transaction Total Charged</span>
                     <span className="text-gold">
                       GH₵{" "}
-                      {(order.total * getCediMultiplier()).toLocaleString(
-                        "en-US",
-                        { minimumFractionDigits: 2 },
-                      )}
+                      {(order.total * getCediMultiplier()).toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                      })}
                     </span>
                   </div>
                 </div>
@@ -336,16 +313,10 @@ function TrackOrderComponent() {
               className="p-8 border border-dashed border-border bg-card rounded-2xl text-center"
             >
               <AlertCircle className="h-10 w-10 text-destructive mx-auto mb-3" />
-              <h3 className="text-sm font-semibold">
-                Order Reference Unresolved
-              </h3>
+              <h3 className="text-sm font-semibold">Order Reference Unresolved</h3>
               <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
-                No active Touch by Bel'voma purchases correspond to the
-                reference code{" "}
-                <strong className="text-foreground uppercase">
-                  {inputVal}
-                </strong>
-                .
+                No active Touch by Bel'voma purchases correspond to the reference code{" "}
+                <strong className="text-foreground uppercase">{inputVal}</strong>.
               </p>
             </motion.div>
           )}

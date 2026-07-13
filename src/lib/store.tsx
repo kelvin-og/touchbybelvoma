@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 
 export interface CartItem {
   productId: string;
@@ -122,10 +115,7 @@ interface StoreState {
   updateFreeShippingThreshold: (val: number) => void;
   updateMaintenanceMode: (val: boolean) => void;
   updateMaxFailedAttempts: (val: number) => void;
-  updateUserRole: (
-    email: string,
-    role: "user" | "admin" | "superadmin",
-  ) => void;
+  updateUserRole: (email: string, role: "user" | "admin" | "superadmin") => void;
   updateUserStatus: (email: string, active: boolean) => void;
 }
 
@@ -137,8 +127,7 @@ const SEEDED_USERS = [
     name: "Akosua Mensah",
     email: "luxury@belvoma.com",
     phone: "+233241234567",
-    passwordHash:
-      "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", // "password" in SHA-256 (mock) or plain for simplicity
+    passwordHash: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", // "password" in SHA-256 (mock) or plain for simplicity
     role: "user",
     createdAt: "2026-06-15T12:00:00Z",
   },
@@ -146,8 +135,7 @@ const SEEDED_USERS = [
     name: "Elorm Bel'voma",
     email: "admin@belvoma.com",
     phone: "+233509876543",
-    passwordHash:
-      "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", // "admin123" (mock)
+    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", // "admin123" (mock)
     role: "admin",
     createdAt: "2026-01-01T09:00:00Z",
   },
@@ -315,8 +303,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [cart, hydrated]);
 
   useEffect(() => {
-    if (hydrated)
-      localStorage.setItem("naa-wishlist", JSON.stringify(wishlist));
+    if (hydrated) localStorage.setItem("naa-wishlist", JSON.stringify(wishlist));
   }, [wishlist, hydrated]);
 
   useEffect(() => {
@@ -327,13 +314,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [user, hydrated]);
 
   useEffect(() => {
-    if (hydrated)
-      localStorage.setItem("naa-recently", JSON.stringify(recentlyViewed));
+    if (hydrated) localStorage.setItem("naa-recently", JSON.stringify(recentlyViewed));
   }, [recentlyViewed, hydrated]);
 
   useEffect(() => {
-    if (hydrated)
-      localStorage.setItem("naa-addresses", JSON.stringify(addresses));
+    if (hydrated) localStorage.setItem("naa-addresses", JSON.stringify(addresses));
   }, [addresses, hydrated]);
 
   useEffect(() => {
@@ -342,37 +327,25 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (hydrated) {
-      localStorage.setItem(
-        "tbb_config_cedi_multiplier",
-        cediMultiplier.toString(),
-      );
+      localStorage.setItem("tbb_config_cedi_multiplier", cediMultiplier.toString());
     }
   }, [cediMultiplier, hydrated]);
 
   useEffect(() => {
     if (hydrated) {
-      localStorage.setItem(
-        "tbb_config_free_shipping",
-        freeShippingThreshold.toString(),
-      );
+      localStorage.setItem("tbb_config_free_shipping", freeShippingThreshold.toString());
     }
   }, [freeShippingThreshold, hydrated]);
 
   useEffect(() => {
     if (hydrated) {
-      localStorage.setItem(
-        "tbb_config_maintenance",
-        maintenanceMode.toString(),
-      );
+      localStorage.setItem("tbb_config_maintenance", maintenanceMode.toString());
     }
   }, [maintenanceMode, hydrated]);
 
   useEffect(() => {
     if (hydrated) {
-      localStorage.setItem(
-        "tbb_config_max_attempts",
-        maxFailedAttempts.toString(),
-      );
+      localStorage.setItem("tbb_config_max_attempts", maxFailedAttempts.toString());
     }
   }, [maxFailedAttempts, hydrated]);
 
@@ -386,9 +359,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setCart((prev) => {
       const existing = prev.find((i) => i.productId === productId);
       if (existing)
-        return prev.map((i) =>
-          i.productId === productId ? { ...i, qty: i.qty + qty } : i,
-        );
+        return prev.map((i) => (i.productId === productId ? { ...i, qty: i.qty + qty } : i));
       return [...prev, { productId, qty }];
     });
   }, []);
@@ -411,16 +382,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const toggleWishlist = useCallback((productId: string) => {
     setWishlist((prev) =>
-      prev.includes(productId)
-        ? prev.filter((id) => id !== productId)
-        : [...prev, productId],
+      prev.includes(productId) ? prev.filter((id) => id !== productId) : [...prev, productId],
     );
   }, []);
 
-  const isWishlisted = useCallback(
-    (productId: string) => wishlist.includes(productId),
-    [wishlist],
-  );
+  const isWishlisted = useCallback((productId: string) => wishlist.includes(productId), [wishlist]);
 
   const cartCount = cart.reduce((n, i) => n + i.qty, 0);
 
@@ -439,9 +405,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // read from local usersList state
-      const found = usersList.find(
-        (u: User) => u.email.toLowerCase() === email.toLowerCase(),
-      );
+      const found = usersList.find((u: User) => u.email.toLowerCase() === email.toLowerCase());
 
       if (!found) {
         setFailedLoginAttempts((prev) => prev + 1);
@@ -454,8 +418,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       if (found.active === false) {
         return {
           success: false,
-          error:
-            "Access Denied: This account has been deactivated by Super Admin.",
+          error: "Access Denied: This account has been deactivated by Super Admin.",
         };
       }
 
@@ -463,11 +426,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       // Seeds use standard SHA-256 values or simple strings
       const inputHash = mockHash(password);
       const matchSeeded1 =
-        email.toLowerCase() === "luxury@belvoma.com" &&
-        password === "GoldLuxury2026!";
+        email.toLowerCase() === "luxury@belvoma.com" && password === "GoldLuxury2026!";
       const matchSeeded2 =
-        email.toLowerCase() === "admin@belvoma.com" &&
-        password === "BelvomaAdmin2026!";
+        email.toLowerCase() === "admin@belvoma.com" && password === "BelvomaAdmin2026!";
       const matchSuperSeeded =
         email.toLowerCase() === "superadmin@tbbv.com" && password === "tbbv123";
       const matchesMockHash = found.passwordHash === inputHash;
@@ -512,8 +473,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }): Promise<{ success: boolean; error?: string }> => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const dbString =
-        localStorage.getItem("naa-users-db") || JSON.stringify(SEEDED_USERS);
+      const dbString = localStorage.getItem("naa-users-db") || JSON.stringify(SEEDED_USERS);
       const usersDb = JSON.parse(dbString);
 
       const emailExists = usersDb.some(
@@ -603,18 +563,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         };
       });
 
-      const itemsTotal = orderItems.reduce(
-        (acc, item) => acc + item.price * item.qty,
-        0,
-      );
+      const itemsTotal = orderItems.reduce((acc, item) => acc + item.price * item.qty, 0);
       const total = itemsTotal + shippingFee - discount;
 
       const newOrder: Order = {
         id: "TBB-" + Math.floor(10000 + Math.random() * 90000),
         date: new Date().toISOString().split("T")[0],
-        status: paymentMethod.includes("Mobile Money")
-          ? "Order Received"
-          : "Payment Pending",
+        status: paymentMethod.includes("Mobile Money") ? "Order Received" : "Payment Pending",
         total,
         paymentMethod,
         shippingAddress: address,
@@ -637,14 +592,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     [cart],
   );
 
-  const updateOrderStatus = useCallback(
-    (orderId: string, status: Order["status"]) => {
-      setOrders((prev) =>
-        prev.map((o) => (o.id === orderId ? { ...o, status } : o)),
-      );
-    },
-    [],
-  );
+  const updateOrderStatus = useCallback((orderId: string, status: Order["status"]) => {
+    setOrders((prev) => prev.map((o) => (o.id === orderId ? { ...o, status } : o)));
+  }, []);
 
   const resetFailedAttempts = useCallback(() => {
     setFailedLoginAttempts(0);
@@ -667,22 +617,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setMaxFailedAttempts(val);
   }, []);
 
-  const updateUserRole = useCallback(
-    (email: string, role: "user" | "admin" | "superadmin") => {
-      setUsersList((prev) =>
-        prev.map((u) =>
-          u.email.toLowerCase() === email.toLowerCase() ? { ...u, role } : u,
-        ),
-      );
-    },
-    [],
-  );
+  const updateUserRole = useCallback((email: string, role: "user" | "admin" | "superadmin") => {
+    setUsersList((prev) =>
+      prev.map((u) => (u.email.toLowerCase() === email.toLowerCase() ? { ...u, role } : u)),
+    );
+  }, []);
 
   const updateUserStatus = useCallback((email: string, active: boolean) => {
     setUsersList((prev) =>
-      prev.map((u) =>
-        u.email.toLowerCase() === email.toLowerCase() ? { ...u, active } : u,
-      ),
+      prev.map((u) => (u.email.toLowerCase() === email.toLowerCase() ? { ...u, active } : u)),
     );
   }, []);
 

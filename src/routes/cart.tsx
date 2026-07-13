@@ -56,9 +56,7 @@ function CartPage() {
       {items.length === 0 ? (
         <div className="mt-16 text-center">
           <ShoppingBag className="mx-auto h-12 w-12 text-muted-foreground/40" />
-          <p className="mt-4 text-muted-foreground">
-            Your cart is beautifully empty.
-          </p>
+          <p className="mt-4 text-muted-foreground">Your cart is beautifully empty.</p>
           <Link to="/shop" className="btn-gold mt-8">
             Start Shopping
           </Link>
@@ -74,10 +72,7 @@ function CartPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="flex gap-4 rounded-2xl bg-card p-4 shadow-soft sm:gap-6 sm:p-5"
               >
-                <Link
-                  to="/product/$productId"
-                  params={{ productId: product!.id }}
-                >
+                <Link to="/product/$productId" params={{ productId: product!.id }}>
                   <img
                     src={product!.images[0]}
                     alt={product!.name}
@@ -127,9 +122,7 @@ function CartPage() {
                         <Plus className="h-3.5 w-3.5" />
                       </button>
                     </div>
-                    <p className="font-semibold">
-                      {formatPrice(product!.price * qty)}
-                    </p>
+                    <p className="font-semibold">{formatPrice(product!.price * qty)}</p>
                   </div>
                 </div>
               </motion.li>
@@ -157,9 +150,7 @@ function CartPage() {
               )}
               <div className="flex justify-between">
                 <dt className="text-muted-foreground">Shipping</dt>
-                <dd className="font-medium">
-                  {shipping === 0 ? "Free" : formatPrice(shipping)}
-                </dd>
+                <dd className="font-medium">{shipping === 0 ? "Free" : formatPrice(shipping)}</dd>
               </div>
               <div className="flex justify-between border-t border-border pt-3 text-base font-semibold">
                 <dt>Total</dt>
@@ -201,10 +192,7 @@ function CartPage() {
               </div>
             )}
 
-            <Link
-              to="/checkout"
-              className="btn-gold mt-6 w-full block text-center"
-            >
+            <Link to="/checkout" className="btn-gold mt-6 w-full block text-center">
               Proceed to Checkout
             </Link>
             <p className="mt-3 text-center text-xs text-muted-foreground">

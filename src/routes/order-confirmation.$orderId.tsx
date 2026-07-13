@@ -55,12 +55,10 @@ function ConfirmationComponent() {
     return (
       <div className="min-h-screen bg-background flex flex-col justify-center items-center py-20 px-4">
         <div className="max-w-md text-center space-y-4">
-          <h2 className="text-xl font-semibold text-foreground">
-            Order Not Found
-          </h2>
+          <h2 className="text-xl font-semibold text-foreground">Order Not Found</h2>
           <p className="text-xs text-muted-foreground font-light">
-            We are unable to locate an active transaction associated with the
-            reference <strong className="text-foreground">{orderId}</strong>.
+            We are unable to locate an active transaction associated with the reference{" "}
+            <strong className="text-foreground">{orderId}</strong>.
           </p>
           <Link to="/shop" className="btn-gold">
             Return to Boutique
@@ -140,8 +138,8 @@ Status:      ${order.status}
                   SMS Dispatch Confirmation
                 </p>
                 <p className="mt-1 leading-normal text-white/90">
-                  Receipt sent to {order.shippingAddress.phone}: "Order{" "}
-                  {order.id} confirmed! Track progress on touchbybelvoma.com."
+                  Receipt sent to {order.shippingAddress.phone}: "Order {order.id} confirmed! Track
+                  progress on touchbybelvoma.com."
                 </p>
               </div>
             </motion.div>
@@ -161,8 +159,7 @@ Status:      ${order.status}
                 </p>
                 <p className="mt-1 leading-normal text-white/90">
                   Premium receipt invoice copy successfully delivered to{" "}
-                  {order.shippingAddress.fullName} at your registered account
-                  mail.
+                  {order.shippingAddress.fullName} at your registered account mail.
                 </p>
               </div>
             </motion.div>
@@ -196,8 +193,8 @@ Status:      ${order.status}
             Thank You For Your Purchase
           </h1>
           <p className="text-xs font-light text-muted-foreground mt-2 max-w-md mx-auto leading-relaxed">
-            Your selection has been successfully logged. Touch by Bel'voma is
-            preparing your premium packaging.
+            Your selection has been successfully logged. Touch by Bel'voma is preparing your premium
+            packaging.
           </p>
 
           {/* Core receipt data block */}
@@ -212,9 +209,7 @@ Status:      ${order.status}
               <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                 Estimated Delivery
               </p>
-              <p className="font-semibold text-gold mt-0.5">
-                {order.estDeliveryDate}
-              </p>
+              <p className="font-semibold text-gold mt-0.5">{order.estDeliveryDate}</p>
             </div>
             <div>
               <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
@@ -230,9 +225,7 @@ Status:      ${order.status}
               <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                 Total Transaction
               </p>
-              <p className="font-semibold text-gold mt-0.5">
-                {formatPrice(order.total)}
-              </p>
+              <p className="font-semibold text-gold mt-0.5">{formatPrice(order.total)}</p>
             </div>
           </div>
 
@@ -258,11 +251,7 @@ Status:      ${order.status}
             <div className="border-t border-border pt-3 space-y-1">
               <div className="flex justify-between text-[11px]">
                 <span className="text-muted-foreground">Shipping Delivery</span>
-                <span>
-                  {shippingCostGhs === 0
-                    ? "Free"
-                    : `GH₵ ${shippingCostGhs.toFixed(2)}`}
-                </span>
+                <span>{shippingCostGhs === 0 ? "Free" : `GH₵ ${shippingCostGhs.toFixed(2)}`}</span>
               </div>
               {discountGhs > 0 && (
                 <div className="flex justify-between text-[11px] text-green-700">

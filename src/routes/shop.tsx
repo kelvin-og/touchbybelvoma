@@ -29,8 +29,7 @@ export const Route = createFileRoute("/shop")({
       { property: "og:title", content: "Shop Jewelry — Touch by Bel'voma" },
       {
         property: "og:description",
-        content:
-          "Shop earrings, necklaces, rings, bracelets, anklets and sets.",
+        content: "Shop earrings, necklaces, rings, bracelets, anklets and sets.",
       },
     ],
   }),
@@ -74,8 +73,7 @@ function ShopPage() {
     }
   });
 
-  const heading =
-    filterTabs.find((t) => t.value === category)?.label ?? "All Jewelry";
+  const heading = filterTabs.find((t) => t.value === category)?.label ?? "All Jewelry";
 
   return (
     <div className="container-lux pt-28 pb-20 sm:pt-32">

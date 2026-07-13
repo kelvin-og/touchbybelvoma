@@ -1,16 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import {
-  Heart,
-  Minus,
-  Plus,
-  RotateCcw,
-  ShieldCheck,
-  ShoppingBag,
-  Star,
-  Truck,
-} from "lucide-react";
+import { Heart, Minus, Plus, RotateCcw, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
 import { formatPrice, getProduct, products } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useStore } from "@/lib/store";
@@ -46,9 +37,7 @@ export const Route = createFileRoute("/product/$productId")({
   notFoundComponent: () => (
     <div className="container-lux pt-40 pb-24 text-center">
       <h1 className="text-3xl font-semibold">Piece not found</h1>
-      <p className="mt-3 text-muted-foreground">
-        This item may have sold out or been moved.
-      </p>
+      <p className="mt-3 text-muted-foreground">This item may have sold out or been moved.</p>
       <Link to="/shop" className="btn-gold mt-8">
         Back to Shop
       </Link>
@@ -160,9 +149,7 @@ function ProductPage() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <p className="eyebrow">{product.category}</p>
-          <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
-            {product.name}
-          </h1>
+          <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">{product.name}</h1>
           <div className="mt-3 flex items-center gap-2">
             <span
               className="flex gap-0.5 text-gold"
@@ -181,9 +168,7 @@ function ProductPage() {
           </div>
 
           <div className="mt-5 flex items-baseline gap-3">
-            <span className="text-3xl font-semibold">
-              {formatPrice(product.price)}
-            </span>
+            <span className="text-3xl font-semibold">{formatPrice(product.price)}</span>
             {product.originalPrice && (
               <>
                 <span className="text-lg text-muted-foreground line-through">
@@ -196,15 +181,12 @@ function ProductPage() {
             )}
           </div>
 
-          <p className="mt-5 leading-relaxed text-muted-foreground">
-            {product.description}
-          </p>
+          <p className="mt-5 leading-relaxed text-muted-foreground">{product.description}</p>
 
           {/* Color */}
           <div className="mt-6">
             <p className="text-xs font-semibold tracking-[0.15em] uppercase">
-              Finish:{" "}
-              <span className="font-normal text-muted-foreground">{color}</span>
+              Finish: <span className="font-normal text-muted-foreground">{color}</span>
             </p>
             <div className="mt-2 flex gap-2">
               {product.colors.map((c: string) => (
@@ -268,22 +250,19 @@ function ProductPage() {
             <p>
               <span className="font-semibold">Care:</span>{" "}
               <span className="text-muted-foreground">
-                Keep dry, avoid perfumes and lotions, store in the provided
-                pouch. Polish gently with a soft cloth.
+                Keep dry, avoid perfumes and lotions, store in the provided pouch. Polish gently
+                with a soft cloth.
               </span>
             </p>
             <div className="grid gap-3 border-t border-border pt-4 sm:grid-cols-3">
               <p className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Truck className="h-4 w-4 shrink-0 text-gold" /> Free shipping
-                over $75
+                <Truck className="h-4 w-4 shrink-0 text-gold" /> Free shipping over $75
               </p>
               <p className="flex items-center gap-2 text-xs text-muted-foreground">
-                <RotateCcw className="h-4 w-4 shrink-0 text-gold" /> 30-day
-                returns
+                <RotateCcw className="h-4 w-4 shrink-0 text-gold" /> 30-day returns
               </p>
               <p className="flex items-center gap-2 text-xs text-muted-foreground">
-                <ShieldCheck className="h-4 w-4 shrink-0 text-gold" /> 1-year
-                warranty
+                <ShieldCheck className="h-4 w-4 shrink-0 text-gold" /> 1-year warranty
               </p>
             </div>
           </div>
@@ -303,10 +282,7 @@ function ProductPage() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="rounded-2xl border border-border bg-card p-6"
             >
-              <span
-                className="flex gap-0.5 text-gold"
-                aria-label={`${r.rating} stars`}
-              >
+              <span className="flex gap-0.5 text-gold" aria-label={`${r.rating} stars`}>
                 {Array.from({ length: 5 }).map((_, s) => (
                   <Star
                     key={s}
@@ -314,12 +290,8 @@ function ProductPage() {
                   />
                 ))}
               </span>
-              <blockquote className="mt-3 text-sm text-muted-foreground">
-                {r.text}
-              </blockquote>
-              <figcaption className="mt-4 text-sm font-semibold">
-                {r.name}
-              </figcaption>
+              <blockquote className="mt-3 text-sm text-muted-foreground">{r.text}</blockquote>
+              <figcaption className="mt-4 text-sm font-semibold">{r.name}</figcaption>
             </motion.figure>
           ))}
         </div>
@@ -328,9 +300,7 @@ function ProductPage() {
       {/* Related */}
       {related.length > 0 && (
         <section className="mt-20">
-          <h2 className="text-2xl font-semibold sm:text-3xl">
-            You May Also Love
-          </h2>
+          <h2 className="text-2xl font-semibold sm:text-3xl">You May Also Love</h2>
           <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
             {related.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} />
@@ -341,9 +311,7 @@ function ProductPage() {
 
       {/* Frequently bought together */}
       <section className="mt-20">
-        <h2 className="text-2xl font-semibold sm:text-3xl">
-          Frequently Bought Together
-        </h2>
+        <h2 className="text-2xl font-semibold sm:text-3xl">Frequently Bought Together</h2>
         <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
           {alsoBought.map((p, i) => (
             <ProductCard key={p.id} product={p} index={i} />

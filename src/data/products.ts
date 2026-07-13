@@ -13,8 +13,7 @@ import prodBaguette from "@/assets/prod-baguette-ring.jpg";
 import prodTennis from "@/assets/prod-tennis-bracelet.jpg";
 import prodCuff from "@/assets/prod-cuff.jpg";
 
-export type Category =
-  "earrings" | "necklaces" | "rings" | "bracelets" | "anklets" | "sets";
+export type Category = "earrings" | "necklaces" | "rings" | "bracelets" | "anklets" | "sets";
 
 export interface Product {
   id: string;

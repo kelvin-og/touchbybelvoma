@@ -61,10 +61,7 @@ function Index() {
   return (
     <div>
       {/* Hero */}
-      <section
-        ref={heroRef}
-        className="relative h-[92svh] min-h-[560px] overflow-hidden"
-      >
+      <section ref={heroRef} className="relative h-[92svh] min-h-[560px] overflow-hidden">
         <motion.div style={{ y }} className="absolute inset-0">
           <img
             src={hero}
@@ -124,8 +121,8 @@ function Index() {
               transition={{ duration: 0.8, delay: 0.45 }}
               className="mt-5 max-w-md text-base font-light text-primary-foreground/85 sm:text-lg"
             >
-              Discover timeless jewelry designed to celebrate your beauty,
-              confidence, and individuality.
+              Discover timeless jewelry designed to celebrate your beauty, confidence, and
+              individuality.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -151,9 +148,7 @@ function Index() {
       <section className="container-lux py-20 sm:py-28">
         <motion.div {...fadeUp} className="text-center">
           <p className="eyebrow">Curated for you</p>
-          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-            Featured Collections
-          </h2>
+          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Featured Collections</h2>
         </motion.div>
         <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
           {categories.map((cat, i) => (
@@ -199,15 +194,10 @@ function Index() {
       {/* Best Sellers */}
       <section className="bg-ivory py-20 sm:py-28">
         <div className="container-lux">
-          <motion.div
-            {...fadeUp}
-            className="flex flex-wrap items-end justify-between gap-4"
-          >
+          <motion.div {...fadeUp} className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="eyebrow">Customer favorites</p>
-              <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-                Best Sellers
-              </h2>
+              <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Best Sellers</h2>
             </div>
             <Link
               to="/shop"
@@ -219,10 +209,7 @@ function Index() {
           </motion.div>
           <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {bestSellers.map((p, i) => (
-              <div
-                key={p.id}
-                className="w-[260px] shrink-0 snap-start sm:w-[300px]"
-              >
+              <div key={p.id} className="w-[260px] shrink-0 snap-start sm:w-[300px]">
                 <ProductCard product={p} index={i} />
               </div>
             ))}
@@ -232,15 +219,10 @@ function Index() {
 
       {/* New Arrivals */}
       <section className="container-lux py-20 sm:py-28">
-        <motion.div
-          {...fadeUp}
-          className="flex flex-wrap items-end justify-between gap-4"
-        >
+        <motion.div {...fadeUp} className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow">Just landed</p>
-            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-              New Arrivals
-            </h2>
+            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">New Arrivals</h2>
           </div>
           <Link
             to="/shop"
@@ -262,9 +244,7 @@ function Index() {
         <div className="container-lux">
           <motion.div {...fadeUp} className="text-center">
             <p className="eyebrow">Loved by thousands</p>
-            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-              What Our Customers Say
-            </h2>
+            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">What Our Customers Say</h2>
           </motion.div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {testimonials.map((t, i) => (
@@ -301,9 +281,7 @@ function Index() {
       <section className="container-lux py-20 sm:py-28">
         <motion.div {...fadeUp} className="text-center">
           <p className="eyebrow">@naasjewelryoutlet</p>
-          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-            Follow the Sparkle
-          </h2>
+          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Follow the Sparkle</h2>
         </motion.div>
         <div className="mt-10 grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-6">
           {[...categories].map((cat, i) => (
@@ -341,17 +319,12 @@ function Index() {
           <p className="text-xs font-semibold tracking-[0.3em] text-gold-light uppercase">
             Join the inner circle
           </p>
-          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-            Get 10% Off Your First Order
-          </h2>
+          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Get 10% Off Your First Order</h2>
           <p className="mt-3 text-sm text-primary-foreground/70">
-            New arrivals, exclusive offers, and styling inspiration — straight
-            to your inbox.
+            New arrivals, exclusive offers, and styling inspiration — straight to your inbox.
           </p>
           {subscribed ? (
-            <p className="mt-8 text-gold-light">
-              Thank you — welcome to the family! ✨
-            </p>
+            <p className="mt-8 text-gold-light">Thank you — welcome to the family! ✨</p>
           ) : (
             <form
               className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row"

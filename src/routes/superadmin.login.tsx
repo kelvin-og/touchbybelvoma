@@ -2,14 +2,7 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useStore } from "@/lib/store";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  KeyRound,
-  Eye,
-  EyeOff,
-  ShieldAlert,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
+import { KeyRound, Eye, EyeOff, ShieldAlert, CheckCircle, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/superadmin/login")({
   head: () => ({
@@ -17,8 +10,7 @@ export const Route = createFileRoute("/superadmin/login")({
       { title: "Super Admin Gateway | Touch by Bel'voma" },
       {
         name: "description",
-        content:
-          "Super Administrator portal for Touch by Bel'voma security clearance.",
+        content: "Super Administrator portal for Touch by Bel'voma security clearance.",
       },
     ],
   }),
@@ -50,9 +42,7 @@ function SuperAdminLoginComponent() {
           navigate({ to: "/superadmin/dashboard" });
         }, 1500);
       } else {
-        setErrorMsg(
-          result.error || "Access Denied: Invalid super administrator keys.",
-        );
+        setErrorMsg(result.error || "Access Denied: Invalid super administrator keys.");
       }
     } catch (err) {
       setErrorMsg("Security handshake failed. Connection timed out.");
@@ -96,17 +86,11 @@ function SuperAdminLoginComponent() {
                 animate={{ scale: 1, rotate: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
               >
-                <CheckCircle
-                  className="h-16 w-16 text-purple-400 mb-4"
-                  strokeWidth={1.5}
-                />
+                <CheckCircle className="h-16 w-16 text-purple-400 mb-4" strokeWidth={1.5} />
               </motion.div>
-              <h3 className="text-xl font-semibold text-purple-300">
-                Terminal Unlocked
-              </h3>
+              <h3 className="text-xl font-semibold text-purple-300">Terminal Unlocked</h3>
               <p className="text-xs text-muted-foreground mt-2 max-w-xs leading-relaxed">
-                Super administrator session initialized. Loading root
-                settings...
+                Super administrator session initialized. Loading root settings...
               </p>
               <div className="w-24 h-[1.5px] bg-purple-900/40 mt-6 overflow-hidden relative">
                 <motion.div
@@ -141,9 +125,7 @@ function SuperAdminLoginComponent() {
         {errorMsg && (
           <div className="mb-6 p-4 rounded-xl bg-destructive/10 border border-destructive/20 flex items-start gap-3">
             <ShieldAlert className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-            <span className="text-xs font-light text-red-200/90 leading-relaxed">
-              {errorMsg}
-            </span>
+            <span className="text-xs font-light text-red-200/90 leading-relaxed">{errorMsg}</span>
           </div>
         )}
 
@@ -188,11 +170,7 @@ function SuperAdminLoginComponent() {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-4 top-4 text-purple-400/40 hover:text-purple-400 transition-colors focus:outline-none"
             >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
 
@@ -204,11 +182,7 @@ function SuperAdminLoginComponent() {
           >
             {isLoading ? (
               <span className="flex items-center gap-2 text-black">
-                <svg
-                  className="animate-spin h-4 w-4 text-black"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="animate-spin h-4 w-4 text-black" fill="none" viewBox="0 0 24 24">
                   <circle
                     className="opacity-25"
                     cx="12"
@@ -234,8 +208,7 @@ function SuperAdminLoginComponent() {
         </form>
 
         <div className="mt-8 text-center text-[10px] font-light text-muted-foreground/50 border-t border-purple-900/10 pt-4 leading-normal">
-          Authorized console access only. Logins are tied to root certificate
-          hashes.
+          Authorized console access only. Logins are tied to root certificate hashes.
         </div>
       </motion.div>
     </div>

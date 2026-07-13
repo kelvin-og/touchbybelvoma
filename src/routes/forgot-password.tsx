@@ -2,14 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { type User } from "@/lib/store";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Mail,
-  ShieldAlert,
-  Key,
-  CheckCircle,
-  ArrowRight,
-  ArrowLeft,
-} from "lucide-react";
+import { Mail, ShieldAlert, Key, CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/forgot-password")({
   head: () => ({
@@ -75,9 +68,8 @@ function ForgotPasswordComponent() {
       const dbString = localStorage.getItem("naa-users-db");
       const usersDb = dbString ? JSON.parse(dbString) : [];
       const userExists =
-        usersDb.some(
-          (u: User) => u.email.toLowerCase() === email.toLowerCase(),
-        ) || email.toLowerCase() === "luxury@belvoma.com";
+        usersDb.some((u: User) => u.email.toLowerCase() === email.toLowerCase()) ||
+        email.toLowerCase() === "luxury@belvoma.com";
 
       if (!userExists) {
         setErrorMsg("This email address is not registered in our records.");
@@ -98,9 +90,7 @@ function ForgotPasswordComponent() {
     }
 
     if (pwdScore < 2) {
-      setErrorMsg(
-        "Password is too weak. Please add uppercase letters, numbers, or symbols.",
-      );
+      setErrorMsg("Password is too weak. Please add uppercase letters, numbers, or symbols.");
       return;
     }
 
@@ -112,13 +102,10 @@ function ForgotPasswordComponent() {
       const dbString = localStorage.getItem("naa-users-db");
       if (dbString) {
         const usersDb = JSON.parse(dbString);
-        const index = usersDb.findIndex(
-          (u: User) => u.email.toLowerCase() === email.toLowerCase(),
-        );
+        const index = usersDb.findIndex((u: User) => u.email.toLowerCase() === email.toLowerCase());
         if (index !== -1) {
           // simple simulation update
-          usersDb[index].passwordHash =
-            "hash_" + Math.abs(password.length).toString(16); // mock update
+          usersDb[index].passwordHash = "hash_" + Math.abs(password.length).toString(16); // mock update
           localStorage.setItem("naa-users-db", JSON.stringify(usersDb));
         }
       }
@@ -167,9 +154,7 @@ function ForgotPasswordComponent() {
         {errorMsg && (
           <div className="mb-5 p-3.5 rounded-xl bg-destructive/5 border border-destructive/10 flex items-start gap-2.5">
             <ShieldAlert className="h-4.5 w-4.5 text-destructive shrink-0 mt-0.5" />
-            <span className="text-xs font-light text-destructive/90">
-              {errorMsg}
-            </span>
+            <span className="text-xs font-light text-destructive/90">{errorMsg}</span>
           </div>
         )}
 
@@ -183,12 +168,10 @@ function ForgotPasswordComponent() {
               exit={{ opacity: 0, x: 10 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="text-2xl font-semibold text-foreground">
-                Reset Password
-              </h2>
+              <h2 className="text-2xl font-semibold text-foreground">Reset Password</h2>
               <p className="text-xs font-light text-muted-foreground mt-2 mb-6">
-                Enter your registered email address below, and we will transmit
-                a secure password recovery token to your inbox.
+                Enter your registered email address below, and we will transmit a secure password
+                recovery token to your inbox.
               </p>
 
               <form onSubmit={handleSendResetLink} className="space-y-6">
@@ -243,9 +226,7 @@ function ForgotPasswordComponent() {
               <div className="mx-auto w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold mb-4">
                 <Mail className="h-6 w-6" />
               </div>
-              <h2 className="text-xl font-semibold text-foreground">
-                Secure Token Sent
-              </h2>
+              <h2 className="text-xl font-semibold text-foreground">Secure Token Sent</h2>
               <p className="text-xs font-light text-muted-foreground mt-3 max-w-sm mx-auto leading-relaxed">
                 An email containing a secure link has been sent to{" "}
                 <span className="font-medium text-foreground">{email}</span>.
@@ -253,13 +234,11 @@ function ForgotPasswordComponent() {
 
               <div className="my-6 p-4 rounded-xl border border-gold/10 bg-gold/5 text-left text-xs font-light space-y-2">
                 <p className="text-foreground font-semibold flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
-                  <CheckCircle className="h-3.5 w-3.5 text-gold" /> Simulation
-                  Mode
+                  <CheckCircle className="h-3.5 w-3.5 text-gold" /> Simulation Mode
                 </p>
                 <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  In a production environment, this link will direct the user
-                  back to the app with a signed JWT cryptotoken. Click below to
-                  simulate opening the email token:
+                  In a production environment, this link will direct the user back to the app with a
+                  signed JWT cryptotoken. Click below to simulate opening the email token:
                 </p>
               </div>
 
@@ -289,9 +268,7 @@ function ForgotPasswordComponent() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
             >
-              <h2 className="text-2xl font-semibold text-foreground">
-                Choose New Password
-              </h2>
+              <h2 className="text-2xl font-semibold text-foreground">Choose New Password</h2>
               <p className="text-xs font-light text-muted-foreground mt-2 mb-6">
                 Create a strong password that you do not reuse elsewhere.
               </p>
@@ -318,21 +295,15 @@ function ForgotPasswordComponent() {
                 {password && (
                   <div className="space-y-1.5 px-1">
                     <div className="flex justify-between items-center text-[9px] uppercase tracking-wider">
-                      <span className="text-muted-foreground font-light">
-                        Security Rating:
-                      </span>
-                      <span className="font-semibold text-gold">
-                        {pwdLabel}
-                      </span>
+                      <span className="text-muted-foreground font-light">Security Rating:</span>
+                      <span className="font-semibold text-gold">{pwdLabel}</span>
                     </div>
                     <div className="h-1 w-full bg-border rounded-full overflow-hidden flex gap-0.5">
                       {[1, 2, 3, 4].map((step) => (
                         <div
                           key={step}
                           className={`h-full flex-1 transition-colors duration-300 ${
-                            step <= pwdScore
-                              ? getStrengthBarColor()
-                              : "bg-border/60"
+                            step <= pwdScore ? getStrengthBarColor() : "bg-border/60"
                           }`}
                         />
                       ))}
@@ -381,12 +352,9 @@ function ForgotPasswordComponent() {
               <div className="mx-auto w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold mb-4">
                 <CheckCircle className="h-6 w-6" />
               </div>
-              <h2 className="text-xl font-semibold text-foreground">
-                Password Restored
-              </h2>
+              <h2 className="text-xl font-semibold text-foreground">Password Restored</h2>
               <p className="text-xs font-light text-muted-foreground mt-3 max-w-xs mx-auto leading-relaxed">
-                Your new password has been securely saved in the system
-                databases.
+                Your new password has been securely saved in the system databases.
               </p>
 
               <div className="mt-8">

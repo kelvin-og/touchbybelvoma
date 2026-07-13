@@ -239,9 +239,7 @@ function KpiCard({
       </div>
       <div className="mt-4">
         <p className="text-2xl font-bold text-gray-900">{value}</p>
-        <p className="text-xs font-medium text-gray-500 mt-0.5 uppercase tracking-wider">
-          {label}
-        </p>
+        <p className="text-xs font-medium text-gray-500 mt-0.5 uppercase tracking-wider">{label}</p>
         {sub && <p className="text-[11px] text-gray-400 mt-1">{sub}</p>}
       </div>
     </motion.div>
@@ -287,13 +285,7 @@ function NavItem({
 
 // ─── Mini Revenue Chart ───────────────────────────────────────────────────────
 
-function MiniBarChart({
-  data,
-  color = "#D4AF37",
-}: {
-  data: number[];
-  color?: string;
-}) {
+function MiniBarChart({ data, color = "#D4AF37" }: { data: number[]; color?: string }) {
   const max = Math.max(...data, 1);
   const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
   return (
@@ -466,13 +458,9 @@ function OverviewSection({
   const pendingOrders = orders.filter(
     (o) => o.status !== "Delivered" && o.status !== "Payment Pending",
   ).length;
-  const cancelledOrders = orders.filter(
-    (o) => o.status === "Payment Pending",
-  ).length;
+  const cancelledOrders = orders.filter((o) => o.status === "Payment Pending").length;
   const inStockProds = prods.filter((p) => p.stock > 10).length;
-  const lowStockProds = prods.filter(
-    (p) => p.stock > 0 && p.stock <= 10,
-  ).length;
+  const lowStockProds = prods.filter((p) => p.stock > 0 && p.stock <= 10).length;
   const outOfStock = prods.filter((p) => p.stock === 0).length;
   const todaySales = orders
     .filter((o) => o.date === new Date().toISOString().split("T")[0])
@@ -655,9 +643,7 @@ function OverviewSection({
             <ShoppingBag className="h-4 w-4 text-amber-500" /> Recent Orders
           </h3>
           {recentOrders.length === 0 ? (
-            <p className="text-xs text-gray-400 py-4 text-center">
-              No orders yet
-            </p>
+            <p className="text-xs text-gray-400 py-4 text-center">No orders yet</p>
           ) : (
             <div className="space-y-3">
               {recentOrders.map((o) => (
@@ -667,9 +653,7 @@ function OverviewSection({
                 >
                   <div>
                     <p className="font-semibold text-gray-800">{o.id}</p>
-                    <p className="text-gray-400">
-                      {o.shippingAddress.fullName}
-                    </p>
+                    <p className="text-gray-400">{o.shippingAddress.fullName}</p>
                   </div>
                   <div className="text-right">
                     <p className="font-bold text-amber-600">
@@ -691,9 +675,7 @@ function OverviewSection({
             <Crown className="h-4 w-4 text-amber-500" /> Best Selling Products
           </h3>
           {bestSellers.length === 0 ? (
-            <p className="text-xs text-gray-400 py-4 text-center">
-              No bestsellers marked
-            </p>
+            <p className="text-xs text-gray-400 py-4 text-center">No bestsellers marked</p>
           ) : (
             <div className="space-y-3">
               {bestSellers.map((p, i) => (
@@ -705,15 +687,11 @@ function OverviewSection({
                     {i + 1}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-800 truncate">
-                      {p.name}
-                    </p>
+                    <p className="font-semibold text-gray-800 truncate">{p.name}</p>
                     <p className="text-gray-400 capitalize">{p.category}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="font-bold text-amber-600">
-                      {formatPrice(p.price)}
-                    </p>
+                    <p className="font-bold text-amber-600">{formatPrice(p.price)}</p>
                     <p className="text-gray-400">{p.stock} units</p>
                   </div>
                 </div>
@@ -801,21 +779,16 @@ function ProductsSection({
     [prods, search, catFilter, statusFilter],
   );
 
-  const showToast = useCallback(
-    (msg: string, type: "success" | "error" | "info" = "success") => {
-      setToast({ msg, type });
-    },
-    [],
-  );
+  const showToast = useCallback((msg: string, type: "success" | "error" | "info" = "success") => {
+    setToast({ msg, type });
+  }, []);
 
   const saveProduct = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.price) return;
     if (editingId) {
       setProducts((prev) =>
-        prev.map((p) =>
-          p.id === editingId ? { ...p, ...(form as AdminProduct) } : p,
-        ),
+        prev.map((p) => (p.id === editingId ? { ...p, ...(form as AdminProduct) } : p)),
       );
       addLog({
         category: "Product",
@@ -826,10 +799,7 @@ function ProductsSection({
       showToast(`"${form.name}" updated successfully`);
     } else {
       const newProd: AdminProduct = {
-        id:
-          (form.name || "product").toLowerCase().replace(/[^a-z0-9]+/g, "-") +
-          "-" +
-          Date.now(),
+        id: (form.name || "product").toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" + Date.now(),
         name: form.name || "",
         sku: form.sku || `TBB-${Math.floor(Math.random() * 9000 + 1000)}`,
         category: form.category || "earrings",
@@ -898,24 +868,18 @@ function ProductsSection({
   };
 
   const toggleFeatured = (id: string) => {
-    setProducts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, isFeatured: !p.isFeatured } : p)),
-    );
+    setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, isFeatured: !p.isFeatured } : p)));
   };
 
   const toggleBestSeller = (id: string) => {
     setProducts((prev) =>
-      prev.map((p) =>
-        p.id === id ? { ...p, isBestSeller: !p.isBestSeller } : p,
-      ),
+      prev.map((p) => (p.id === id ? { ...p, isBestSeller: !p.isBestSeller } : p)),
     );
   };
 
   const archiveProduct = (id: string, name: string) => {
     setProducts((prev) =>
-      prev.map((p) =>
-        p.id === id ? { ...p, status: "archived" as const } : p,
-      ),
+      prev.map((p) => (p.id === id ? { ...p, status: "archived" as const } : p)),
     );
     addLog({
       category: "Product",
@@ -942,8 +906,7 @@ function ProductsSection({
     const header = "ID,Name,SKU,Category,Price,Stock,Status\n";
     const rows = prods
       .map(
-        (p) =>
-          `${p.id},${p.name},${p.sku || ""},${p.category},${p.price},${p.stock},${p.status}`,
+        (p) => `${p.id},${p.name},${p.sku || ""},${p.category},${p.price},${p.stock},${p.status}`,
       )
       .join("\n");
     const blob = new Blob([header + rows], { type: "text/csv" });
@@ -961,26 +924,13 @@ function ProductsSection({
     setView("form");
   };
 
-  const categories = [
-    "earrings",
-    "necklaces",
-    "rings",
-    "bracelets",
-    "anklets",
-    "sets",
-  ];
+  const categories = ["earrings", "necklaces", "rings", "bracelets", "anklets", "sets"];
 
   if (view === "form") {
     return (
       <div className="space-y-6">
         <AnimatePresence>
-          {toast && (
-            <Toast
-              msg={toast.msg}
-              type={toast.type}
-              onClose={() => setToast(null)}
-            />
-          )}
+          {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
         </AnimatePresence>
         <SectionHeader
           icon={editingId ? Edit3 : Plus}
@@ -1018,9 +968,7 @@ function ProductsSection({
                 <input
                   className={inputCls}
                   value={form.name || ""}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, name: e.target.value }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                   placeholder="e.g. Aurelia Gold Hoops"
                   required
                 />
@@ -1029,9 +977,7 @@ function ProductsSection({
                 <input
                   className={inputCls}
                   value={form.sku || ""}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, sku: e.target.value }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, sku: e.target.value }))}
                   placeholder="Auto-generated if blank"
                 />
               </Field>
@@ -1039,9 +985,7 @@ function ProductsSection({
                 <select
                   className={selectCls}
                   value={form.category || "earrings"}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, category: e.target.value }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
                 >
                   {categories.map((c) => (
                     <option key={c} value={c}>
@@ -1071,9 +1015,7 @@ function ProductsSection({
               <textarea
                 className={inputCls + " h-24 resize-none"}
                 value={form.description || ""}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, description: e.target.value }))
-                }
+                onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
                 placeholder="Product description..."
               />
             </Field>
@@ -1081,9 +1023,7 @@ function ProductsSection({
               <input
                 className={inputCls}
                 value={form.material || ""}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, material: e.target.value }))
-                }
+                onChange={(e) => setForm((f) => ({ ...f, material: e.target.value }))}
                 placeholder="e.g. 18k Gold Plated Brass"
               />
             </Field>
@@ -1146,9 +1086,7 @@ function ProductsSection({
                   type="number"
                   className={inputCls}
                   value={form.stock ?? ""}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, stock: parseInt(e.target.value) }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, stock: parseInt(e.target.value) }))}
                   placeholder="0"
                   required
                 />
@@ -1156,13 +1094,8 @@ function ProductsSection({
             </div>
             {form.price && form.costPrice && (
               <p className="text-xs text-emerald-600 font-medium">
-                Profit Margin:{" "}
-                {(((form.price - form.costPrice) / form.price) * 100).toFixed(
-                  1,
-                )}
-                % — GH₵{" "}
-                {((form.price - form.costPrice) * cediMultiplier).toFixed(2)}{" "}
-                per unit
+                Profit Margin: {(((form.price - form.costPrice) / form.price) * 100).toFixed(1)}% —
+                GH₵ {((form.price - form.costPrice) * cediMultiplier).toFixed(2)} per unit
               </p>
             )}
           </div>
@@ -1178,21 +1111,14 @@ function ProductsSection({
                 { key: "isBestSeller", label: "Best Seller" },
                 { key: "isNew", label: "New Arrival" },
               ].map(({ key, label }) => (
-                <label
-                  key={key}
-                  className="flex items-center gap-2 cursor-pointer"
-                >
+                <label key={key} className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={!!(form as Record<string, unknown>)[key]}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, [key]: e.target.checked }))
-                    }
+                    onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.checked }))}
                     className="w-4 h-4 rounded accent-amber-500"
                   />
-                  <span className="text-xs font-medium text-gray-700">
-                    {label}
-                  </span>
+                  <span className="text-xs font-medium text-gray-700">{label}</span>
                 </label>
               ))}
             </div>
@@ -1200,9 +1126,7 @@ function ProductsSection({
 
           {/* Tags */}
           <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-            <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest mb-4">
-              Tags
-            </h3>
+            <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest mb-4">Tags</h3>
             <div className="flex gap-2 mb-3">
               <input
                 className={inputCls + " flex-1"}
@@ -1272,9 +1196,7 @@ function ProductsSection({
                 <input
                   className={inputCls}
                   value={form.seoTitle || ""}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, seoTitle: e.target.value }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, seoTitle: e.target.value }))}
                   placeholder="Search engine title..."
                 />
               </Field>
@@ -1282,9 +1204,7 @@ function ProductsSection({
                 <input
                   className={inputCls}
                   value={form.weight || ""}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, weight: e.target.value }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, weight: e.target.value }))}
                   placeholder="e.g. 25g"
                 />
               </Field>
@@ -1293,21 +1213,15 @@ function ProductsSection({
               <textarea
                 className={inputCls + " h-20 resize-none"}
                 value={form.seoDesc || ""}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, seoDesc: e.target.value }))
-                }
+                onChange={(e) => setForm((f) => ({ ...f, seoDesc: e.target.value }))}
                 placeholder="Meta description for search engines..."
               />
             </Field>
           </div>
 
           <div className="flex gap-3">
-            <button
-              type="submit"
-              className="btn-gold px-8 py-3 text-xs tracking-widest"
-            >
-              <Save className="h-4 w-4" />{" "}
-              {editingId ? "Update Product" : "Add Product"}
+            <button type="submit" className="btn-gold px-8 py-3 text-xs tracking-widest">
+              <Save className="h-4 w-4" /> {editingId ? "Update Product" : "Add Product"}
             </button>
             <button
               type="button"
@@ -1328,13 +1242,7 @@ function ProductsSection({
   return (
     <div className="space-y-6">
       <AnimatePresence>
-        {toast && (
-          <Toast
-            msg={toast.msg}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
+        {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
       </AnimatePresence>
       <SectionHeader
         icon={Package}
@@ -1383,14 +1291,7 @@ function ProductsSection({
           onChange={(e) => setCatFilter(e.target.value)}
         >
           <option value="all">All Categories</option>
-          {[
-            "earrings",
-            "necklaces",
-            "rings",
-            "bracelets",
-            "anklets",
-            "sets",
-          ].map((c) => (
+          {["earrings", "necklaces", "rings", "bracelets", "anklets", "sets"].map((c) => (
             <option key={c} value={c}>
               {c.charAt(0).toUpperCase() + c.slice(1)}
             </option>
@@ -1417,14 +1318,8 @@ function ProductsSection({
                 <th className="p-4 w-10">
                   <input
                     type="checkbox"
-                    onChange={(e) =>
-                      setSelected(
-                        e.target.checked ? filtered.map((p) => p.id) : [],
-                      )
-                    }
-                    checked={
-                      selected.length === filtered.length && filtered.length > 0
-                    }
+                    onChange={(e) => setSelected(e.target.checked ? filtered.map((p) => p.id) : [])}
+                    checked={selected.length === filtered.length && filtered.length > 0}
                     className="w-3.5 h-3.5 accent-amber-500"
                   />
                 </th>
@@ -1453,19 +1348,14 @@ function ProductsSection({
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filtered.map((prod) => (
-                <tr
-                  key={prod.id}
-                  className="hover:bg-amber-50/30 transition-colors"
-                >
+                <tr key={prod.id} className="hover:bg-amber-50/30 transition-colors">
                   <td className="p-4">
                     <input
                       type="checkbox"
                       checked={selected.includes(prod.id)}
                       onChange={(e) =>
                         setSelected((s) =>
-                          e.target.checked
-                            ? [...s, prod.id]
-                            : s.filter((x) => x !== prod.id),
+                          e.target.checked ? [...s, prod.id] : s.filter((x) => x !== prod.id),
                         )
                       }
                       className="w-3.5 h-3.5 accent-amber-500"
@@ -1474,14 +1364,10 @@ function ProductsSection({
                   <td className="p-4">
                     <div>
                       <p className="font-semibold text-gray-900">{prod.name}</p>
-                      <p className="text-[10px] text-gray-400 capitalize">
-                        {prod.category}
-                      </p>
+                      <p className="text-[10px] text-gray-400 capitalize">{prod.category}</p>
                     </div>
                   </td>
-                  <td className="p-4 text-gray-500 font-mono text-[10px]">
-                    {prod.sku || "—"}
-                  </td>
+                  <td className="p-4 text-gray-500 font-mono text-[10px]">{prod.sku || "—"}</td>
                   <td className="p-4">
                     <p className="font-bold text-amber-600">
                       GH₵{" "}
@@ -1578,9 +1464,7 @@ function ProductsSection({
         {filtered.length === 0 && (
           <div className="py-12 text-center">
             <Package className="h-10 w-10 text-gray-200 mx-auto mb-3" />
-            <p className="text-sm font-medium text-gray-400">
-              No products found
-            </p>
+            <p className="text-sm font-medium text-gray-400">No products found</p>
           </div>
         )}
       </div>
@@ -1610,8 +1494,7 @@ function OrdersSection({
   } | null>(null);
 
   const showToast = useCallback(
-    (msg: string, type: "success" | "error" | "info" = "success") =>
-      setToast({ msg, type }),
+    (msg: string, type: "success" | "error" | "info" = "success") => setToast({ msg, type }),
     [],
   );
 
@@ -1621,9 +1504,7 @@ function OrdersSection({
         const matchSearch =
           !search ||
           o.id.toLowerCase().includes(search.toLowerCase()) ||
-          o.shippingAddress.fullName
-            .toLowerCase()
-            .includes(search.toLowerCase()) ||
+          o.shippingAddress.fullName.toLowerCase().includes(search.toLowerCase()) ||
           o.paymentMethod.toLowerCase().includes(search.toLowerCase());
         const matchStatus = statusFilter === "all" || o.status === statusFilter;
         return matchSearch && matchStatus;
@@ -1685,13 +1566,7 @@ function OrdersSection({
   return (
     <div className="space-y-6">
       <AnimatePresence>
-        {toast && (
-          <Toast
-            msg={toast.msg}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
+        {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
       </AnimatePresence>
       <SectionHeader
         icon={ShoppingBag}
@@ -1722,9 +1597,7 @@ function OrdersSection({
           },
           {
             label: "In Progress",
-            val: orders.filter(
-              (o) => !["Delivered", "Payment Pending"].includes(o.status),
-            ).length,
+            val: orders.filter((o) => !["Delivered", "Payment Pending"].includes(o.status)).length,
             color: "bg-amber-50 text-amber-700",
           },
           {
@@ -1733,14 +1606,9 @@ function OrdersSection({
             color: "bg-red-50 text-red-700",
           },
         ].map(({ label, val, color }) => (
-          <div
-            key={label}
-            className={`${color} rounded-2xl p-4 border border-white/60`}
-          >
+          <div key={label} className={`${color} rounded-2xl p-4 border border-white/60`}>
             <p className="text-2xl font-bold">{val}</p>
-            <p className="text-[10px] uppercase tracking-widest font-semibold mt-1">
-              {label}
-            </p>
+            <p className="text-[10px] uppercase tracking-widest font-semibold mt-1">{label}</p>
           </div>
         ))}
       </div>
@@ -1788,18 +1656,14 @@ function OrdersSection({
               {/* Order Header */}
               <div
                 className="flex flex-wrap items-center justify-between gap-3 p-4 cursor-pointer hover:bg-gray-50 transition-colors"
-                onClick={() =>
-                  setExpandedId(expandedId === order.id ? null : order.id)
-                }
+                onClick={() => setExpandedId(expandedId === order.id ? null : order.id)}
               >
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-amber-50 rounded-xl">
                     <ShoppingBag className="h-4 w-4 text-amber-600" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-gray-900">
-                      {order.id}
-                    </p>
+                    <p className="text-xs font-bold text-gray-900">{order.id}</p>
                     <p className="text-[10px] text-gray-400">
                       {order.date} · {order.shippingAddress.fullName}
                     </p>
@@ -1840,9 +1704,7 @@ function OrdersSection({
                           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
                             Payment
                           </p>
-                          <p className="font-semibold text-gray-800">
-                            {order.paymentMethod}
-                          </p>
+                          <p className="font-semibold text-gray-800">{order.paymentMethod}</p>
                         </div>
                         <div>
                           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
@@ -1857,8 +1719,7 @@ function OrdersSection({
                             City
                           </p>
                           <p className="font-semibold text-gray-800">
-                            {order.shippingAddress.city},{" "}
-                            {order.shippingAddress.region}
+                            {order.shippingAddress.city}, {order.shippingAddress.region}
                           </p>
                         </div>
                         <div>
@@ -1876,14 +1737,10 @@ function OrdersSection({
                         {order.items.map((item, i) => (
                           <div key={i} className="flex justify-between text-xs">
                             <span className="text-gray-700 font-medium">
-                              {item.name}{" "}
-                              <span className="text-gray-400">×{item.qty}</span>
+                              {item.name} <span className="text-gray-400">×{item.qty}</span>
                             </span>
                             <span className="font-semibold text-amber-600">
-                              GH₵{" "}
-                              {(item.price * cediMultiplier * item.qty).toFixed(
-                                2,
-                              )}
+                              GH₵ {(item.price * cediMultiplier * item.qty).toFixed(2)}
                             </span>
                           </div>
                         ))}
@@ -1904,10 +1761,7 @@ function OrdersSection({
                           <select
                             value={order.status}
                             onChange={(e) =>
-                              handleStatus(
-                                order.id,
-                                e.target.value as Order["status"],
-                              )
+                              handleStatus(order.id, e.target.value as Order["status"])
                             }
                             className="text-xs border border-gray-200 bg-white px-3 py-2 rounded-xl focus:border-amber-400 outline-none font-semibold text-amber-700"
                           >
@@ -1953,10 +1807,7 @@ function CustomersSection({
 }: {
   customers: User[];
   orders: Order[];
-  updateUserRole: (
-    email: string,
-    role: "user" | "admin" | "superadmin",
-  ) => void;
+  updateUserRole: (email: string, role: "user" | "admin" | "superadmin") => void;
   updateUserStatus: (email: string, active: boolean) => void;
   addLog: (l: Omit<AuditLog, "id" | "timestamp">) => void;
 }) {
@@ -1968,8 +1819,7 @@ function CustomersSection({
     type: "success" | "error" | "info";
   } | null>(null);
   const showToast = useCallback(
-    (msg: string, type: "success" | "error" | "info" = "success") =>
-      setToast({ msg, type }),
+    (msg: string, type: "success" | "error" | "info" = "success") => setToast({ msg, type }),
     [],
   );
 
@@ -2018,13 +1868,7 @@ function CustomersSection({
   return (
     <div className="space-y-6">
       <AnimatePresence>
-        {toast && (
-          <Toast
-            msg={toast.msg}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
+        {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
       </AnimatePresence>
       <SectionHeader
         icon={Users}
@@ -2066,9 +1910,7 @@ function CustomersSection({
         ].map(({ label, val, color }) => (
           <div key={label} className={`${color} rounded-2xl p-4`}>
             <p className="text-2xl font-bold">{val}</p>
-            <p className="text-[10px] uppercase tracking-widest font-semibold mt-1">
-              {label}
-            </p>
+            <p className="text-[10px] uppercase tracking-widest font-semibold mt-1">{label}</p>
           </div>
         ))}
       </div>
@@ -2129,9 +1971,7 @@ function CustomersSection({
                     key={cust.email}
                     className="hover:bg-amber-50/20 cursor-pointer transition-colors"
                     onClick={() =>
-                      setExpandedEmail(
-                        expandedEmail === cust.email ? null : cust.email,
-                      )
+                      setExpandedEmail(expandedEmail === cust.email ? null : cust.email)
                     }
                   >
                     <td className="p-4">
@@ -2144,12 +1984,8 @@ function CustomersSection({
                             .slice(0, 2)}
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900">
-                            {cust.name}
-                          </p>
-                          <p className="text-gray-400 text-[10px]">
-                            {cust.email}
-                          </p>
+                          <p className="font-semibold text-gray-900">{cust.name}</p>
+                          <p className="text-gray-400 text-[10px]">{cust.email}</p>
                         </div>
                       </div>
                     </td>
@@ -2169,9 +2005,7 @@ function CustomersSection({
                             user: "superadmin",
                             ip: "127.0.0.1",
                           });
-                          showToast(
-                            `${cust.name}'s role updated to ${e.target.value}`,
-                          );
+                          showToast(`${cust.name}'s role updated to ${e.target.value}`);
                         }}
                         className="text-[10px] border border-gray-200 bg-white px-2 py-1 rounded-lg focus:border-amber-400 outline-none font-semibold text-gray-700"
                       >
@@ -2181,9 +2015,7 @@ function CustomersSection({
                       </select>
                     </td>
                     <td className="p-4">
-                      <StatusBadge
-                        status={cust.active !== false ? "Active" : "Banned"}
-                      />
+                      <StatusBadge status={cust.active !== false ? "Active" : "Banned"} />
                     </td>
                     <td className="p-4 text-gray-500">
                       {new Date(cust.createdAt).toLocaleDateString()}
@@ -2259,9 +2091,7 @@ function CustomersSection({
         {filtered.length === 0 && (
           <div className="py-12 text-center">
             <Users className="h-10 w-10 text-gray-200 mx-auto mb-3" />
-            <p className="text-sm font-medium text-gray-400">
-              No customers found
-            </p>
+            <p className="text-sm font-medium text-gray-400">No customers found</p>
           </div>
         )}
       </div>
@@ -2271,11 +2101,7 @@ function CustomersSection({
 
 // ─── Marketing Section ────────────────────────────────────────────────────────
 
-function MarketingSection({
-  addLog,
-}: {
-  addLog: (l: Omit<AuditLog, "id" | "timestamp">) => void;
-}) {
+function MarketingSection({ addLog }: { addLog: (l: Omit<AuditLog, "id" | "timestamp">) => void }) {
   const [promos, setPromos] = useState<PromoCode[]>(() => {
     const stored = localStorage.getItem("tbb_admin_promos_v2");
     if (stored) return JSON.parse(stored);
@@ -2327,8 +2153,7 @@ function MarketingSection({
     type: "success" | "error" | "info";
   } | null>(null);
   const showToast = useCallback(
-    (msg: string, type: "success" | "error" | "info" = "success") =>
-      setToast({ msg, type }),
+    (msg: string, type: "success" | "error" | "info" = "success") => setToast({ msg, type }),
     [],
   );
 
@@ -2365,8 +2190,7 @@ function MarketingSection({
       p.id === id
         ? {
             ...p,
-            status:
-              p.status === "active" ? ("paused" as const) : ("active" as const),
+            status: p.status === "active" ? ("paused" as const) : ("active" as const),
           }
         : p,
     );
@@ -2388,13 +2212,7 @@ function MarketingSection({
   return (
     <div className="space-y-6">
       <AnimatePresence>
-        {toast && (
-          <Toast
-            msg={toast.msg}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
+        {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
       </AnimatePresence>
       <SectionHeader
         icon={Megaphone}
@@ -2428,9 +2246,7 @@ function MarketingSection({
         ].map(({ label, val, color }) => (
           <div key={label} className={`${color} rounded-2xl p-4`}>
             <p className="text-2xl font-bold">{val}</p>
-            <p className="text-[10px] uppercase tracking-widest font-semibold mt-1">
-              {label}
-            </p>
+            <p className="text-[10px] uppercase tracking-widest font-semibold mt-1">{label}</p>
           </div>
         ))}
       </div>
@@ -2440,10 +2256,7 @@ function MarketingSection({
         <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest mb-4 flex items-center gap-2">
           <Tag className="h-4 w-4 text-amber-500" /> Create Promo Code
         </h3>
-        <form
-          onSubmit={addPromo}
-          className="grid grid-cols-1 md:grid-cols-5 gap-4"
-        >
+        <form onSubmit={addPromo} className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <Field label="Coupon Code">
             <input
               className={inputCls + " uppercase"}
@@ -2458,9 +2271,7 @@ function MarketingSection({
               type="number"
               className={inputCls}
               value={form.discount}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, discount: e.target.value }))
-              }
+              onChange={(e) => setForm((f) => ({ ...f, discount: e.target.value }))}
               placeholder="e.g. 15"
               required
             />
@@ -2480,17 +2291,12 @@ function MarketingSection({
               type="number"
               className={inputCls}
               value={form.maxUsage}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, maxUsage: e.target.value }))
-              }
+              onChange={(e) => setForm((f) => ({ ...f, maxUsage: e.target.value }))}
               placeholder="Unlimited"
             />
           </Field>
           <div className="flex items-end">
-            <button
-              type="submit"
-              className="btn-gold w-full py-2.5 text-[10px] tracking-widest"
-            >
+            <button type="submit" className="btn-gold w-full py-2.5 text-[10px] tracking-widest">
               <Plus className="h-4 w-4" /> Create
             </button>
           </div>
@@ -2590,8 +2396,7 @@ function MarketingSection({
           ))}
         </div>
         <p className="text-[10px] text-amber-600 mt-3 font-medium">
-          ✦ Campaign integrations available via API or Mailchimp / Klaviyo
-          connection
+          ✦ Campaign integrations available via API or Mailchimp / Klaviyo connection
         </p>
       </div>
     </div>
@@ -2614,9 +2419,7 @@ function AnalyticsSection({
   const totalRev = orders.reduce((s, o) => s + o.total * cediMultiplier, 0);
   const avgOrder = orders.length > 0 ? totalRev / orders.length : 0;
   const convRate =
-    customers.length > 0
-      ? ((orders.length / customers.length) * 100).toFixed(1)
-      : "0";
+    customers.length > 0 ? ((orders.length / customers.length) * 100).toFixed(1) : "0";
 
   const statusBreakdown = [
     "Order Received",
@@ -2634,27 +2437,21 @@ function AnalyticsSection({
     }))
     .filter((x) => x.count > 0);
 
-  const catBreakdown = [
-    "earrings",
-    "necklaces",
-    "rings",
-    "bracelets",
-    "anklets",
-    "sets",
-  ].map((cat) => ({
-    cat,
-    count: prods.filter((p) => p.category === cat).length,
-    rev: orders
-      .flatMap((o) => o.items)
-      .filter((i) => prods.find((p) => p.id === i.productId)?.category === cat)
-      .reduce((s, i) => s + i.price * i.qty * cediMultiplier, 0),
-  }));
+  const catBreakdown = ["earrings", "necklaces", "rings", "bracelets", "anklets", "sets"].map(
+    (cat) => ({
+      cat,
+      count: prods.filter((p) => p.category === cat).length,
+      rev: orders
+        .flatMap((o) => o.items)
+        .filter((i) => prods.find((p) => p.id === i.productId)?.category === cat)
+        .reduce((s, i) => s + i.price * i.qty * cediMultiplier, 0),
+    }),
+  );
 
   const topProducts = [...prods].sort((a, b) => b.stock - a.stock).slice(0, 5);
   const lowStock = prods.filter((p) => p.stock > 0 && p.stock <= 10);
   const revenueData = [
-    12000, 18500, 24000, 19500, 31000, 38000, 35000, 47000, 43000, 56000, 52000,
-    68000,
+    12000, 18500, 24000, 19500, 31000, 38000, 35000, 47000, 43000, 56000, 52000, 68000,
   ].map((v) => Math.round((v * cediMultiplier) / 15));
 
   return (
@@ -2703,12 +2500,8 @@ function AnalyticsSection({
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-sm font-bold text-gray-900">
-              Annual Revenue (GH₵)
-            </h3>
-            <p className="text-[10px] text-gray-400 mt-0.5">
-              Monthly revenue projection for 2026
-            </p>
+            <h3 className="text-sm font-bold text-gray-900">Annual Revenue (GH₵)</h3>
+            <p className="text-[10px] text-gray-400 mt-0.5">Monthly revenue projection for 2026</p>
           </div>
           <div className="flex gap-2">
             {["1M", "3M", "6M", "1Y"].map((t) => (
@@ -2735,10 +2528,7 @@ function AnalyticsSection({
           </div>
           <div className="text-center">
             <p className="text-xs font-bold text-gray-900">
-              GH₵{" "}
-              {Math.round(
-                revenueData.reduce((a, b) => a + b, 0) / 12,
-              ).toLocaleString()}
+              GH₵ {Math.round(revenueData.reduce((a, b) => a + b, 0) / 12).toLocaleString()}
             </p>
             <p className="text-[10px] text-gray-400">Monthly Avg</p>
           </div>
@@ -2748,24 +2538,17 @@ function AnalyticsSection({
       {/* Order Status Breakdown + Category Revenue */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-bold text-gray-900 mb-4">
-            Order Status Breakdown
-          </h3>
+          <h3 className="text-sm font-bold text-gray-900 mb-4">Order Status Breakdown</h3>
           {statusBreakdown.length === 0 ? (
-            <p className="text-xs text-gray-400 py-4 text-center">
-              No orders yet
-            </p>
+            <p className="text-xs text-gray-400 py-4 text-center">No orders yet</p>
           ) : (
             <div className="space-y-3">
               {statusBreakdown.map(({ status, count }) => {
-                const pct =
-                  orders.length > 0 ? (count / orders.length) * 100 : 0;
+                const pct = orders.length > 0 ? (count / orders.length) * 100 : 0;
                 return (
                   <div key={status}>
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="font-medium text-gray-700">
-                        {status}
-                      </span>
+                      <span className="font-medium text-gray-700">{status}</span>
                       <span className="text-gray-500">
                         {count} ({pct.toFixed(0)}%)
                       </span>
@@ -2786,9 +2569,7 @@ function AnalyticsSection({
         </div>
 
         <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-bold text-gray-900 mb-4">
-            Revenue by Category
-          </h3>
+          <h3 className="text-sm font-bold text-gray-900 mb-4">Revenue by Category</h3>
           <div className="space-y-3">
             {catBreakdown
               .filter((c) => c.count > 0)
@@ -2826,8 +2607,7 @@ function AnalyticsSection({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
           <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <TrendingUp className="h-4 w-4 text-amber-500" /> Top Products by
-            Stock
+            <TrendingUp className="h-4 w-4 text-amber-500" /> Top Products by Stock
           </h3>
           <div className="space-y-3">
             {topProducts.map((p, i) => (
@@ -2836,9 +2616,7 @@ function AnalyticsSection({
                   {i + 1}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-gray-800 truncate">
-                    {p.name}
-                  </p>
+                  <p className="font-semibold text-gray-800 truncate">{p.name}</p>
                   <p className="text-gray-400 capitalize">{p.category}</p>
                 </div>
                 <div className="text-right shrink-0">
@@ -2854,8 +2632,7 @@ function AnalyticsSection({
 
         <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
           <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <AlertTriangle className="h-4 w-4 text-amber-500" /> Low Stock
-            Alerts
+            <AlertTriangle className="h-4 w-4 text-amber-500" /> Low Stock Alerts
           </h3>
           {lowStock.length === 0 ? (
             <div className="py-6 text-center">
@@ -2913,11 +2690,7 @@ function AnalyticsSection({
 
 // ─── Content / Homepage Builder Section ──────────────────────────────────────
 
-function ContentSection({
-  addLog,
-}: {
-  addLog: (l: Omit<AuditLog, "id" | "timestamp">) => void;
-}) {
+function ContentSection({ addLog }: { addLog: (l: Omit<AuditLog, "id" | "timestamp">) => void }) {
   const defaultSettings: SiteSettings = {
     siteName: "Touch by Bel'voma",
     tagline: "Touch Every Moment with Elegance",
@@ -2944,21 +2717,18 @@ function ContentSection({
 
   const [settings, setSettings] = useState<SiteSettings>(() => {
     const stored = localStorage.getItem("tbb_site_settings");
-    return stored
-      ? { ...defaultSettings, ...JSON.parse(stored) }
-      : defaultSettings;
+    return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
   });
-  const [activeTab, setActiveTab] = useState<
-    "homepage" | "pages" | "general" | "integrations"
-  >("homepage");
+  const [activeTab, setActiveTab] = useState<"homepage" | "pages" | "general" | "integrations">(
+    "homepage",
+  );
   const [saved, setSaved] = useState(false);
   const [toast, setToast] = useState<{
     msg: string;
     type: "success" | "error" | "info";
   } | null>(null);
   const showToast = useCallback(
-    (msg: string, type: "success" | "error" | "info" = "success") =>
-      setToast({ msg, type }),
+    (msg: string, type: "success" | "error" | "info" = "success") => setToast({ msg, type }),
     [],
   );
 
@@ -2994,13 +2764,7 @@ function ContentSection({
   return (
     <div className="space-y-6">
       <AnimatePresence>
-        {toast && (
-          <Toast
-            msg={toast.msg}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
+        {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
       </AnimatePresence>
       <SectionHeader
         icon={FileText}
@@ -3036,8 +2800,7 @@ function ContentSection({
           <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest flex items-center gap-2">
-                <Megaphone className="h-4 w-4 text-amber-500" /> Announcement
-                Bar
+                <Megaphone className="h-4 w-4 text-amber-500" /> Announcement Bar
               </h3>
               <label className="flex items-center gap-2 cursor-pointer">
                 <span className="text-[10px] font-semibold text-gray-500">
@@ -3053,15 +2816,9 @@ function ContentSection({
                   className="text-amber-500"
                 >
                   {settings.announcementEnabled ? (
-                    <ToggleRight
-                      className="h-8 w-8 text-amber-500"
-                      strokeWidth={1.5}
-                    />
+                    <ToggleRight className="h-8 w-8 text-amber-500" strokeWidth={1.5} />
                   ) : (
-                    <ToggleLeft
-                      className="h-8 w-8 text-gray-300"
-                      strokeWidth={1.5}
-                    />
+                    <ToggleLeft className="h-8 w-8 text-gray-300" strokeWidth={1.5} />
                   )}
                 </button>
               </label>
@@ -3069,9 +2826,7 @@ function ContentSection({
             <input
               className={inputCls}
               value={settings.announcementBar}
-              onChange={(e) =>
-                setSettings((s) => ({ ...s, announcementBar: e.target.value }))
-              }
+              onChange={(e) => setSettings((s) => ({ ...s, announcementBar: e.target.value }))}
               placeholder="Announcement bar text..."
             />
           </div>
@@ -3086,9 +2841,7 @@ function ContentSection({
                 <input
                   className={inputCls}
                   value={settings.heroHeadline}
-                  onChange={(e) =>
-                    setSettings((s) => ({ ...s, heroHeadline: e.target.value }))
-                  }
+                  onChange={(e) => setSettings((s) => ({ ...s, heroHeadline: e.target.value }))}
                 />
               </Field>
               <Field label="Hero Subheading">
@@ -3127,12 +2880,8 @@ function ContentSection({
                   </div>
                 )}
                 <h2 className="text-lg font-bold">{settings.heroHeadline}</h2>
-                <p className="text-xs text-gray-400 mt-1">
-                  {settings.heroSubheading}
-                </p>
-                <p className="text-[10px] text-amber-400 mt-2">
-                  ✦ {settings.freeShippingMessage}
-                </p>
+                <p className="text-xs text-gray-400 mt-1">{settings.heroSubheading}</p>
+                <p className="text-[10px] text-amber-400 mt-2">✦ {settings.freeShippingMessage}</p>
               </div>
             </div>
           </div>
@@ -3159,14 +2908,8 @@ function ContentSection({
                   key={section}
                   className="flex items-center gap-2 cursor-pointer p-3 bg-gray-50 hover:bg-amber-50 rounded-xl border border-gray-100 hover:border-amber-200 transition-all"
                 >
-                  <input
-                    type="checkbox"
-                    defaultChecked
-                    className="w-3.5 h-3.5 accent-amber-500"
-                  />
-                  <span className="text-[10px] font-semibold text-gray-700">
-                    {section}
-                  </span>
+                  <input type="checkbox" defaultChecked className="w-3.5 h-3.5 accent-amber-500" />
+                  <span className="text-[10px] font-semibold text-gray-700">{section}</span>
                 </label>
               ))}
             </div>
@@ -3194,12 +2937,8 @@ function ContentSection({
                 <div className="flex items-center gap-3">
                   <FileText className="h-4 w-4 text-gray-300" />
                   <div>
-                    <p className="text-xs font-semibold text-gray-900">
-                      {name}
-                    </p>
-                    <p className="text-[10px] text-gray-400 font-mono">
-                      {path}
-                    </p>
+                    <p className="text-xs font-semibold text-gray-900">{name}</p>
+                    <p className="text-[10px] text-gray-400 font-mono">{path}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -3215,9 +2954,7 @@ function ContentSection({
                       <Edit3 className="h-3 w-3" /> Edit Content
                     </button>
                   ) : (
-                    <span className="text-[10px] text-gray-400 px-3 py-1.5">
-                      Auto-generated
-                    </span>
+                    <span className="text-[10px] text-gray-400 px-3 py-1.5">Auto-generated</span>
                   )}
                 </div>
               </div>
@@ -3238,36 +2975,28 @@ function ContentSection({
                 <input
                   className={inputCls}
                   value={settings.siteName}
-                  onChange={(e) =>
-                    setSettings((s) => ({ ...s, siteName: e.target.value }))
-                  }
+                  onChange={(e) => setSettings((s) => ({ ...s, siteName: e.target.value }))}
                 />
               </Field>
               <Field label="Tagline">
                 <input
                   className={inputCls}
                   value={settings.tagline}
-                  onChange={(e) =>
-                    setSettings((s) => ({ ...s, tagline: e.target.value }))
-                  }
+                  onChange={(e) => setSettings((s) => ({ ...s, tagline: e.target.value }))}
                 />
               </Field>
               <Field label="Support Email">
                 <input
                   className={inputCls}
                   value={settings.supportEmail}
-                  onChange={(e) =>
-                    setSettings((s) => ({ ...s, supportEmail: e.target.value }))
-                  }
+                  onChange={(e) => setSettings((s) => ({ ...s, supportEmail: e.target.value }))}
                 />
               </Field>
               <Field label="Support Phone">
                 <input
                   className={inputCls}
                   value={settings.supportPhone}
-                  onChange={(e) =>
-                    setSettings((s) => ({ ...s, supportPhone: e.target.value }))
-                  }
+                  onChange={(e) => setSettings((s) => ({ ...s, supportPhone: e.target.value }))}
                 />
               </Field>
               <Field label="Business Address">
@@ -3286,9 +3015,7 @@ function ContentSection({
                 <select
                   className={selectCls}
                   value={settings.currency}
-                  onChange={(e) =>
-                    setSettings((s) => ({ ...s, currency: e.target.value }))
-                  }
+                  onChange={(e) => setSettings((s) => ({ ...s, currency: e.target.value }))}
                 >
                   <option value="GHS">Ghana Cedi (GH₵)</option>
                   <option value="USD">US Dollar ($)</option>
@@ -3300,9 +3027,7 @@ function ContentSection({
                 <select
                   className={selectCls}
                   value={settings.timezone}
-                  onChange={(e) =>
-                    setSettings((s) => ({ ...s, timezone: e.target.value }))
-                  }
+                  onChange={(e) => setSettings((s) => ({ ...s, timezone: e.target.value }))}
                 >
                   <option value="Africa/Accra">Africa/Accra (GMT+0)</option>
                   <option value="Europe/London">Europe/London</option>
@@ -3385,9 +3110,7 @@ function ContentSection({
                 <input
                   className={inputCls}
                   value={settings.metaPixelId}
-                  onChange={(e) =>
-                    setSettings((s) => ({ ...s, metaPixelId: e.target.value }))
-                  }
+                  onChange={(e) => setSettings((s) => ({ ...s, metaPixelId: e.target.value }))}
                   placeholder="000000000000000"
                 />
               </Field>
@@ -3410,9 +3133,7 @@ function ContentSection({
                 key={int}
                 className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm flex items-center justify-between"
               >
-                <span className="text-xs font-semibold text-gray-700">
-                  {int}
-                </span>
+                <span className="text-xs font-semibold text-gray-700">{int}</span>
                 <span className="text-[9px] font-bold text-gray-400 border border-gray-200 px-2 py-0.5 rounded-full">
                   Connect
                 </span>
@@ -3449,17 +3170,14 @@ function SettingsSection({
   addLog: (l: Omit<AuditLog, "id" | "timestamp">) => void;
 }) {
   const [multInput, setMultInput] = useState(cediMultiplier.toString());
-  const [threshInput, setThreshInput] = useState(
-    freeShippingThreshold.toString(),
-  );
+  const [threshInput, setThreshInput] = useState(freeShippingThreshold.toString());
   const [maxAttInput, setMaxAttInput] = useState(maxFailedAttempts.toString());
   const [toast, setToast] = useState<{
     msg: string;
     type: "success" | "error" | "info";
   } | null>(null);
   const showToast = useCallback(
-    (msg: string, type: "success" | "error" | "info" = "success") =>
-      setToast({ msg, type }),
+    (msg: string, type: "success" | "error" | "info" = "success") => setToast({ msg, type }),
     [],
   );
 
@@ -3516,13 +3234,7 @@ function SettingsSection({
   return (
     <div className="space-y-6">
       <AnimatePresence>
-        {toast && (
-          <Toast
-            msg={toast.msg}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
+        {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
       </AnimatePresence>
       <SectionHeader
         icon={Settings}
@@ -3534,12 +3246,10 @@ function SettingsSection({
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-bold text-gray-900">
-              Maintenance Mode
-            </h3>
+            <h3 className="text-sm font-bold text-gray-900">Maintenance Mode</h3>
             <p className="text-xs text-gray-500 mt-1 max-w-lg">
-              Suspends the storefront and shows a luxury splash screen to all
-              visitors. Admin/superadmin access is unaffected.
+              Suspends the storefront and shows a luxury splash screen to all visitors.
+              Admin/superadmin access is unaffected.
             </p>
             <div className="flex items-center gap-2 mt-3">
               <span
@@ -3569,15 +3279,9 @@ function SettingsSection({
             className="shrink-0"
           >
             {maintenanceMode ? (
-              <ToggleRight
-                className="h-12 w-12 text-amber-500"
-                strokeWidth={1.5}
-              />
+              <ToggleRight className="h-12 w-12 text-amber-500" strokeWidth={1.5} />
             ) : (
-              <ToggleLeft
-                className="h-12 w-12 text-gray-300"
-                strokeWidth={1.5}
-              />
+              <ToggleLeft className="h-12 w-12 text-gray-300" strokeWidth={1.5} />
             )}
           </button>
         </div>
@@ -3586,15 +3290,11 @@ function SettingsSection({
       {/* Currency Settings */}
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm space-y-4">
         <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
-          <DollarSign className="h-4 w-4 text-amber-500" /> Currency Exchange
-          Rate
+          <DollarSign className="h-4 w-4 text-amber-500" /> Currency Exchange Rate
         </h3>
         <p className="text-xs text-gray-500">
-          All product prices are stored in USD and converted to Ghana Cedis
-          using this multiplier. Currently:{" "}
-          <strong className="text-amber-600">
-            1 USD = GH₵ {cediMultiplier}
-          </strong>
+          All product prices are stored in USD and converted to Ghana Cedis using this multiplier.
+          Currently: <strong className="text-amber-600">1 USD = GH₵ {cediMultiplier}</strong>
         </p>
         <form onSubmit={applyMult} className="flex gap-3 max-w-sm">
           <input
@@ -3621,11 +3321,8 @@ function SettingsSection({
           <Truck className="h-4 w-4 text-amber-500" /> Free Shipping Threshold
         </h3>
         <p className="text-xs text-gray-500">
-          Orders meeting or exceeding this value (in GH₵) qualify for free
-          shipping. Currently:{" "}
-          <strong className="text-amber-600">
-            GH₵ {freeShippingThreshold}
-          </strong>
+          Orders meeting or exceeding this value (in GH₵) qualify for free shipping. Currently:{" "}
+          <strong className="text-amber-600">GH₵ {freeShippingThreshold}</strong>
         </p>
         <form onSubmit={applyThresh} className="flex gap-3 max-w-sm">
           <input
@@ -3648,15 +3345,11 @@ function SettingsSection({
       {/* Security */}
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm space-y-4">
         <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
-          <Shield className="h-4 w-4 text-amber-500" /> Security — Login Rate
-          Limiter
+          <Shield className="h-4 w-4 text-amber-500" /> Security — Login Rate Limiter
         </h3>
         <p className="text-xs text-gray-500">
-          Maximum failed login attempts before forcing CAPTCHA verification.
-          Currently:{" "}
-          <strong className="text-amber-600">
-            {maxFailedAttempts} attempts
-          </strong>
+          Maximum failed login attempts before forcing CAPTCHA verification. Currently:{" "}
+          <strong className="text-amber-600">{maxFailedAttempts} attempts</strong>
         </p>
         <form onSubmit={applyMaxAtt} className="flex gap-3 max-w-sm">
           <input
@@ -3695,9 +3388,7 @@ function SettingsSection({
               key={name}
               className={`flex items-center justify-between p-3.5 rounded-xl border transition-all ${enabled ? "border-emerald-200 bg-emerald-50" : "border-gray-200 bg-gray-50"}`}
             >
-              <span className="text-xs font-semibold text-gray-700">
-                {name}
-              </span>
+              <span className="text-xs font-semibold text-gray-700">{name}</span>
               <span
                 className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${enabled ? "bg-emerald-100 text-emerald-700" : "bg-gray-200 text-gray-500"}`}
               >
@@ -3818,18 +3509,13 @@ function SecuritySection({
               color: "bg-blue-50 border-blue-200 text-blue-700",
             },
           ].map(({ role, label, desc, color }) => (
-            <div
-              key={role}
-              className={`flex items-start gap-4 p-4 rounded-xl border ${color}`}
-            >
+            <div key={role} className={`flex items-start gap-4 p-4 rounded-xl border ${color}`}>
               <div className="p-2 rounded-lg bg-white/60">
                 <Shield className="h-4 w-4" />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-bold uppercase tracking-wider">
-                    {label}
-                  </span>
+                  <span className="text-xs font-bold uppercase tracking-wider">{label}</span>
                   <span className="text-[9px] font-mono bg-black/10 px-1.5 py-0.5 rounded">
                     {role}
                   </span>
@@ -3936,21 +3622,14 @@ function SecuritySection({
 
 // ─── Activity / Audit Log Section ────────────────────────────────────────────
 
-function ActivitySection({
-  logs,
-  clearLogs,
-}: {
-  logs: AuditLog[];
-  clearLogs: () => void;
-}) {
+function ActivitySection({ logs, clearLogs }: { logs: AuditLog[]; clearLogs: () => void }) {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(
     () =>
       logs.filter((l) => {
-        const matchCat =
-          filter === "all" || l.category.toLowerCase() === filter;
+        const matchCat = filter === "all" || l.category.toLowerCase() === filter;
         const matchSearch =
           !search ||
           l.action.toLowerCase().includes(search.toLowerCase()) ||
@@ -3964,9 +3643,7 @@ function ActivitySection({
   const exportLogs = () => {
     const header = "Timestamp,Category,Action,User,IP\n";
     const rows = logs
-      .map(
-        (l) => `${l.timestamp},${l.category},"${l.action}",${l.user},${l.ip}`,
-      )
+      .map((l) => `${l.timestamp},${l.category},"${l.action}",${l.user},${l.ip}`)
       .join("\n");
     const blob = new Blob([header + rows], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -4037,23 +3714,21 @@ function ActivitySection({
 
       {/* Stats */}
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-        {["Auth", "Config", "Security", "Product", "Order", "Customer"].map(
-          (cat) => (
-            <div
-              key={cat}
-              className="bg-white border border-gray-100 rounded-xl p-3 text-center shadow-sm"
+        {["Auth", "Config", "Security", "Product", "Order", "Customer"].map((cat) => (
+          <div
+            key={cat}
+            className="bg-white border border-gray-100 rounded-xl p-3 text-center shadow-sm"
+          >
+            <p className="text-lg font-bold text-gray-900">
+              {logs.filter((l) => l.category === cat).length}
+            </p>
+            <span
+              className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${catColor[cat]}`}
             >
-              <p className="text-lg font-bold text-gray-900">
-                {logs.filter((l) => l.category === cat).length}
-              </p>
-              <span
-                className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${catColor[cat]}`}
-              >
-                {cat}
-              </span>
-            </div>
-          ),
-        )}
+              {cat}
+            </span>
+          </div>
+        ))}
       </div>
 
       {/* Log Feed */}
@@ -4062,9 +3737,7 @@ function ActivitySection({
           {filtered.length === 0 ? (
             <div className="py-12 text-center">
               <Terminal className="h-8 w-8 text-gray-200 mx-auto mb-3" />
-              <p className="text-sm font-medium text-gray-400">
-                No log entries
-              </p>
+              <p className="text-sm font-medium text-gray-400">No log entries</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-50">
@@ -4081,25 +3754,16 @@ function ActivitySection({
                     {log.category}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-gray-800">
-                      {log.action}
-                    </p>
+                    <p className="text-xs font-medium text-gray-800">{log.action}</p>
                     {log.details && (
-                      <p className="text-[10px] text-gray-400 mt-0.5">
-                        {log.details}
-                      </p>
+                      <p className="text-[10px] text-gray-400 mt-0.5">{log.details}</p>
                     )}
                     <p className="text-[10px] text-gray-400 mt-1">
-                      by{" "}
-                      <span className="font-semibold text-gray-600">
-                        {log.user}
-                      </span>{" "}
-                      · {new Date(log.timestamp).toLocaleString()}
+                      by <span className="font-semibold text-gray-600">{log.user}</span> ·{" "}
+                      {new Date(log.timestamp).toLocaleString()}
                     </p>
                   </div>
-                  <span className="text-[10px] font-mono text-gray-400 shrink-0">
-                    {log.ip}
-                  </span>
+                  <span className="text-[10px] font-mono text-gray-400 shrink-0">{log.ip}</span>
                 </motion.div>
               ))}
             </div>
@@ -4131,9 +3795,7 @@ function PlaceholderSection({
           <Icon className="h-8 w-8 text-amber-600" />
         </div>
         <h3 className="text-sm font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-xs text-gray-500 max-w-md mx-auto mb-6">
-          {subtitle}
-        </p>
+        <p className="text-xs text-gray-500 max-w-md mx-auto mb-6">{subtitle}</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-left max-w-2xl mx-auto">
           {features.map((f) => (
             <div
@@ -4186,12 +3848,7 @@ function SuperAdminDashboardComponent() {
       price: p.price,
       discountPrice: p.originalPrice,
       costPrice: Math.round(p.price * 0.45),
-      stock:
-        p.id.includes("hoops") ||
-        p.id.includes("studs") ||
-        p.id.includes("sculpt")
-          ? 7
-          : 45,
+      stock: p.id.includes("hoops") || p.id.includes("studs") || p.id.includes("sculpt") ? 7 : 45,
       status: "published" as const,
       isFeatured: false,
       isBestSeller: p.isBestSeller || false,
@@ -4208,10 +3865,7 @@ function SuperAdminDashboardComponent() {
 
   // Persist products
   useEffect(() => {
-    localStorage.setItem(
-      "tbb_admin_products_v2",
-      JSON.stringify(adminProducts),
-    );
+    localStorage.setItem("tbb_admin_products_v2", JSON.stringify(adminProducts));
   }, [adminProducts]);
 
   // Route guard
@@ -4278,9 +3932,7 @@ function SuperAdminDashboardComponent() {
   const pendingOrderCount = orders.filter(
     (o) => !["Delivered", "Payment Pending"].includes(o.status),
   ).length;
-  const lowStockCount = adminProducts.filter(
-    (p) => p.stock > 0 && p.stock <= 10,
-  ).length;
+  const lowStockCount = adminProducts.filter((p) => p.stock > 0 && p.stock <= 10).length;
   const outOfStockCount = adminProducts.filter((p) => p.stock === 0).length;
 
   if (!user || user.role !== "superadmin") {
@@ -4394,8 +4046,7 @@ function SuperAdminDashboardComponent() {
           )}
           {lowStockCount + outOfStockCount > 0 && (
             <span className="flex items-center gap-1.5 text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
-              <AlertTriangle className="h-3 w-3" />{" "}
-              {lowStockCount + outOfStockCount} Stock Alerts
+              <AlertTriangle className="h-3 w-3" /> {lowStockCount + outOfStockCount} Stock Alerts
             </span>
           )}
         </div>
@@ -4417,9 +4068,7 @@ function SuperAdminDashboardComponent() {
                 .slice(0, 2)}
             </div>
             <div className="hidden sm:block">
-              <p className="text-xs font-semibold text-gray-800 leading-tight">
-                {user.name}
-              </p>
+              <p className="text-xs font-semibold text-gray-800 leading-tight">{user.name}</p>
               <p className="text-[9px] text-amber-600 font-bold uppercase tracking-wider">
                 Root Access
               </p>
@@ -4470,9 +4119,7 @@ function SuperAdminDashboardComponent() {
                   <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">
                     Root Access Level
                   </p>
-                  <p className="text-[9px] text-amber-600 mt-0.5">
-                    Full system privileges active
-                  </p>
+                  <p className="text-[9px] text-amber-600 mt-0.5">Full system privileges active</p>
                 </div>
               </div>
             </motion.aside>
@@ -4490,9 +4137,7 @@ function SuperAdminDashboardComponent() {
               <Crown className="h-3.5 w-3.5 text-amber-500" />
               <span className="text-amber-600 font-semibold">Super Admin</span>
               <ChevronRight className="h-3.5 w-3.5" />
-              <span className="font-medium text-gray-600">
-                {sectionTitles[activeSection]}
-              </span>
+              <span className="font-medium text-gray-600">{sectionTitles[activeSection]}</span>
             </div>
 
             <AnimatePresence mode="wait">
@@ -4537,9 +4182,7 @@ function SuperAdminDashboardComponent() {
                     addLog={addLog}
                   />
                 )}
-                {activeSection === "marketing" && (
-                  <MarketingSection addLog={addLog} />
-                )}
+                {activeSection === "marketing" && <MarketingSection addLog={addLog} />}
                 {activeSection === "analytics" && (
                   <AnalyticsSection
                     orders={orders}
@@ -4548,9 +4191,7 @@ function SuperAdminDashboardComponent() {
                     cediMultiplier={cediMultiplier}
                   />
                 )}
-                {activeSection === "content" && (
-                  <ContentSection addLog={addLog} />
-                )}
+                {activeSection === "content" && <ContentSection addLog={addLog} />}
                 {activeSection === "settings" && (
                   <SettingsSection
                     cediMultiplier={cediMultiplier}
