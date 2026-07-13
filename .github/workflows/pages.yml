@@ -37,23 +37,49 @@ jobs:
       - name: Auto-format with Prettier
         run: npx prettier --write "src/**/*.{ts,tsx,css}" "eslint.config.js"
 
-      - name: Build (SPA mode for GitHub Pages)
+      - name: Build
         run: npm run build
         env:
           NODE_ENV: production
-          GITHUB_PAGES: "1"
 
-      - name: Add SPA routing support
+      - name: Generate index.html
         run: |
-          # Copy index.html as 404.html so all routes work on GitHub Pages
-          if [ -f ".output/public/index.html" ]; then
-            cp .output/public/index.html .output/public/404.html
-            echo "✅ SPA 404.html created"
-          else
-            echo "⚠️  No index.html found, listing .output/public:"
-            find .output/public -type f | head -30
-          fi
-          touch .output/public/.nojekyll
+          cd .output/public
+
+          # Find the actual hashed asset filenames
+          INDEX_JS=$(ls assets/index-*.js 2>/dev/null | head -1 || ls assets/routes-*.js 2>/dev/null | head -1)
+          STYLES_CSS=$(ls assets/styles-*.css 2>/dev/null | head -1)
+
+          echo "JS entry: $INDEX_JS"
+          echo "CSS entry: $STYLES_CSS"
+
+          # Build the index.html with correct asset references
+          cat > index.html << HTMLEOF
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Touch by Bel'voma | Luxury Jewelry in Ghana</title>
+              <meta name="description" content="Luxury handcrafted gold-plated jewelry. Shop earrings, necklaces, rings and bracelets in Ghana." />
+              <link rel="icon" href="./favicon.png" />
+              $([ -n "$STYLES_CSS" ] && echo "<link rel=\"stylesheet\" crossorigin href=\"./$STYLES_CSS\">")
+              $([ -n "$INDEX_JS" ] && echo "<script type=\"module\" crossorigin src=\"./$INDEX_JS\"></script>")
+            </head>
+            <body>
+              <div id="root"></div>
+            </body>
+          </html>
+          HTMLEOF
+
+          # Copy as 404.html so all client-side routes work
+          cp index.html 404.html
+
+          # Prevent Jekyll processing
+          touch .nojekyll
+
+          echo "=== Generated index.html ==="
+          cat index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
