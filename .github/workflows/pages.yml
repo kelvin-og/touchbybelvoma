@@ -42,20 +42,27 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Generate index.html
+      - name: Generate index.html for GitHub Pages
         run: |
-          cd .output/public
+          python3 - << 'PYEOF'
+          import os, glob
 
-          # Find the actual hashed asset filenames
-          INDEX_JS=$(ls assets/index-*.js 2>/dev/null | head -1 || ls assets/routes-*.js 2>/dev/null | head -1)
-          STYLES_CSS=$(ls assets/styles-*.css 2>/dev/null | head -1)
+          pub = ".output/public"
+          assets = os.path.join(pub, "assets")
 
-          echo "JS entry: $INDEX_JS"
-          echo "CSS entry: $STYLES_CSS"
+          js_files  = sorted(glob.glob(os.path.join(assets, "index-*.js")))
+          css_files = sorted(glob.glob(os.path.join(assets, "styles-*.css")))
 
-          # Build the index.html with correct asset references
-          cat > index.html << HTMLEOF
-          <!doctype html>
+          js_entry  = os.path.basename(js_files[0])  if js_files  else ""
+          css_entry = os.path.basename(css_files[0]) if css_files else ""
+
+          print(f"JS  entry: {js_entry}")
+          print(f"CSS entry: {css_entry}")
+
+          css_tag = f'<link rel="stylesheet" crossorigin href="./assets/{css_entry}">' if css_entry else ""
+          js_tag  = f'<script type="module" crossorigin src="./assets/{js_entry}"></script>' if js_entry else ""
+
+          html = f"""<!doctype html>
           <html lang="en">
             <head>
               <meta charset="UTF-8" />
@@ -63,23 +70,27 @@ jobs:
               <title>Touch by Bel'voma | Luxury Jewelry in Ghana</title>
               <meta name="description" content="Luxury handcrafted gold-plated jewelry. Shop earrings, necklaces, rings and bracelets in Ghana." />
               <link rel="icon" href="./favicon.png" />
-              $([ -n "$STYLES_CSS" ] && echo "<link rel=\"stylesheet\" crossorigin href=\"./$STYLES_CSS\">")
-              $([ -n "$INDEX_JS" ] && echo "<script type=\"module\" crossorigin src=\"./$INDEX_JS\"></script>")
+              {css_tag}
+              {js_tag}
             </head>
             <body>
               <div id="root"></div>
             </body>
-          </html>
-          HTMLEOF
+          </html>"""
 
-          # Copy as 404.html so all client-side routes work
-          cp index.html 404.html
+          with open(os.path.join(pub, "index.html"), "w") as f:
+              f.write(html)
 
-          # Prevent Jekyll processing
-          touch .nojekyll
+          with open(os.path.join(pub, "404.html"), "w") as f:
+              f.write(html)
 
-          echo "=== Generated index.html ==="
-          cat index.html
+          open(os.path.join(pub, ".nojekyll"), "w").close()
+
+          print("Done! index.html and 404.html created.")
+          print("Contents of .output/public:")
+          for item in sorted(os.listdir(pub)):
+              print(f"  {item}")
+          PYEOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
