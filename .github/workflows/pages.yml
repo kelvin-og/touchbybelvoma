@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Auto-format with Prettier
+        run: npx prettier --write "src/**/*.{ts,tsx,css}" "eslint.config.js"
+
+      - name: Build (SPA mode for GitHub Pages)
+        run: npm run build
+        env:
+          NODE_ENV: production
+          GITHUB_PAGES: "1"
+
+      - name: Add SPA routing support
+        run: |
+          # Copy index.html as 404.html so all routes work on GitHub Pages
+          if [ -f ".output/public/index.html" ]; then
+            cp .output/public/index.html .output/public/404.html
+            echo "✅ SPA 404.html created"
+          else
+            echo "⚠️  No index.html found, listing .output/public:"
+            find .output/public -type f | head -30
+          fi
+          touch .output/public/.nojekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ".output/public"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

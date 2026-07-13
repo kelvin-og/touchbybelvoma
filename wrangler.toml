@@ -1,6 +1,4 @@
 name = "touch-by-belvoma"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
-
-[env.production]
-name = "touch-by-belvoma"
+pages_build_output_dir = ".output/public"
