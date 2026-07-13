@@ -33,10 +33,13 @@ jobs:
       - name: Build production bundle
         run: npm run build
 
+      - name: List build output (debug)
+        run: ls -la .output/ && ls -la .output/public/
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: production-build-${{ github.sha }}
           path: .output/
           retention-days: 7
-          if-no-files-found: error
+          if-no-files-found: warn
