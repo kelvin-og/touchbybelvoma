@@ -1,1 +1,941 @@
-import{n as e,s as t,t as n}from"./jsx-runtime-D8nDyRPw.js";import{t as r}from"./link-MzsLFx_h.js";import{C as i,E as a,_ as o,a as s,b as c,c as l,d as u,f as ee,g as d,h as f,i as te,l as p,m,o as h,p as g,r as ne,s as re,t as _,u as v,v as ie,w as y,x as ae,y as b}from"./proxy-DkmRD95V.js";import{t as x}from"./arrow-right-BmTjqXc8.js";import{t as S}from"./sparkles-C6yX4eVY.js";import{t as oe}from"./star-vwdllOWM.js";import{o as C,t as w}from"./products-pUvZdLaj.js";import{t as se}from"./hero-E7sQnIos.js";import{t as T}from"./ProductCard-BLNj-_uL.js";var ce=a(`quote`,[[`path`,{d:`M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z`,key:`rib7q0`}],[`path`,{d:`M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z`,key:`1ymkrd`}]]);function E(e,t){let n,r=()=>{let{currentTime:r}=t,i=(r===null?0:r.value)/100;n!==i&&e(i),n=i};return f.preUpdate(r,!0),()=>m(r)}function le(...e){let t=!Array.isArray(e[0]),n=t?0:-1,r=e[0+n],i=e[1+n],a=e[2+n],o=e[3+n],s=g(i,a,o);return t?s(r):s}function D(e){return typeof window>`u`?!1:e?u():v()}var ue=50,O=()=>({current:0,offset:[],progress:0,scrollLength:0,targetOffset:0,targetLength:0,containerLength:0,velocity:0}),de=()=>({time:0,x:O(),y:O()}),fe={x:{length:`Width`,position:`Left`},y:{length:`Height`,position:`Top`}};function k(e,t,n,r){let i=n[t],{length:a,position:s}=fe[t],c=i.current,l=n.time;i.current=Math.abs(e[`scroll${s}`]),i.scrollLength=e[`scroll${a}`]-e[`client${a}`],i.offset.length=0,i.offset[0]=0,i.offset[1]=i.scrollLength,i.progress=ie(0,i.scrollLength,i.current);let u=r-l;i.velocity=u>ue?0:o(i.current-c,u)}function pe(e,t,n){k(e,`x`,t,n),k(e,`y`,t,n),t.time=n}function me(e,t){let n={x:0,y:0},r=e;for(;r&&r!==t;)if(re(r))n.x+=r.offsetLeft,n.y+=r.offsetTop,r=r.offsetParent;else if(r.tagName===`svg`){let e=r.getBoundingClientRect();r=r.parentElement;let t=r.getBoundingClientRect();n.x+=e.left-t.left,n.y+=e.top-t.top}else if(r instanceof SVGGraphicsElement){let{x:e,y:t}=r.getBBox();n.x+=e,n.y+=t;let i=null,a=r.parentNode;for(;!i;)a.tagName===`svg`&&(i=a),a=r.parentNode;r=i}else break;return n}var A={start:0,center:.5,end:1};function j(e,t,n=0){let r=0;if(e in A&&(e=A[e]),typeof e==`string`){let t=parseFloat(e);e.endsWith(`px`)?r=t:e.endsWith(`%`)?e=t/100:e.endsWith(`vw`)?r=t/100*document.documentElement.clientWidth:e.endsWith(`vh`)?r=t/100*document.documentElement.clientHeight:e=t}return typeof e==`number`&&(r=t*e),n+r}var he=[0,0];function ge(e,t,n,r){let i=Array.isArray(e)?e:he,a=0,o=0;return typeof e==`number`?i=[e,e]:typeof e==`string`&&(e=e.trim(),i=e.includes(` `)?e.split(` `):[e,A[e]?e:`0`]),a=j(i[0],n,r),o=j(i[1],t),a-o}var M={Enter:[[0,1],[1,1]],Exit:[[0,0],[1,0]],Any:[[1,0],[0,1]],All:[[0,0],[1,1]]},_e={x:0,y:0};function ve(e){return`getBBox`in e&&e.tagName!==`svg`?e.getBBox():{width:e.clientWidth,height:e.clientHeight}}function ye(e,t,n){let{offset:r=M.All}=n,{target:i=e,axis:a=`y`}=n,o=a===`y`?`height`:`width`,s=i===e?_e:me(i,e),c=i===e?{width:e.scrollWidth,height:e.scrollHeight}:ve(i),l={width:e.clientWidth,height:e.clientHeight};t[a].offset.length=0;let u=!t[a].interpolate,d=r.length;for(let e=0;e<d;e++){let n=ge(r[e],l[o],c[o],s[a]);!u&&n!==t[a].interpolatorOffsets[e]&&(u=!0),t[a].offset[e]=n}u&&(t[a].interpolate=g(t[a].offset,ee(r),{clamp:!1}),t[a].interpolatorOffsets=[...t[a].offset]),t[a].progress=ae(0,1,t[a].interpolate(t[a].current))}function be(e,t=e,n){if(n.x.targetOffset=0,n.y.targetOffset=0,t!==e){let r=t;for(;r&&r!==e;)n.x.targetOffset+=r.offsetLeft,n.y.targetOffset+=r.offsetTop,r=r.offsetParent}n.x.targetLength=t===e?t.scrollWidth:t.clientWidth,n.y.targetLength=t===e?t.scrollHeight:t.clientHeight,n.x.containerLength=e.clientWidth,n.y.containerLength=e.clientHeight}function xe(e,t,n,r={}){return{measure:t=>{be(e,r.target,n),pe(e,n,t),(r.offset||r.target)&&ye(e,n,r)},notify:()=>t(n)}}var N=new WeakMap,P=new WeakMap,F=new WeakMap,I=new WeakMap,L=new WeakMap,R=e=>e===document.scrollingElement?window:e;function z(e,{container:t=document.scrollingElement,trackContentSize:n=!1,...r}={}){if(!t)return b;let i=F.get(t);i||(i=new Set,F.set(t,i));let a=xe(t,e,de(),r);if(i.add(a),!N.has(t)){let e=()=>{for(let e of i)e.measure(d.timestamp);f.preUpdate(n)},n=()=>{for(let e of i)e.notify()},r=()=>f.read(e);N.set(t,r);let a=R(t);window.addEventListener(`resize`,r),t!==document.documentElement&&P.set(t,te(t,r)),a.addEventListener(`scroll`,r),r()}if(n&&!L.has(t)){let e=N.get(t),n={width:t.scrollWidth,height:t.scrollHeight};I.set(t,n);let r=f.read(()=>{let r=t.scrollWidth,i=t.scrollHeight;(n.width!==r||n.height!==i)&&(e(),n.width=r,n.height=i)},!0);L.set(t,r)}let o=N.get(t);return f.read(o,!1,!0),()=>{m(o);let e=F.get(t);if(!e||(e.delete(a),e.size))return;let n=N.get(t);N.delete(t),n&&(R(t).removeEventListener(`scroll`,n),P.get(t)?.(),window.removeEventListener(`resize`,n));let r=L.get(t);r&&(m(r),L.delete(t)),I.delete(t)}}var Se=[[M.Enter,`entry`],[M.Exit,`exit`],[M.Any,`cover`],[M.All,`contain`]],B={start:0,end:1};function Ce(e){let t=e.trim().split(/\s+/);if(t.length!==2)return;let n=B[t[0]],r=B[t[1]];if(!(n===void 0||r===void 0))return[n,r]}function we(e){if(e.length!==2)return;let t=[];for(let n of e)if(Array.isArray(n))t.push(n);else if(typeof n==`string`){let e=Ce(n);if(!e)return;t.push(e)}else return;return t}function Te(e,t){let n=we(e);if(!n)return!1;for(let e=0;e<2;e++){let r=n[e],i=t[e];if(r[0]!==i[0]||r[1]!==i[1])return!1}return!0}function V(e){if(!e)return{rangeStart:`contain 0%`,rangeEnd:`contain 100%`};for(let[t,n]of Se)if(Te(e,t))return{rangeStart:`${n} 0%`,rangeEnd:`${n} 100%`}}var H=new Map;function U(e){let t={value:0};return{currentTime:t,cancel:z(n=>{t.value=n[e.axis].progress*100},e)}}function W({source:e,container:t,...n}){let{axis:r}=n;e&&(t=e);let i=H.get(t);i||(i=new Map,H.set(t,i));let a=n.target??`self`,o=i.get(a);o||(o={},i.set(a,o));let s=r+(n.offset??[]).join(`,`);return o[s]||(n.target&&D(n.target)?V(n.offset)?o[s]=new ViewTimeline({subject:n.target,axis:r}):o[s]=U({container:t,...n}):D()?o[s]=new ScrollTimeline({source:t,axis:r}):o[s]=U({container:t,...n})),o[s]}function Ee(e,t){let n=W(t),r=t.target?V(t.offset):void 0,i=t.target?D(t.target)&&!!r:D();return e.attachTimeline({timeline:i?n:void 0,...r&&i&&{rangeStart:r.rangeStart,rangeEnd:r.rangeEnd},observe:e=>(e.pause(),E(t=>{e.time=e.iterationDuration*t},n))})}function De(e){return e&&(e.target||e.offset)}function Oe(e){return e.length===2}function ke(e,t){return Oe(e)||De(t)?z(n=>{e(n[t.axis].progress,n)},t):E(e,W(t))}function G(e,{axis:t=`y`,container:n=document.scrollingElement,...r}={}){if(!n)return b;let i={axis:t,container:n,...r};return typeof e==`function`?ke(e,i):Ee(e,i)}var K=t(e(),1),Ae=()=>({scrollX:p(0),scrollY:p(0),scrollXProgress:p(0),scrollYProgress:p(0)}),q=e=>e?!e.current:!1;function J(e,t,n,r){return{factory:i=>{let a,o=()=>{if(q(n)||q(r)){h.read(o);return}a=G(i,{...t,axis:e,container:n?.current||void 0,target:r?.current||void 0})};return h.read(o),()=>{s(o),a?.()}},times:[0,1],keyframes:[0,1],ease:e=>e,duration:1}}function je(e,t){return typeof window>`u`?!1:e?u()&&!!V(t):v()}function Me({container:e,target:t,...n}={}){let r=y(Ae);je(t,n.offset)&&(r.scrollXProgress.accelerate=J(`x`,n,e,t),r.scrollYProgress.accelerate=J(`y`,n,e,t));let a=(0,K.useRef)(null),o=(0,K.useRef)(!1),l=(0,K.useCallback)(()=>(a.current=G((e,{x:t,y:n})=>{r.scrollX.set(t.current),r.scrollXProgress.set(t.progress),r.scrollY.set(n.current),r.scrollYProgress.set(n.progress)},{...n,container:e?.current||void 0,target:t?.current||void 0}),()=>{a.current?.()}),[e,t,JSON.stringify(n.offset)]);return i(()=>{if(o.current=!1,q(e)||q(t)){o.current=!0;return}else return l()},[l]),(0,K.useEffect)(()=>{if(!o.current)return;let n,r=()=>{let r=q(e),i=q(t);c(!r,`Container ref is defined but not hydrated`,`use-scroll-ref`),c(!i,`Target ref is defined but not hydrated`,`use-scroll-ref`),!r&&!i&&(n=l())};return h.read(r),()=>{s(r),n?.()}},[l]),r}function Ne(e){let t=y(()=>p(e)),{isStatic:n}=(0,K.useContext)(ne);if(n){let[,n]=(0,K.useState)(e);(0,K.useEffect)(()=>t.on(`change`,n),[])}return t}function Y(e,t){let n=Ne(t()),r=()=>n.set(t());return r(),i(()=>{let t=()=>f.preRender(r,!1,!0),n=e.map(e=>e.on(`change`,t));return()=>{n.forEach(e=>e()),m(r)}}),n}function Pe(e){l.current=[],e();let t=Y(l.current,e);return l.current=void 0,t}function X(e,t,n,r){if(typeof e==`function`)return Pe(e);if(n!==void 0&&!Array.isArray(n)&&typeof t!=`function`)return Fe(e,t,n,r);let i=typeof t==`function`?t:le(t,n,r),a=Array.isArray(e)?Z(e,i):Z([e],([e])=>i(e)),o=Array.isArray(e)?void 0:e.accelerate;return o&&!o.isTransformed&&typeof t!=`function`&&Array.isArray(n)&&r?.clamp!==!1&&(a.accelerate={...o,times:t,keyframes:n,isTransformed:!0,...r?.ease?{ease:r.ease}:{}}),a}function Z(e,t){let n=y(()=>[]);return Y(e,()=>{n.length=0;let r=e.length;for(let t=0;t<r;t++)n[t]=e[t].get();return t(n)})}function Fe(e,t,n,r){let i=y(()=>Object.keys(n)),a=y(()=>({}));for(let o of i)a[o]=X(e,t,n[o],r);return a}var Q=n(),$={initial:{opacity:0,y:32},whileInView:{opacity:1,y:0},viewport:{once:!0,margin:`-60px`},transition:{duration:.7,ease:[.22,1,.36,1]}},Ie=[{name:`Amara K.`,text:`The Luna necklace is my everyday staple now. The quality feels far beyond the price — I get compliments constantly.`,rating:5},{name:`Jessica T.`,text:`Beautifully packaged, fast shipping, and the hoops are so lightweight I forget I'm wearing them. Obsessed.`,rating:5},{name:`Naomi A.`,text:`I bought the Riviera set as a gift for my sister and she cried. The presentation box alone feels luxury.`,rating:5}];function Le(){let e=(0,K.useRef)(null),{scrollYProgress:t}=Me({target:e,offset:[`start start`,`end start`]}),n=X(t,[0,1],[`0%`,`22%`]),[i,a]=(0,K.useState)(``),[o,s]=(0,K.useState)(!1),c=C.filter(e=>e.isBestSeller),l=C.filter(e=>e.isNew);return(0,Q.jsxs)(`div`,{children:[(0,Q.jsxs)(`section`,{ref:e,className:`relative h-[92svh] min-h-[560px] overflow-hidden`,children:[(0,Q.jsxs)(_.div,{style:{y:n},className:`absolute inset-0`,children:[(0,Q.jsx)(`img`,{src:se,alt:`Woman wearing delicate layered gold necklaces in warm light`,className:`h-[115%] w-full object-cover`,width:1920,height:1080,fetchPriority:`high`}),(0,Q.jsx)(`div`,{className:`absolute inset-0 bg-gradient-to-r from-charcoal/45 via-charcoal/15 to-transparent`})]}),(0,Q.jsx)(_.div,{"aria-hidden":!0,animate:{y:[0,-14,0]},transition:{duration:6,repeat:1/0,ease:`easeInOut`},className:`absolute top-[22%] right-[12%] hidden text-gold-light md:block`,children:(0,Q.jsx)(S,{className:`h-8 w-8`})}),(0,Q.jsx)(_.div,{"aria-hidden":!0,animate:{y:[0,12,0]},transition:{duration:7,repeat:1/0,ease:`easeInOut`,delay:1},className:`absolute bottom-[28%] right-[24%] hidden text-gold-light/70 md:block`,children:(0,Q.jsx)(S,{className:`h-5 w-5`})}),(0,Q.jsx)(`div`,{className:`container-lux relative flex h-full items-center`,children:(0,Q.jsxs)(`div`,{className:`max-w-xl text-primary-foreground`,children:[(0,Q.jsx)(_.p,{initial:{opacity:0,y:20},animate:{opacity:1,y:0},transition:{duration:.7,delay:.15},className:`text-xs font-semibold tracking-[0.35em] text-gold-light uppercase`,children:`Touch by Bel'voma`}),(0,Q.jsx)(_.h1,{initial:{opacity:0,y:28},animate:{opacity:1,y:0},transition:{duration:.8,delay:.3},className:`mt-4 text-5xl leading-[1.05] font-semibold sm:text-6xl lg:text-7xl`,children:`Touch Every Moment with Elegance.`}),(0,Q.jsx)(_.p,{initial:{opacity:0,y:24},animate:{opacity:1,y:0},transition:{duration:.8,delay:.45},className:`mt-5 max-w-md text-base font-light text-primary-foreground/85 sm:text-lg`,children:`Discover timeless jewelry designed to celebrate your beauty, confidence, and individuality.`}),(0,Q.jsxs)(_.div,{initial:{opacity:0,y:20},animate:{opacity:1,y:0},transition:{duration:.8,delay:.6},className:`mt-8 flex flex-wrap gap-3`,children:[(0,Q.jsxs)(r,{to:`/shop`,className:`btn-gold`,children:[`Shop Collection `,(0,Q.jsx)(x,{className:`h-4 w-4`})]}),(0,Q.jsx)(r,{to:`/shop`,className:`btn-outline-lux border-primary-foreground/70 text-primary-foreground hover:bg-primary-foreground hover:text-charcoal`,children:`Explore New Arrivals`})]})]})})]}),(0,Q.jsxs)(`section`,{className:`container-lux py-20 sm:py-28`,children:[(0,Q.jsxs)(_.div,{...$,className:`text-center`,children:[(0,Q.jsx)(`p`,{className:`eyebrow`,children:`Curated for you`}),(0,Q.jsx)(`h2`,{className:`mt-3 text-3xl font-semibold sm:text-4xl`,children:`Featured Collections`})]}),(0,Q.jsx)(`div`,{className:`mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3`,children:w.map((e,t)=>(0,Q.jsx)(_.div,{initial:{opacity:0,y:28},whileInView:{opacity:1,y:0},viewport:{once:!0,margin:`-40px`},transition:{duration:.6,delay:t*.07,ease:[.22,1,.36,1]},children:(0,Q.jsxs)(r,{to:`/shop`,search:{category:e.slug},className:`group card-lift relative block overflow-hidden rounded-2xl`,children:[(0,Q.jsx)(`img`,{src:e.image,alt:`${e.name} collection`,loading:`lazy`,width:800,height:1e3,className:`aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-108`}),(0,Q.jsx)(`div`,{className:`absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent`}),(0,Q.jsxs)(`div`,{className:`absolute inset-x-0 bottom-0 p-5`,children:[(0,Q.jsx)(`p`,{className:`font-display text-lg font-semibold text-primary-foreground sm:text-xl`,children:e.name}),(0,Q.jsxs)(`p`,{className:`mt-0.5 flex items-center gap-1 text-xs tracking-[0.15em] text-gold-light uppercase opacity-0 transition-opacity duration-300 group-hover:opacity-100`,children:[`Explore `,(0,Q.jsx)(x,{className:`h-3 w-3`})]})]})]})},e.slug))})]}),(0,Q.jsx)(`section`,{className:`bg-ivory py-20 sm:py-28`,children:(0,Q.jsxs)(`div`,{className:`container-lux`,children:[(0,Q.jsxs)(_.div,{...$,className:`flex flex-wrap items-end justify-between gap-4`,children:[(0,Q.jsxs)(`div`,{children:[(0,Q.jsx)(`p`,{className:`eyebrow`,children:`Customer favorites`}),(0,Q.jsx)(`h2`,{className:`mt-3 text-3xl font-semibold sm:text-4xl`,children:`Best Sellers`})]}),(0,Q.jsx)(r,{to:`/shop`,search:{sort:`popular`},className:`text-xs font-medium tracking-[0.18em] uppercase transition-colors hover:text-gold`,children:`View all →`})]}),(0,Q.jsx)(`div`,{className:`mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`,children:c.map((e,t)=>(0,Q.jsx)(`div`,{className:`w-[260px] shrink-0 snap-start sm:w-[300px]`,children:(0,Q.jsx)(T,{product:e,index:t})},e.id))})]})}),(0,Q.jsxs)(`section`,{className:`container-lux py-20 sm:py-28`,children:[(0,Q.jsxs)(_.div,{...$,className:`flex flex-wrap items-end justify-between gap-4`,children:[(0,Q.jsxs)(`div`,{children:[(0,Q.jsx)(`p`,{className:`eyebrow`,children:`Just landed`}),(0,Q.jsx)(`h2`,{className:`mt-3 text-3xl font-semibold sm:text-4xl`,children:`New Arrivals`})]}),(0,Q.jsx)(r,{to:`/shop`,search:{sort:`newest`},className:`text-xs font-medium tracking-[0.18em] uppercase transition-colors hover:text-gold`,children:`View all →`})]}),(0,Q.jsx)(`div`,{className:`mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4`,children:l.map((e,t)=>(0,Q.jsx)(T,{product:e,index:t},e.id))})]}),(0,Q.jsx)(`section`,{className:`bg-ivory py-20 sm:py-28`,children:(0,Q.jsxs)(`div`,{className:`container-lux`,children:[(0,Q.jsxs)(_.div,{...$,className:`text-center`,children:[(0,Q.jsx)(`p`,{className:`eyebrow`,children:`Loved by thousands`}),(0,Q.jsx)(`h2`,{className:`mt-3 text-3xl font-semibold sm:text-4xl`,children:`What Our Customers Say`})]}),(0,Q.jsx)(`div`,{className:`mt-12 grid gap-6 md:grid-cols-3`,children:Ie.map((e,t)=>(0,Q.jsxs)(_.figure,{initial:{opacity:0,y:28},whileInView:{opacity:1,y:0},viewport:{once:!0,margin:`-40px`},transition:{duration:.6,delay:t*.1},className:`card-lift rounded-2xl bg-card p-7 shadow-soft`,children:[(0,Q.jsx)(ce,{className:`h-6 w-6 text-gold`,"aria-hidden":!0}),(0,Q.jsx)(`blockquote`,{className:`mt-4 text-sm leading-relaxed text-muted-foreground`,children:e.text}),(0,Q.jsxs)(`figcaption`,{className:`mt-5 flex items-center justify-between`,children:[(0,Q.jsx)(`span`,{className:`text-sm font-semibold`,children:e.name}),(0,Q.jsx)(`span`,{className:`flex gap-0.5 text-gold`,"aria-label":`${e.rating} out of 5 stars`,children:Array.from({length:e.rating}).map((e,t)=>(0,Q.jsx)(oe,{className:`h-3.5 w-3.5 fill-current`},t))})]})]},e.name))})]})}),(0,Q.jsxs)(`section`,{className:`container-lux py-20 sm:py-28`,children:[(0,Q.jsxs)(_.div,{...$,className:`text-center`,children:[(0,Q.jsx)(`p`,{className:`eyebrow`,children:`@naasjewelryoutlet`}),(0,Q.jsx)(`h2`,{className:`mt-3 text-3xl font-semibold sm:text-4xl`,children:`Follow the Sparkle`})]}),(0,Q.jsx)(`div`,{className:`mt-10 grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-6`,children:[...w].map((e,t)=>(0,Q.jsxs)(_.a,{href:`https://instagram.com`,target:`_blank`,rel:`noreferrer`,initial:{opacity:0,scale:.94},whileInView:{opacity:1,scale:1},viewport:{once:!0},transition:{duration:.5,delay:t*.05},className:`group relative block overflow-hidden rounded-xl`,"aria-label":`Instagram post featuring ${e.name}`,children:[(0,Q.jsx)(`img`,{src:e.image,alt:``,loading:`lazy`,width:400,height:400,className:`aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-110`}),(0,Q.jsx)(`div`,{className:`absolute inset-0 grid place-items-center bg-charcoal/0 transition-colors duration-300 group-hover:bg-charcoal/35`,children:(0,Q.jsx)(S,{className:`h-5 w-5 text-primary-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100`})})]},e.slug))})]}),(0,Q.jsx)(`section`,{className:`bg-charcoal py-20 text-primary-foreground sm:py-24`,children:(0,Q.jsxs)(_.div,{...$,className:`container-lux max-w-2xl text-center`,children:[(0,Q.jsx)(`p`,{className:`text-xs font-semibold tracking-[0.3em] text-gold-light uppercase`,children:`Join the inner circle`}),(0,Q.jsx)(`h2`,{className:`mt-3 text-3xl font-semibold sm:text-4xl`,children:`Get 10% Off Your First Order`}),(0,Q.jsx)(`p`,{className:`mt-3 text-sm text-primary-foreground/70`,children:`New arrivals, exclusive offers, and styling inspiration — straight to your inbox.`}),o?(0,Q.jsx)(`p`,{className:`mt-8 text-gold-light`,children:`Thank you — welcome to the family! ✨`}):(0,Q.jsxs)(`form`,{className:`mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row`,onSubmit:e=>{e.preventDefault(),i.trim()&&s(!0)},children:[(0,Q.jsx)(`input`,{type:`email`,required:!0,value:i,onChange:e=>a(e.target.value),placeholder:`Your email address`,"aria-label":`Email address`,className:`flex-1 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-5 py-3 text-sm text-primary-foreground placeholder:text-primary-foreground/50 outline-none focus:border-gold`}),(0,Q.jsx)(`button`,{type:`submit`,className:`btn-gold`,children:`Subscribe`})]})]})})]})}export{Le as component};
+import { n as e, s as t, t as n } from "./jsx-runtime-D8nDyRPw.js";
+import { t as r } from "./link-MzsLFx_h.js";
+import {
+  C as i,
+  E as a,
+  _ as o,
+  a as s,
+  b as c,
+  c as l,
+  d as u,
+  f as ee,
+  g as d,
+  h as f,
+  i as te,
+  l as p,
+  m,
+  o as h,
+  p as g,
+  r as ne,
+  s as re,
+  t as _,
+  u as v,
+  v as ie,
+  w as y,
+  x as ae,
+  y as b,
+} from "./proxy-DkmRD95V.js";
+import { t as x } from "./arrow-right-BmTjqXc8.js";
+import { t as S } from "./sparkles-C6yX4eVY.js";
+import { t as oe } from "./star-vwdllOWM.js";
+import { o as C, t as w } from "./products-pUvZdLaj.js";
+import { t as se } from "./hero-E7sQnIos.js";
+import { t as T } from "./ProductCard-BLNj-_uL.js";
+var ce = a(`quote`, [
+  [
+    `path`,
+    {
+      d: `M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z`,
+      key: `rib7q0`,
+    },
+  ],
+  [
+    `path`,
+    {
+      d: `M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z`,
+      key: `1ymkrd`,
+    },
+  ],
+]);
+function E(e, t) {
+  let n,
+    r = () => {
+      let { currentTime: r } = t,
+        i = (r === null ? 0 : r.value) / 100;
+      (n !== i && e(i), (n = i));
+    };
+  return (f.preUpdate(r, !0), () => m(r));
+}
+function le(...e) {
+  let t = !Array.isArray(e[0]),
+    n = t ? 0 : -1,
+    r = e[0 + n],
+    i = e[1 + n],
+    a = e[2 + n],
+    o = e[3 + n],
+    s = g(i, a, o);
+  return t ? s(r) : s;
+}
+function D(e) {
+  return typeof window > `u` ? !1 : e ? u() : v();
+}
+var ue = 50,
+  O = () => ({
+    current: 0,
+    offset: [],
+    progress: 0,
+    scrollLength: 0,
+    targetOffset: 0,
+    targetLength: 0,
+    containerLength: 0,
+    velocity: 0,
+  }),
+  de = () => ({ time: 0, x: O(), y: O() }),
+  fe = { x: { length: `Width`, position: `Left` }, y: { length: `Height`, position: `Top` } };
+function k(e, t, n, r) {
+  let i = n[t],
+    { length: a, position: s } = fe[t],
+    c = i.current,
+    l = n.time;
+  ((i.current = Math.abs(e[`scroll${s}`])),
+    (i.scrollLength = e[`scroll${a}`] - e[`client${a}`]),
+    (i.offset.length = 0),
+    (i.offset[0] = 0),
+    (i.offset[1] = i.scrollLength),
+    (i.progress = ie(0, i.scrollLength, i.current)));
+  let u = r - l;
+  i.velocity = u > ue ? 0 : o(i.current - c, u);
+}
+function pe(e, t, n) {
+  (k(e, `x`, t, n), k(e, `y`, t, n), (t.time = n));
+}
+function me(e, t) {
+  let n = { x: 0, y: 0 },
+    r = e;
+  for (; r && r !== t;)
+    if (re(r)) ((n.x += r.offsetLeft), (n.y += r.offsetTop), (r = r.offsetParent));
+    else if (r.tagName === `svg`) {
+      let e = r.getBoundingClientRect();
+      r = r.parentElement;
+      let t = r.getBoundingClientRect();
+      ((n.x += e.left - t.left), (n.y += e.top - t.top));
+    } else if (r instanceof SVGGraphicsElement) {
+      let { x: e, y: t } = r.getBBox();
+      ((n.x += e), (n.y += t));
+      let i = null,
+        a = r.parentNode;
+      for (; !i;) (a.tagName === `svg` && (i = a), (a = r.parentNode));
+      r = i;
+    } else break;
+  return n;
+}
+var A = { start: 0, center: 0.5, end: 1 };
+function j(e, t, n = 0) {
+  let r = 0;
+  if ((e in A && (e = A[e]), typeof e == `string`)) {
+    let t = parseFloat(e);
+    e.endsWith(`px`)
+      ? (r = t)
+      : e.endsWith(`%`)
+        ? (e = t / 100)
+        : e.endsWith(`vw`)
+          ? (r = (t / 100) * document.documentElement.clientWidth)
+          : e.endsWith(`vh`)
+            ? (r = (t / 100) * document.documentElement.clientHeight)
+            : (e = t);
+  }
+  return (typeof e == `number` && (r = t * e), n + r);
+}
+var he = [0, 0];
+function ge(e, t, n, r) {
+  let i = Array.isArray(e) ? e : he,
+    a = 0,
+    o = 0;
+  return (
+    typeof e == `number`
+      ? (i = [e, e])
+      : typeof e == `string` &&
+        ((e = e.trim()), (i = e.includes(` `) ? e.split(` `) : [e, A[e] ? e : `0`])),
+    (a = j(i[0], n, r)),
+    (o = j(i[1], t)),
+    a - o
+  );
+}
+var M = {
+    Enter: [
+      [0, 1],
+      [1, 1],
+    ],
+    Exit: [
+      [0, 0],
+      [1, 0],
+    ],
+    Any: [
+      [1, 0],
+      [0, 1],
+    ],
+    All: [
+      [0, 0],
+      [1, 1],
+    ],
+  },
+  _e = { x: 0, y: 0 };
+function ve(e) {
+  return `getBBox` in e && e.tagName !== `svg`
+    ? e.getBBox()
+    : { width: e.clientWidth, height: e.clientHeight };
+}
+function ye(e, t, n) {
+  let { offset: r = M.All } = n,
+    { target: i = e, axis: a = `y` } = n,
+    o = a === `y` ? `height` : `width`,
+    s = i === e ? _e : me(i, e),
+    c = i === e ? { width: e.scrollWidth, height: e.scrollHeight } : ve(i),
+    l = { width: e.clientWidth, height: e.clientHeight };
+  t[a].offset.length = 0;
+  let u = !t[a].interpolate,
+    d = r.length;
+  for (let e = 0; e < d; e++) {
+    let n = ge(r[e], l[o], c[o], s[a]);
+    (!u && n !== t[a].interpolatorOffsets[e] && (u = !0), (t[a].offset[e] = n));
+  }
+  (u &&
+    ((t[a].interpolate = g(t[a].offset, ee(r), { clamp: !1 })),
+    (t[a].interpolatorOffsets = [...t[a].offset])),
+    (t[a].progress = ae(0, 1, t[a].interpolate(t[a].current))));
+}
+function be(e, t = e, n) {
+  if (((n.x.targetOffset = 0), (n.y.targetOffset = 0), t !== e)) {
+    let r = t;
+    for (; r && r !== e;)
+      ((n.x.targetOffset += r.offsetLeft), (n.y.targetOffset += r.offsetTop), (r = r.offsetParent));
+  }
+  ((n.x.targetLength = t === e ? t.scrollWidth : t.clientWidth),
+    (n.y.targetLength = t === e ? t.scrollHeight : t.clientHeight),
+    (n.x.containerLength = e.clientWidth),
+    (n.y.containerLength = e.clientHeight));
+}
+function xe(e, t, n, r = {}) {
+  return {
+    measure: (t) => {
+      (be(e, r.target, n), pe(e, n, t), (r.offset || r.target) && ye(e, n, r));
+    },
+    notify: () => t(n),
+  };
+}
+var N = new WeakMap(),
+  P = new WeakMap(),
+  F = new WeakMap(),
+  I = new WeakMap(),
+  L = new WeakMap(),
+  R = (e) => (e === document.scrollingElement ? window : e);
+function z(e, { container: t = document.scrollingElement, trackContentSize: n = !1, ...r } = {}) {
+  if (!t) return b;
+  let i = F.get(t);
+  i || ((i = new Set()), F.set(t, i));
+  let a = xe(t, e, de(), r);
+  if ((i.add(a), !N.has(t))) {
+    let e = () => {
+        for (let e of i) e.measure(d.timestamp);
+        f.preUpdate(n);
+      },
+      n = () => {
+        for (let e of i) e.notify();
+      },
+      r = () => f.read(e);
+    N.set(t, r);
+    let a = R(t);
+    (window.addEventListener(`resize`, r),
+      t !== document.documentElement && P.set(t, te(t, r)),
+      a.addEventListener(`scroll`, r),
+      r());
+  }
+  if (n && !L.has(t)) {
+    let e = N.get(t),
+      n = { width: t.scrollWidth, height: t.scrollHeight };
+    I.set(t, n);
+    let r = f.read(() => {
+      let r = t.scrollWidth,
+        i = t.scrollHeight;
+      (n.width !== r || n.height !== i) && (e(), (n.width = r), (n.height = i));
+    }, !0);
+    L.set(t, r);
+  }
+  let o = N.get(t);
+  return (
+    f.read(o, !1, !0),
+    () => {
+      m(o);
+      let e = F.get(t);
+      if (!e || (e.delete(a), e.size)) return;
+      let n = N.get(t);
+      (N.delete(t),
+        n &&
+          (R(t).removeEventListener(`scroll`, n),
+          P.get(t)?.(),
+          window.removeEventListener(`resize`, n)));
+      let r = L.get(t);
+      (r && (m(r), L.delete(t)), I.delete(t));
+    }
+  );
+}
+var Se = [
+    [M.Enter, `entry`],
+    [M.Exit, `exit`],
+    [M.Any, `cover`],
+    [M.All, `contain`],
+  ],
+  B = { start: 0, end: 1 };
+function Ce(e) {
+  let t = e.trim().split(/\s+/);
+  if (t.length !== 2) return;
+  let n = B[t[0]],
+    r = B[t[1]];
+  if (!(n === void 0 || r === void 0)) return [n, r];
+}
+function we(e) {
+  if (e.length !== 2) return;
+  let t = [];
+  for (let n of e)
+    if (Array.isArray(n)) t.push(n);
+    else if (typeof n == `string`) {
+      let e = Ce(n);
+      if (!e) return;
+      t.push(e);
+    } else return;
+  return t;
+}
+function Te(e, t) {
+  let n = we(e);
+  if (!n) return !1;
+  for (let e = 0; e < 2; e++) {
+    let r = n[e],
+      i = t[e];
+    if (r[0] !== i[0] || r[1] !== i[1]) return !1;
+  }
+  return !0;
+}
+function V(e) {
+  if (!e) return { rangeStart: `contain 0%`, rangeEnd: `contain 100%` };
+  for (let [t, n] of Se) if (Te(e, t)) return { rangeStart: `${n} 0%`, rangeEnd: `${n} 100%` };
+}
+var H = new Map();
+function U(e) {
+  let t = { value: 0 };
+  return {
+    currentTime: t,
+    cancel: z((n) => {
+      t.value = n[e.axis].progress * 100;
+    }, e),
+  };
+}
+function W({ source: e, container: t, ...n }) {
+  let { axis: r } = n;
+  e && (t = e);
+  let i = H.get(t);
+  i || ((i = new Map()), H.set(t, i));
+  let a = n.target ?? `self`,
+    o = i.get(a);
+  o || ((o = {}), i.set(a, o));
+  let s = r + (n.offset ?? []).join(`,`);
+  return (
+    o[s] ||
+      (n.target && D(n.target)
+        ? V(n.offset)
+          ? (o[s] = new ViewTimeline({ subject: n.target, axis: r }))
+          : (o[s] = U({ container: t, ...n }))
+        : D()
+          ? (o[s] = new ScrollTimeline({ source: t, axis: r }))
+          : (o[s] = U({ container: t, ...n }))),
+    o[s]
+  );
+}
+function Ee(e, t) {
+  let n = W(t),
+    r = t.target ? V(t.offset) : void 0,
+    i = t.target ? D(t.target) && !!r : D();
+  return e.attachTimeline({
+    timeline: i ? n : void 0,
+    ...(r && i && { rangeStart: r.rangeStart, rangeEnd: r.rangeEnd }),
+    observe: (e) => (
+      e.pause(),
+      E((t) => {
+        e.time = e.iterationDuration * t;
+      }, n)
+    ),
+  });
+}
+function De(e) {
+  return e && (e.target || e.offset);
+}
+function Oe(e) {
+  return e.length === 2;
+}
+function ke(e, t) {
+  return Oe(e) || De(t)
+    ? z((n) => {
+        e(n[t.axis].progress, n);
+      }, t)
+    : E(e, W(t));
+}
+function G(e, { axis: t = `y`, container: n = document.scrollingElement, ...r } = {}) {
+  if (!n) return b;
+  let i = { axis: t, container: n, ...r };
+  return typeof e == `function` ? ke(e, i) : Ee(e, i);
+}
+var K = t(e(), 1),
+  Ae = () => ({ scrollX: p(0), scrollY: p(0), scrollXProgress: p(0), scrollYProgress: p(0) }),
+  q = (e) => (e ? !e.current : !1);
+function J(e, t, n, r) {
+  return {
+    factory: (i) => {
+      let a,
+        o = () => {
+          if (q(n) || q(r)) {
+            h.read(o);
+            return;
+          }
+          a = G(i, {
+            ...t,
+            axis: e,
+            container: n?.current || void 0,
+            target: r?.current || void 0,
+          });
+        };
+      return (
+        h.read(o),
+        () => {
+          (s(o), a?.());
+        }
+      );
+    },
+    times: [0, 1],
+    keyframes: [0, 1],
+    ease: (e) => e,
+    duration: 1,
+  };
+}
+function je(e, t) {
+  return typeof window > `u` ? !1 : e ? u() && !!V(t) : v();
+}
+function Me({ container: e, target: t, ...n } = {}) {
+  let r = y(Ae);
+  je(t, n.offset) &&
+    ((r.scrollXProgress.accelerate = J(`x`, n, e, t)),
+    (r.scrollYProgress.accelerate = J(`y`, n, e, t)));
+  let a = (0, K.useRef)(null),
+    o = (0, K.useRef)(!1),
+    l = (0, K.useCallback)(
+      () => (
+        (a.current = G(
+          (e, { x: t, y: n }) => {
+            (r.scrollX.set(t.current),
+              r.scrollXProgress.set(t.progress),
+              r.scrollY.set(n.current),
+              r.scrollYProgress.set(n.progress));
+          },
+          { ...n, container: e?.current || void 0, target: t?.current || void 0 },
+        )),
+        () => {
+          a.current?.();
+        }
+      ),
+      [e, t, JSON.stringify(n.offset)],
+    );
+  return (
+    i(() => {
+      if (((o.current = !1), q(e) || q(t))) {
+        o.current = !0;
+        return;
+      } else return l();
+    }, [l]),
+    (0, K.useEffect)(() => {
+      if (!o.current) return;
+      let n,
+        r = () => {
+          let r = q(e),
+            i = q(t);
+          (c(!r, `Container ref is defined but not hydrated`, `use-scroll-ref`),
+            c(!i, `Target ref is defined but not hydrated`, `use-scroll-ref`),
+            !r && !i && (n = l()));
+        };
+      return (
+        h.read(r),
+        () => {
+          (s(r), n?.());
+        }
+      );
+    }, [l]),
+    r
+  );
+}
+function Ne(e) {
+  let t = y(() => p(e)),
+    { isStatic: n } = (0, K.useContext)(ne);
+  if (n) {
+    let [, n] = (0, K.useState)(e);
+    (0, K.useEffect)(() => t.on(`change`, n), []);
+  }
+  return t;
+}
+function Y(e, t) {
+  let n = Ne(t()),
+    r = () => n.set(t());
+  return (
+    r(),
+    i(() => {
+      let t = () => f.preRender(r, !1, !0),
+        n = e.map((e) => e.on(`change`, t));
+      return () => {
+        (n.forEach((e) => e()), m(r));
+      };
+    }),
+    n
+  );
+}
+function Pe(e) {
+  ((l.current = []), e());
+  let t = Y(l.current, e);
+  return ((l.current = void 0), t);
+}
+function X(e, t, n, r) {
+  if (typeof e == `function`) return Pe(e);
+  if (n !== void 0 && !Array.isArray(n) && typeof t != `function`) return Fe(e, t, n, r);
+  let i = typeof t == `function` ? t : le(t, n, r),
+    a = Array.isArray(e) ? Z(e, i) : Z([e], ([e]) => i(e)),
+    o = Array.isArray(e) ? void 0 : e.accelerate;
+  return (
+    o &&
+      !o.isTransformed &&
+      typeof t != `function` &&
+      Array.isArray(n) &&
+      r?.clamp !== !1 &&
+      (a.accelerate = {
+        ...o,
+        times: t,
+        keyframes: n,
+        isTransformed: !0,
+        ...(r?.ease ? { ease: r.ease } : {}),
+      }),
+    a
+  );
+}
+function Z(e, t) {
+  let n = y(() => []);
+  return Y(e, () => {
+    n.length = 0;
+    let r = e.length;
+    for (let t = 0; t < r; t++) n[t] = e[t].get();
+    return t(n);
+  });
+}
+function Fe(e, t, n, r) {
+  let i = y(() => Object.keys(n)),
+    a = y(() => ({}));
+  for (let o of i) a[o] = X(e, t, n[o], r);
+  return a;
+}
+var Q = n(),
+  $ = {
+    initial: { opacity: 0, y: 32 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: !0, margin: `-60px` },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+  Ie = [
+    {
+      name: `Amara K.`,
+      text: `The Luna necklace is my everyday staple now. The quality feels far beyond the price — I get compliments constantly.`,
+      rating: 5,
+    },
+    {
+      name: `Jessica T.`,
+      text: `Beautifully packaged, fast shipping, and the hoops are so lightweight I forget I'm wearing them. Obsessed.`,
+      rating: 5,
+    },
+    {
+      name: `Naomi A.`,
+      text: `I bought the Riviera set as a gift for my sister and she cried. The presentation box alone feels luxury.`,
+      rating: 5,
+    },
+  ];
+function Le() {
+  let e = (0, K.useRef)(null),
+    { scrollYProgress: t } = Me({ target: e, offset: [`start start`, `end start`] }),
+    n = X(t, [0, 1], [`0%`, `22%`]),
+    [i, a] = (0, K.useState)(``),
+    [o, s] = (0, K.useState)(!1),
+    c = C.filter((e) => e.isBestSeller),
+    l = C.filter((e) => e.isNew);
+  return (0, Q.jsxs)(`div`, {
+    children: [
+      (0, Q.jsxs)(`section`, {
+        ref: e,
+        className: `relative h-[92svh] min-h-[560px] overflow-hidden`,
+        children: [
+          (0, Q.jsxs)(_.div, {
+            style: { y: n },
+            className: `absolute inset-0`,
+            children: [
+              (0, Q.jsx)(`img`, {
+                src: se,
+                alt: `Woman wearing delicate layered gold necklaces in warm light`,
+                className: `h-[115%] w-full object-cover`,
+                width: 1920,
+                height: 1080,
+                fetchPriority: `high`,
+              }),
+              (0, Q.jsx)(`div`, {
+                className: `absolute inset-0 bg-gradient-to-r from-charcoal/45 via-charcoal/15 to-transparent`,
+              }),
+            ],
+          }),
+          (0, Q.jsx)(_.div, {
+            "aria-hidden": !0,
+            animate: { y: [0, -14, 0] },
+            transition: { duration: 6, repeat: 1 / 0, ease: `easeInOut` },
+            className: `absolute top-[22%] right-[12%] hidden text-gold-light md:block`,
+            children: (0, Q.jsx)(S, { className: `h-8 w-8` }),
+          }),
+          (0, Q.jsx)(_.div, {
+            "aria-hidden": !0,
+            animate: { y: [0, 12, 0] },
+            transition: { duration: 7, repeat: 1 / 0, ease: `easeInOut`, delay: 1 },
+            className: `absolute bottom-[28%] right-[24%] hidden text-gold-light/70 md:block`,
+            children: (0, Q.jsx)(S, { className: `h-5 w-5` }),
+          }),
+          (0, Q.jsx)(`div`, {
+            className: `container-lux relative flex h-full items-center`,
+            children: (0, Q.jsxs)(`div`, {
+              className: `max-w-xl text-primary-foreground`,
+              children: [
+                (0, Q.jsx)(_.p, {
+                  initial: { opacity: 0, y: 20 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { duration: 0.7, delay: 0.15 },
+                  className: `text-xs font-semibold tracking-[0.35em] text-gold-light uppercase`,
+                  children: `Touch by Bel'voma`,
+                }),
+                (0, Q.jsx)(_.h1, {
+                  initial: { opacity: 0, y: 28 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { duration: 0.8, delay: 0.3 },
+                  className: `mt-4 text-5xl leading-[1.05] font-semibold sm:text-6xl lg:text-7xl`,
+                  children: `Touch Every Moment with Elegance.`,
+                }),
+                (0, Q.jsx)(_.p, {
+                  initial: { opacity: 0, y: 24 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { duration: 0.8, delay: 0.45 },
+                  className: `mt-5 max-w-md text-base font-light text-primary-foreground/85 sm:text-lg`,
+                  children: `Discover timeless jewelry designed to celebrate your beauty, confidence, and individuality.`,
+                }),
+                (0, Q.jsxs)(_.div, {
+                  initial: { opacity: 0, y: 20 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { duration: 0.8, delay: 0.6 },
+                  className: `mt-8 flex flex-wrap gap-3`,
+                  children: [
+                    (0, Q.jsxs)(r, {
+                      to: `/shop`,
+                      className: `btn-gold`,
+                      children: [`Shop Collection `, (0, Q.jsx)(x, { className: `h-4 w-4` })],
+                    }),
+                    (0, Q.jsx)(r, {
+                      to: `/shop`,
+                      className: `btn-outline-lux border-primary-foreground/70 text-primary-foreground hover:bg-primary-foreground hover:text-charcoal`,
+                      children: `Explore New Arrivals`,
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          }),
+        ],
+      }),
+      (0, Q.jsxs)(`section`, {
+        className: `container-lux py-20 sm:py-28`,
+        children: [
+          (0, Q.jsxs)(_.div, {
+            ...$,
+            className: `text-center`,
+            children: [
+              (0, Q.jsx)(`p`, { className: `eyebrow`, children: `Curated for you` }),
+              (0, Q.jsx)(`h2`, {
+                className: `mt-3 text-3xl font-semibold sm:text-4xl`,
+                children: `Featured Collections`,
+              }),
+            ],
+          }),
+          (0, Q.jsx)(`div`, {
+            className: `mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3`,
+            children: w.map((e, t) =>
+              (0, Q.jsx)(
+                _.div,
+                {
+                  initial: { opacity: 0, y: 28 },
+                  whileInView: { opacity: 1, y: 0 },
+                  viewport: { once: !0, margin: `-40px` },
+                  transition: { duration: 0.6, delay: t * 0.07, ease: [0.22, 1, 0.36, 1] },
+                  children: (0, Q.jsxs)(r, {
+                    to: `/shop`,
+                    search: { category: e.slug },
+                    className: `group card-lift relative block overflow-hidden rounded-2xl`,
+                    children: [
+                      (0, Q.jsx)(`img`, {
+                        src: e.image,
+                        alt: `${e.name} collection`,
+                        loading: `lazy`,
+                        width: 800,
+                        height: 1e3,
+                        className: `aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-108`,
+                      }),
+                      (0, Q.jsx)(`div`, {
+                        className: `absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent`,
+                      }),
+                      (0, Q.jsxs)(`div`, {
+                        className: `absolute inset-x-0 bottom-0 p-5`,
+                        children: [
+                          (0, Q.jsx)(`p`, {
+                            className: `font-display text-lg font-semibold text-primary-foreground sm:text-xl`,
+                            children: e.name,
+                          }),
+                          (0, Q.jsxs)(`p`, {
+                            className: `mt-0.5 flex items-center gap-1 text-xs tracking-[0.15em] text-gold-light uppercase opacity-0 transition-opacity duration-300 group-hover:opacity-100`,
+                            children: [`Explore `, (0, Q.jsx)(x, { className: `h-3 w-3` })],
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                },
+                e.slug,
+              ),
+            ),
+          }),
+        ],
+      }),
+      (0, Q.jsx)(`section`, {
+        className: `bg-ivory py-20 sm:py-28`,
+        children: (0, Q.jsxs)(`div`, {
+          className: `container-lux`,
+          children: [
+            (0, Q.jsxs)(_.div, {
+              ...$,
+              className: `flex flex-wrap items-end justify-between gap-4`,
+              children: [
+                (0, Q.jsxs)(`div`, {
+                  children: [
+                    (0, Q.jsx)(`p`, { className: `eyebrow`, children: `Customer favorites` }),
+                    (0, Q.jsx)(`h2`, {
+                      className: `mt-3 text-3xl font-semibold sm:text-4xl`,
+                      children: `Best Sellers`,
+                    }),
+                  ],
+                }),
+                (0, Q.jsx)(r, {
+                  to: `/shop`,
+                  search: { sort: `popular` },
+                  className: `text-xs font-medium tracking-[0.18em] uppercase transition-colors hover:text-gold`,
+                  children: `View all →`,
+                }),
+              ],
+            }),
+            (0, Q.jsx)(`div`, {
+              className: `mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`,
+              children: c.map((e, t) =>
+                (0, Q.jsx)(
+                  `div`,
+                  {
+                    className: `w-[260px] shrink-0 snap-start sm:w-[300px]`,
+                    children: (0, Q.jsx)(T, { product: e, index: t }),
+                  },
+                  e.id,
+                ),
+              ),
+            }),
+          ],
+        }),
+      }),
+      (0, Q.jsxs)(`section`, {
+        className: `container-lux py-20 sm:py-28`,
+        children: [
+          (0, Q.jsxs)(_.div, {
+            ...$,
+            className: `flex flex-wrap items-end justify-between gap-4`,
+            children: [
+              (0, Q.jsxs)(`div`, {
+                children: [
+                  (0, Q.jsx)(`p`, { className: `eyebrow`, children: `Just landed` }),
+                  (0, Q.jsx)(`h2`, {
+                    className: `mt-3 text-3xl font-semibold sm:text-4xl`,
+                    children: `New Arrivals`,
+                  }),
+                ],
+              }),
+              (0, Q.jsx)(r, {
+                to: `/shop`,
+                search: { sort: `newest` },
+                className: `text-xs font-medium tracking-[0.18em] uppercase transition-colors hover:text-gold`,
+                children: `View all →`,
+              }),
+            ],
+          }),
+          (0, Q.jsx)(`div`, {
+            className: `mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4`,
+            children: l.map((e, t) => (0, Q.jsx)(T, { product: e, index: t }, e.id)),
+          }),
+        ],
+      }),
+      (0, Q.jsx)(`section`, {
+        className: `bg-ivory py-20 sm:py-28`,
+        children: (0, Q.jsxs)(`div`, {
+          className: `container-lux`,
+          children: [
+            (0, Q.jsxs)(_.div, {
+              ...$,
+              className: `text-center`,
+              children: [
+                (0, Q.jsx)(`p`, { className: `eyebrow`, children: `Loved by thousands` }),
+                (0, Q.jsx)(`h2`, {
+                  className: `mt-3 text-3xl font-semibold sm:text-4xl`,
+                  children: `What Our Customers Say`,
+                }),
+              ],
+            }),
+            (0, Q.jsx)(`div`, {
+              className: `mt-12 grid gap-6 md:grid-cols-3`,
+              children: Ie.map((e, t) =>
+                (0, Q.jsxs)(
+                  _.figure,
+                  {
+                    initial: { opacity: 0, y: 28 },
+                    whileInView: { opacity: 1, y: 0 },
+                    viewport: { once: !0, margin: `-40px` },
+                    transition: { duration: 0.6, delay: t * 0.1 },
+                    className: `card-lift rounded-2xl bg-card p-7 shadow-soft`,
+                    children: [
+                      (0, Q.jsx)(ce, { className: `h-6 w-6 text-gold`, "aria-hidden": !0 }),
+                      (0, Q.jsx)(`blockquote`, {
+                        className: `mt-4 text-sm leading-relaxed text-muted-foreground`,
+                        children: e.text,
+                      }),
+                      (0, Q.jsxs)(`figcaption`, {
+                        className: `mt-5 flex items-center justify-between`,
+                        children: [
+                          (0, Q.jsx)(`span`, {
+                            className: `text-sm font-semibold`,
+                            children: e.name,
+                          }),
+                          (0, Q.jsx)(`span`, {
+                            className: `flex gap-0.5 text-gold`,
+                            "aria-label": `${e.rating} out of 5 stars`,
+                            children: Array.from({ length: e.rating }).map((e, t) =>
+                              (0, Q.jsx)(oe, { className: `h-3.5 w-3.5 fill-current` }, t),
+                            ),
+                          }),
+                        ],
+                      }),
+                    ],
+                  },
+                  e.name,
+                ),
+              ),
+            }),
+          ],
+        }),
+      }),
+      (0, Q.jsxs)(`section`, {
+        className: `container-lux py-20 sm:py-28`,
+        children: [
+          (0, Q.jsxs)(_.div, {
+            ...$,
+            className: `text-center`,
+            children: [
+              (0, Q.jsx)(`p`, { className: `eyebrow`, children: `@naasjewelryoutlet` }),
+              (0, Q.jsx)(`h2`, {
+                className: `mt-3 text-3xl font-semibold sm:text-4xl`,
+                children: `Follow the Sparkle`,
+              }),
+            ],
+          }),
+          (0, Q.jsx)(`div`, {
+            className: `mt-10 grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-6`,
+            children: [...w].map((e, t) =>
+              (0, Q.jsxs)(
+                _.a,
+                {
+                  href: `https://instagram.com`,
+                  target: `_blank`,
+                  rel: `noreferrer`,
+                  initial: { opacity: 0, scale: 0.94 },
+                  whileInView: { opacity: 1, scale: 1 },
+                  viewport: { once: !0 },
+                  transition: { duration: 0.5, delay: t * 0.05 },
+                  className: `group relative block overflow-hidden rounded-xl`,
+                  "aria-label": `Instagram post featuring ${e.name}`,
+                  children: [
+                    (0, Q.jsx)(`img`, {
+                      src: e.image,
+                      alt: ``,
+                      loading: `lazy`,
+                      width: 400,
+                      height: 400,
+                      className: `aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-110`,
+                    }),
+                    (0, Q.jsx)(`div`, {
+                      className: `absolute inset-0 grid place-items-center bg-charcoal/0 transition-colors duration-300 group-hover:bg-charcoal/35`,
+                      children: (0, Q.jsx)(S, {
+                        className: `h-5 w-5 text-primary-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100`,
+                      }),
+                    }),
+                  ],
+                },
+                e.slug,
+              ),
+            ),
+          }),
+        ],
+      }),
+      (0, Q.jsx)(`section`, {
+        className: `bg-charcoal py-20 text-primary-foreground sm:py-24`,
+        children: (0, Q.jsxs)(_.div, {
+          ...$,
+          className: `container-lux max-w-2xl text-center`,
+          children: [
+            (0, Q.jsx)(`p`, {
+              className: `text-xs font-semibold tracking-[0.3em] text-gold-light uppercase`,
+              children: `Join the inner circle`,
+            }),
+            (0, Q.jsx)(`h2`, {
+              className: `mt-3 text-3xl font-semibold sm:text-4xl`,
+              children: `Get 10% Off Your First Order`,
+            }),
+            (0, Q.jsx)(`p`, {
+              className: `mt-3 text-sm text-primary-foreground/70`,
+              children: `New arrivals, exclusive offers, and styling inspiration — straight to your inbox.`,
+            }),
+            o
+              ? (0, Q.jsx)(`p`, {
+                  className: `mt-8 text-gold-light`,
+                  children: `Thank you — welcome to the family! ✨`,
+                })
+              : (0, Q.jsxs)(`form`, {
+                  className: `mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row`,
+                  onSubmit: (e) => {
+                    (e.preventDefault(), i.trim() && s(!0));
+                  },
+                  children: [
+                    (0, Q.jsx)(`input`, {
+                      type: `email`,
+                      required: !0,
+                      value: i,
+                      onChange: (e) => a(e.target.value),
+                      placeholder: `Your email address`,
+                      "aria-label": `Email address`,
+                      className: `flex-1 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-5 py-3 text-sm text-primary-foreground placeholder:text-primary-foreground/50 outline-none focus:border-gold`,
+                    }),
+                    (0, Q.jsx)(`button`, {
+                      type: `submit`,
+                      className: `btn-gold`,
+                      children: `Subscribe`,
+                    }),
+                  ],
+                }),
+          ],
+        }),
+      }),
+    ],
+  });
+}
+export { Le as component };
