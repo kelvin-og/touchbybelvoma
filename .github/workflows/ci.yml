@@ -33,8 +33,7 @@ jobs:
       - name: Build production bundle
         run: npm run build
 
-      - name: Confirm build succeeded
+      - name: Confirm build
         run: |
-          echo "Build output:"
           find .output -maxdepth 2 -type f | head -20
           echo "✅ Build complete"
