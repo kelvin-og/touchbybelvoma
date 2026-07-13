@@ -27,14 +27,19 @@ jobs:
       - name: Auto-format with Prettier
         run: npx prettier --write "src/**/*.{ts,tsx,css}" "eslint.config.js"
 
-      - name: Run ESLint (max 50 warnings)
+      - name: Run ESLint
         run: npm run lint -- --max-warnings=50
 
       - name: Build production bundle
         run: npm run build
 
-      - name: List build output (debug)
-        run: ls -la .output/ && ls -la .output/public/
+      - name: Verify build output exists
+        run: |
+          echo "=== .output directory ==="
+          ls -la .output/
+          echo "=== .output/public ==="
+          ls -la .output/public/
+          echo "Build successful!"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
