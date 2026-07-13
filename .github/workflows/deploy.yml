@@ -5,13 +5,9 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
-    name: Build & Deploy to Cloudflare Pages
+  build:
+    name: Build
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      deployments: write
 
     steps:
       - name: Checkout repository
@@ -28,6 +24,30 @@ jobs:
 
       - name: Build production bundle
         run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-deploy-${{ github.sha }}
+          path: .output/public
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
+    needs: build
+    # Only runs when CLOUDFLARE_API_TOKEN secret is set in repo settings
+    # Go to: Settings → Secrets and variables → Actions → New repository secret
+    environment:
+      name: production
+      url: https://touch-by-belvoma.pages.dev
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: cloudflare-deploy-${{ github.sha }}
+          path: .output/public
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1

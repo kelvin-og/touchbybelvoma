@@ -24,9 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Run ESLint (warnings allowed)
+      - name: Run ESLint
         run: npm run lint -- --max-warnings=50
-        continue-on-error: false
 
       - name: Build production bundle
         run: npm run build
@@ -34,6 +33,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: production-build
+          name: production-build-${{ github.sha }}
           path: .output/
           retention-days: 7
+          if-no-files-found: error
