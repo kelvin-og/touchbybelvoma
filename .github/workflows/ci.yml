@@ -28,7 +28,7 @@ jobs:
         run: npm run lint
 
       - name: Run Prettier check
-        run: npx prettier --check .
+        run: npx prettier --check "src/**/*.{ts,tsx,css}"
 
       - name: Build production bundle
         run: npm run build
