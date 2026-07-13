@@ -6,10 +6,22 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig({
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-  },
-});
+// Use SPA mode when building for GitHub Pages (set GITHUB_PAGES=1 env var)
+const isGithubPages = process.env.GITHUB_PAGES === "1";
+
+export default defineConfig(
+  isGithubPages
+    ? {
+        // SPA / static mode for GitHub Pages
+        tanstackStart: {
+          spa: true,
+          server: { entry: "server" },
+        },
+      }
+    : {
+        // Default SSR mode (Cloudflare Workers)
+        tanstackStart: {
+          server: { entry: "server" },
+        },
+      },
+);
