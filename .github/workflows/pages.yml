@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js 22
         uses: actions/setup-node@v4
@@ -33,15 +35,13 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Generate index.html
-        run: python3 .github/scripts/make_index.py
+      - name: Generate docs/ folder
+        run: node make-docs.mjs
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .output/public
-          publish_branch: gh-pages
-          force_orphan: true
-          enable_jekyll: false
-          cname: ""
+      - name: Commit and push docs/ to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git diff --staged --quiet || git commit -m "chore: update docs/ build [skip ci]"
+          git push origin main
