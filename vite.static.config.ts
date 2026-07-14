@@ -1,29 +1,23 @@
 /**
  * Static SPA build config for GitHub Pages deployment.
  *
- * This bypasses the TanStack Start / Nitro SSR pipeline entirely and produces
- * a plain client-side React SPA in dist/.  The SSR config (vite.config.ts) is
- * still used for Cloudflare Workers / Lovable deployments.
+ * Deliberately does NOT use TanStackRouterVite or @lovable.dev/vite-tanstack-config
+ * to avoid SSR/Nitro pipeline interference. This produces a plain client-side
+ * React SPA in dist/ from index.static.html as the entry point.
+ *
+ * Route tree (src/routeTree.static.gen.ts) is pre-generated and committed —
+ * no plugin needed at build time.
  */
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 export default defineConfig({
-  // Subpath where GitHub Pages serves this project repo.
-  // Must match the <repo-name> slug from the Pages URL.
+  // Subpath where GitHub Pages serves this project.
   base: "/touchbybelvoma/",
 
   plugins: [
-    // Generate a separate static route tree — this avoids overwriting the
-    // TanStack Start routeTree.gen.ts that the dev server and SSR build need.
-    TanStackRouterVite({
-      routesDirectory: "src/routes",
-      generatedRouteTree: "src/routeTree.static.gen.ts",
-      routeFileIgnorePattern: "sitemap",
-    }),
     react(),
     tailwindcss(),
     tsconfigPaths(),
@@ -32,6 +26,9 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
+    rollupOptions: {
+      input: "index.static.html",
+    },
   },
 
   resolve: {

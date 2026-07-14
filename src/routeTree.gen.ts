@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as _rootStaticRouteImport } from './routes/__root.static'
 import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -29,6 +30,11 @@ import { Route as OrderConfirmationOrderIdRouteImport } from './routes/order-con
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 
+const _rootStaticRoute = _rootStaticRouteImport.update({
+  id: '/__root/static',
+  path: '/static',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
   path: '/wishlist',
@@ -140,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/track-order': typeof TrackOrderRoute
   '/wishlist': typeof WishlistRoute
+  '/static': typeof _rootStaticRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/order-confirmation/$orderId': typeof OrderConfirmationOrderIdRoute
@@ -161,6 +168,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/track-order': typeof TrackOrderRoute
   '/wishlist': typeof WishlistRoute
+  '/static': typeof _rootStaticRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/order-confirmation/$orderId': typeof OrderConfirmationOrderIdRoute
@@ -183,6 +191,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/track-order': typeof TrackOrderRoute
   '/wishlist': typeof WishlistRoute
+  '/__root/static': typeof _rootStaticRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/order-confirmation/$orderId': typeof OrderConfirmationOrderIdRoute
@@ -206,6 +215,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/track-order'
     | '/wishlist'
+    | '/static'
     | '/admin/dashboard'
     | '/admin/login'
     | '/order-confirmation/$orderId'
@@ -227,6 +237,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/track-order'
     | '/wishlist'
+    | '/static'
     | '/admin/dashboard'
     | '/admin/login'
     | '/order-confirmation/$orderId'
@@ -248,6 +259,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/track-order'
     | '/wishlist'
+    | '/__root/static'
     | '/admin/dashboard'
     | '/admin/login'
     | '/order-confirmation/$orderId'
@@ -270,6 +282,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TrackOrderRoute: typeof TrackOrderRoute
   WishlistRoute: typeof WishlistRoute
+  _rootStaticRoute: typeof _rootStaticRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminLoginRoute: typeof AdminLoginRoute
   OrderConfirmationOrderIdRoute: typeof OrderConfirmationOrderIdRoute
@@ -280,6 +293,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/__root/static': {
+      id: '/__root/static'
+      path: '/static'
+      fullPath: '/static'
+      preLoaderRoute: typeof _rootStaticRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/wishlist': {
       id: '/wishlist'
       path: '/wishlist'
@@ -430,6 +450,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TrackOrderRoute: TrackOrderRoute,
   WishlistRoute: WishlistRoute,
+  _rootStaticRoute: _rootStaticRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminLoginRoute: AdminLoginRoute,
   OrderConfirmationOrderIdRoute: OrderConfirmationOrderIdRoute,
