@@ -28,20 +28,18 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build production bundle
-        run: npm run build
+      - name: Build static SPA
+        run: npm run build:static
         env:
           NODE_ENV: production
 
-      - name: Generate docs/ and root deploy files
+      - name: Copy dist/ to docs/ and repo root
         run: node make-docs.mjs
 
-      - name: Commit and push built files
+      - name: Commit and push deploy artifacts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Stage all deploy artifacts
           git add docs/ assets/ index.html 404.html .nojekyll favicon.png robots.txt
-          # Only commit if something actually changed
-          git diff --cached --quiet || git commit -m "chore: deploy build [skip ci]"
+          git diff --cached --quiet || git commit -m "chore: deploy static build [skip ci]"
           git push origin main
