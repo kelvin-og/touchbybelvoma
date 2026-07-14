@@ -4,9 +4,12 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  HeadContent,
+  Scripts,
 } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 
+import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StoreProvider } from "../lib/store";
 import { Navbar } from "../components/Navbar";
@@ -67,10 +70,73 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "Touch by Bel'voma | Luxury Jewelry in Ghana" },
+      {
+        name: "description",
+        content:
+          "Discover elegant earrings, necklaces, bracelets, rings, anklets, and luxury accessories at Touch by Bel'voma. Premium jewelry crafted to elevate your everyday style.",
+      },
+      {
+        name: "keywords",
+        content:
+          "Touch by Bel'voma, Luxury Jewelry Ghana, Earrings Ghana, Necklaces Ghana, Bracelets, Fashion Jewelry, Women's Accessories, Gold Jewelry Ghana",
+      },
+      { name: "author", content: "Touch by Bel'voma" },
+      {
+        property: "og:title",
+        content: "Touch by Bel'voma | Luxury Jewelry in Ghana",
+      },
+      {
+        property: "og:description",
+        content:
+          "Discover elegant earrings, necklaces, bracelets, rings, anklets, and luxury accessories at Touch by Bel'voma. Premium jewelry crafted to elevate your everyday style.",
+      },
+      { property: "og:site_name", content: "Touch by Bel'voma" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: "Touch by Bel'voma | Luxury Jewelry in Ghana",
+      },
+    ],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300..700&family=Poppins:wght@400;500;600&display=swap",
+      },
+    ],
+  }),
+  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
+
+function RootShell({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();

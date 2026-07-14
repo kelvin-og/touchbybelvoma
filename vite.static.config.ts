@@ -17,12 +17,12 @@ export default defineConfig({
   base: "/-touch-by-bel-voma/",
 
   plugins: [
-    // Generate routeTree.gen.ts automatically
+    // Generate a separate static route tree — this avoids overwriting the
+    // TanStack Start routeTree.gen.ts that the dev server and SSR build need.
     TanStackRouterVite({
       routesDirectory: "src/routes",
-      generatedRouteTree: "src/routeTree.gen.ts",
-      // Exclude server-only files from client route generation
-      routeFileIgnorePattern: ".*\\.server\\.(ts|tsx)$",
+      generatedRouteTree: "src/routeTree.static.gen.ts",
+      routeFileIgnorePattern: "sitemap",
     }),
     react(),
     tailwindcss(),
