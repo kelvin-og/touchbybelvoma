@@ -9,10 +9,10 @@ import { routeTree } from "./routeTree.static.gen";
 export const getStaticRouter = () => {
   const queryClient = new QueryClient();
 
-  // GitHub Pages serves this project at: kelvin-og.github.io/-touch-by-bel-voma/
+  // GitHub Pages serves this project at: kelvin-og.github.io/touchbybelvoma/
   const basepath =
     typeof window !== "undefined" && window.location.hostname.endsWith("github.io")
-      ? "/-touch-by-bel-voma"
+      ? "/touchbybelvoma"
       : "/";
 
   return createRouter({

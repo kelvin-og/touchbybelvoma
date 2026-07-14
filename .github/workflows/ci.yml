@@ -32,5 +32,6 @@ jobs:
 
       - name: Confirm build output
         run: |
-          find dist -maxdepth 2 -type f | head -20
-          echo "✅ Static build complete"
+          echo "Files in dist/:"
+          ls dist/
+          echo "✅ Build complete"

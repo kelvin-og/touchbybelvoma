@@ -14,7 +14,7 @@ import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 export default defineConfig({
   // Subpath where GitHub Pages serves this project repo.
   // Must match the <repo-name> slug from the Pages URL.
-  base: "/-touch-by-bel-voma/",
+  base: "/touchbybelvoma/",
 
   plugins: [
     // Generate a separate static route tree — this avoids overwriting the
