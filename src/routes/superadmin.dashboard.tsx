@@ -1,4 +1,9 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { MediaLibrarySection } from "@/components/admin/MediaLibrarySection";
+import { ShippingSection } from "@/components/admin/ShippingSection";
+import { ReviewsSection } from "@/components/admin/ReviewsSection";
+import { SEOSection } from "@/components/admin/SEOSection";
+import { PaymentsSection } from "@/components/admin/PaymentsSection";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useStore, Order, User } from "@/lib/store";
 import {
@@ -1098,6 +1103,44 @@ function ProductsSection({
                 GH₵ {((form.price - form.costPrice) * cediMultiplier).toFixed(2)} per unit
               </p>
             )}
+          </div>
+
+          {/* Product Images */}
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm space-y-4">
+            <h3 className="text-xs font-bold text-gray-800 uppercase tracking-widest">
+              Product Images
+            </h3>
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+              {(form.images || []).map((img, idx) => (
+                <div key={idx} className="relative group aspect-square rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
+                  <img src={img} alt={`Product ${idx + 1}`} className="w-full h-full object-cover" />
+                  <button type="button"
+                    onClick={() => setForm((f) => ({ ...f, images: (f.images || []).filter((_, i) => i !== idx) }))}
+                    className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    <X className="h-3 w-3" />
+                  </button>
+                  {idx === 0 && <span className="absolute bottom-1 left-1 text-[8px] font-bold bg-amber-500 text-white px-1.5 py-0.5 rounded-full">Main</span>}
+                </div>
+              ))}
+              <label className="aspect-square rounded-xl border-2 border-dashed border-gray-200 hover:border-amber-400 bg-gray-50 hover:bg-amber-50 flex flex-col items-center justify-center cursor-pointer transition-all gap-1">
+                <Image className="h-6 w-6 text-gray-400" />
+                <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Add Image</span>
+                <input type="file" accept="image/*" multiple className="hidden"
+                  onChange={(e) => {
+                    const files = e.target.files;
+                    if (!files) return;
+                    Array.from(files).forEach((file) => {
+                      const reader = new FileReader();
+                      reader.onload = (ev) => {
+                        const url = ev.target?.result as string;
+                        setForm((f) => ({ ...f, images: [...(f.images || []), url] }));
+                      };
+                      reader.readAsDataURL(file);
+                    });
+                  }} />
+              </label>
+            </div>
+            <p className="text-[9px] text-gray-400">First image is used as the main product photo. Drag to reorder (coming soon).</p>
           </div>
 
           {/* Labels */}
@@ -3774,43 +3817,6 @@ function ActivitySection({ logs, clearLogs }: { logs: AuditLog[]; clearLogs: () 
   );
 }
 
-// ─── Placeholder Section ──────────────────────────────────────────────────────
-
-function PlaceholderSection({
-  icon: Icon,
-  title,
-  subtitle,
-  features,
-}: {
-  icon: React.ElementType;
-  title: string;
-  subtitle: string;
-  features: string[];
-}) {
-  return (
-    <div className="space-y-6">
-      <SectionHeader icon={Icon} title={title} subtitle={subtitle} />
-      <div className="bg-gradient-to-br from-amber-50 via-white to-amber-50 border border-amber-100 rounded-2xl p-8 text-center">
-        <div className="p-4 bg-amber-100 rounded-2xl w-fit mx-auto mb-4">
-          <Icon className="h-8 w-8 text-amber-600" />
-        </div>
-        <h3 className="text-sm font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-xs text-gray-500 max-w-md mx-auto mb-6">{subtitle}</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-left max-w-2xl mx-auto">
-          {features.map((f) => (
-            <div
-              key={f}
-              className="flex items-center gap-2 p-3 bg-white border border-amber-100 rounded-xl text-[10px] font-semibold text-gray-700"
-            >
-              <Check className="h-3.5 w-3.5 text-amber-500 shrink-0" /> {f}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 function SuperAdminDashboardComponent() {
@@ -4211,111 +4217,11 @@ function SuperAdminDashboardComponent() {
                 {activeSection === "activity" && (
                   <ActivitySection logs={logs} clearLogs={clearLogs} />
                 )}
-                {activeSection === "media" && (
-                  <PlaceholderSection
-                    icon={Image}
-                    title="Media Library"
-                    subtitle="Upload, organize, and manage all images, videos, and files for your store"
-                    features={[
-                      "Upload Images",
-                      "Upload Videos",
-                      "Upload PDFs",
-                      "Folder Organization",
-                      "Bulk Upload",
-                      "Image Compression",
-                      "Image Optimizer",
-                      "Replace Images",
-                      "Delete Files",
-                      "Search Media",
-                      "CDN Integration",
-                      "Lazy Loading",
-                    ]}
-                  />
-                )}
-                {activeSection === "reviews" && (
-                  <PlaceholderSection
-                    icon={Star}
-                    title="Reviews Manager"
-                    subtitle="Moderate customer reviews and manage your store's reputation"
-                    features={[
-                      "Approve Reviews",
-                      "Delete Reviews",
-                      "Reply to Reviews",
-                      "Feature Reviews",
-                      "Report Spam",
-                      "Review Analytics",
-                      "Star Ratings",
-                      "Verified Purchase Badge",
-                      "Import Reviews",
-                      "Export Reviews",
-                      "Email Notifications",
-                      "Review Moderation",
-                    ]}
-                  />
-                )}
-                {activeSection === "seo" && (
-                  <PlaceholderSection
-                    icon={Globe}
-                    title="SEO Manager"
-                    subtitle="Optimize your store for search engines and maximize organic traffic"
-                    features={[
-                      "Meta Titles",
-                      "Meta Descriptions",
-                      "Open Graph Tags",
-                      "Twitter Cards",
-                      "Robots.txt",
-                      "XML Sitemap",
-                      "Structured Data",
-                      "Canonical URLs",
-                      "301 Redirects",
-                      "Broken Link Checker",
-                      "Schema Generator",
-                      "Keyword Tracking",
-                    ]}
-                  />
-                )}
-                {activeSection === "payments" && (
-                  <PlaceholderSection
-                    icon={CreditCard}
-                    title="Payment Settings"
-                    subtitle="Configure payment gateways and manage transaction processing"
-                    features={[
-                      "Paystack",
-                      "Flutterwave",
-                      "MTN Mobile Money",
-                      "Telecel Cash",
-                      "AirtelTigo",
-                      "Bank Transfer",
-                      "Payment Verification",
-                      "Refund Settings",
-                      "Transaction Logs",
-                      "Tax Settings",
-                      "Invoice Generation",
-                      "Currency Management",
-                    ]}
-                  />
-                )}
-                {activeSection === "shipping" && (
-                  <PlaceholderSection
-                    icon={Truck}
-                    title="Shipping Manager"
-                    subtitle="Configure delivery zones, rates, and courier integrations"
-                    features={[
-                      "Shipping Zones",
-                      "Delivery Charges",
-                      "Regional Rates",
-                      "Estimated Times",
-                      "Pickup Locations",
-                      "Courier Integration",
-                      "Free Shipping Rules",
-                      "Packaging Fees",
-                      "Tracking Integration",
-                      "Shipping Labels",
-                      "Bulk Shipping",
-                      "International Shipping",
-                    ]}
-                  />
-                )}
+                {activeSection === "media" && <MediaLibrarySection />}
+                {activeSection === "reviews" && <ReviewsSection />}
+                {activeSection === "seo" && <SEOSection addLog={addLog} />}
+                {activeSection === "payments" && <PaymentsSection addLog={addLog} />}
+                {activeSection === "shipping" && <ShippingSection addLog={addLog} />}
               </motion.div>
             </AnimatePresence>
           </div>
