@@ -457,25 +457,28 @@ function OverviewSection({
   cediMultiplier: number;
   addLog: (l: Omit<AuditLog, "id" | "timestamp">) => void;
 }) {
-  const totalRevUsd = orders.reduce((s, o) => s + o.total, 0);
+  const safeOrders = Array.isArray(orders) ? orders.filter((o) => o && o.total != null && o.status) : [];
+  const totalRevUsd = safeOrders.reduce((s, o) => s + (o.total || 0), 0);
   const totalRevGhs = totalRevUsd * cediMultiplier;
-  const completedOrders = orders.filter((o) => o.status === "Delivered").length;
-  const pendingOrders = orders.filter(
+  const completedOrders = safeOrders.filter((o) => o.status === "Delivered").length;
+  const pendingOrders = safeOrders.filter(
     (o) => o.status !== "Delivered" && o.status !== "Payment Pending",
   ).length;
-  const cancelledOrders = orders.filter((o) => o.status === "Payment Pending").length;
+  const cancelledOrders = safeOrders.filter((o) => o.status === "Payment Pending").length;
   const inStockProds = prods.filter((p) => p.stock > 10).length;
   const lowStockProds = prods.filter((p) => p.stock > 0 && p.stock <= 10).length;
   const outOfStock = prods.filter((p) => p.stock === 0).length;
-  const todaySales = orders
+  const todaySales = safeOrders
     .filter((o) => o.date === new Date().toISOString().split("T")[0])
-    .reduce((s, o) => s + o.total * cediMultiplier, 0);
-  const avgOrderGhs = orders.length > 0 ? totalRevGhs / orders.length : 0;
+    .reduce((s, o) => s + (o.total || 0) * cediMultiplier, 0);
+  const avgOrderGhs = safeOrders.length > 0 ? totalRevGhs / safeOrders.length : 0;
 
   const revenueData = [12, 19, 28, 22, 35, 41, 38, 50, 45, 62, 58, 74];
   const salesData = [3, 5, 7, 4, 9, 11, 8, 13, 10, 15, 12, 18];
 
-  const recentOrders = [...orders].slice(0, 5);
+  const recentOrders = (Array.isArray(orders) ? [...orders] : [])
+    .filter((o) => o && o.id && o.shippingAddress)
+    .slice(0, 5);
   const bestSellers = prods.filter((p) => p.isBestSeller).slice(0, 4);
 
   return (
@@ -523,7 +526,7 @@ function OverviewSection({
         />
         <KpiCard
           label="Total Orders"
-          value={orders.length}
+          value={safeOrders.length}
           sub={`${completedOrders} completed`}
           icon={ShoppingCart}
           color="blue"
@@ -658,12 +661,12 @@ function OverviewSection({
                 >
                   <div>
                     <p className="font-semibold text-gray-800">{o.id}</p>
-                    <p className="text-gray-400">{o.shippingAddress.fullName}</p>
+                    <p className="text-gray-400">{o.shippingAddress?.fullName ?? "—"}</p>
                   </div>
                   <div className="text-right">
                     <p className="font-bold text-amber-600">
                       GH₵{" "}
-                      {(o.total * cediMultiplier).toLocaleString("en-US", {
+                      {((o.total || 0) * cediMultiplier).toLocaleString("en-US", {
                         maximumFractionDigits: 0,
                       })}
                     </p>
@@ -1518,7 +1521,7 @@ function ProductsSection({
 // ─── Orders Section ───────────────────────────────────────────────────────────
 
 function OrdersSection({
-  orders,
+  orders: rawOrders,
   updateOrderStatus,
   cediMultiplier,
   addLog,
@@ -1535,6 +1538,39 @@ function OrdersSection({
     msg: string;
     type: "success" | "error" | "info";
   } | null>(null);
+
+  // Sanitize orders so null/undefined fields never crash the render
+  const orders = useMemo<Order[]>(() => {
+    if (!Array.isArray(rawOrders)) return [];
+    return rawOrders.map((o) => ({
+      ...o,
+      id: o?.id ?? "—",
+      date: o?.date ?? "—",
+      status: o?.status ?? "Order Received",
+      total: typeof o?.total === "number" ? o.total : 0,
+      paymentMethod: o?.paymentMethod ?? "—",
+      shippingFee: typeof o?.shippingFee === "number" ? o.shippingFee : 0,
+      discount: typeof o?.discount === "number" ? o.discount : 0,
+      items: Array.isArray(o?.items) ? o.items.map((item) => ({
+        productId: item?.productId ?? "",
+        name: item?.name ?? "Item",
+        price: typeof item?.price === "number" ? item.price : 0,
+        qty: typeof item?.qty === "number" ? item.qty : 1,
+        image: item?.image ?? "",
+      })) : [],
+      shippingAddress: {
+        id: o?.shippingAddress?.id ?? "",
+        fullName: o?.shippingAddress?.fullName ?? "Unknown",
+        phone: o?.shippingAddress?.phone ?? "—",
+        gpsAddress: o?.shippingAddress?.gpsAddress ?? "—",
+        streetAddress: o?.shippingAddress?.streetAddress ?? "—",
+        city: o?.shippingAddress?.city ?? "—",
+        region: o?.shippingAddress?.region ?? "—",
+        area: o?.shippingAddress?.area,
+        landmark: o?.shippingAddress?.landmark,
+      },
+    }));
+  }, [rawOrders]);
 
   const showToast = useCallback(
     (msg: string, type: "success" | "error" | "info" = "success") => setToast({ msg, type }),
@@ -1567,32 +1603,61 @@ function OrdersSection({
   };
 
   const exportOrders = () => {
-    const header = "ID,Date,Customer,Total (GHS),Payment,Status\n";
-    const rows = orders
-      .map(
-        (o) =>
-          `${o.id},${o.date},${o.shippingAddress.fullName},${(o.total * cediMultiplier).toFixed(2)},${o.paymentMethod},${o.status}`,
-      )
-      .join("\n");
-    const blob = new Blob([header + rows], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "orders.csv";
-    a.click();
-    showToast("Orders exported");
+    try {
+      const header = "ID,Date,Customer,Total (GHS),Payment,Status\n";
+      const rows = orders
+        .map(
+          (o) =>
+            `${o.id},${o.date},${o.shippingAddress.fullName},${(o.total * cediMultiplier).toFixed(2)},${o.paymentMethod},${o.status}`,
+        )
+        .join("\n");
+      const blob = new Blob([header + rows], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "orders.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("Orders exported");
+    } catch {
+      showToast("Export failed", "error");
+    }
   };
 
   const generateInvoice = (o: Order) => {
-    const ghs = (o.total * cediMultiplier).toFixed(2);
-    const content = `TOUCH BY BEL'VOMA\nINVOICE: ${o.id}\nDate: ${o.date}\nCustomer: ${o.shippingAddress.fullName}\nAddress: ${o.shippingAddress.streetAddress}, ${o.shippingAddress.city}\nGPS: ${o.shippingAddress.gpsAddress}\n\nItems:\n${o.items.map((i) => `  ${i.name} x${i.qty} — GH₵ ${(i.price * cediMultiplier * i.qty).toFixed(2)}`).join("\n")}\n\nTotal: GH₵ ${ghs}\nPayment: ${o.paymentMethod}\nStatus: ${o.status}`;
-    const blob = new Blob([content], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `invoice-${o.id}.txt`;
-    a.click();
-    showToast(`Invoice downloaded for ${o.id}`);
+    try {
+      const ghs = (o.total * cediMultiplier).toFixed(2);
+      const itemLines = o.items
+        .map((i) => `  ${i.name} x${i.qty} — GH₵ ${(i.price * cediMultiplier * i.qty).toFixed(2)}`)
+        .join("\n");
+      const content = [
+        "TOUCH BY BEL'VOMA",
+        `INVOICE: ${o.id}`,
+        `Date: ${o.date}`,
+        `Customer: ${o.shippingAddress.fullName}`,
+        `Address: ${o.shippingAddress.streetAddress}, ${o.shippingAddress.city}`,
+        `GPS: ${o.shippingAddress.gpsAddress}`,
+        "",
+        "Items:",
+        itemLines,
+        "",
+        `Shipping Fee: GH₵ ${(o.shippingFee * cediMultiplier).toFixed(2)}`,
+        `Discount: GH₵ ${(o.discount * cediMultiplier).toFixed(2)}`,
+        `Total: GH₵ ${ghs}`,
+        `Payment: ${o.paymentMethod}`,
+        `Status: ${o.status}`,
+      ].join("\n");
+      const blob = new Blob([content], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `invoice-${o.id}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast(`Invoice downloaded for ${o.id}`);
+    } catch {
+      showToast("Invoice generation failed", "error");
+    }
   };
 
   const orderStatuses: Order["status"][] = [
@@ -2449,7 +2514,7 @@ function MarketingSection({ addLog }: { addLog: (l: Omit<AuditLog, "id" | "times
 // ─── Analytics Section ────────────────────────────────────────────────────────
 
 function AnalyticsSection({
-  orders,
+  orders: rawOrders,
   customers,
   products: prods,
   cediMultiplier,
@@ -2459,7 +2524,10 @@ function AnalyticsSection({
   products: AdminProduct[];
   cediMultiplier: number;
 }) {
-  const totalRev = orders.reduce((s, o) => s + o.total * cediMultiplier, 0);
+  const orders = Array.isArray(rawOrders)
+    ? rawOrders.filter((o) => o && o.total != null && Array.isArray(o.items))
+    : [];
+  const totalRev = orders.reduce((s, o) => s + (o.total || 0) * cediMultiplier, 0);
   const avgOrder = orders.length > 0 ? totalRev / orders.length : 0;
   const convRate =
     customers.length > 0 ? ((orders.length / customers.length) * 100).toFixed(1) : "0";
@@ -2485,9 +2553,9 @@ function AnalyticsSection({
       cat,
       count: prods.filter((p) => p.category === cat).length,
       rev: orders
-        .flatMap((o) => o.items)
-        .filter((i) => prods.find((p) => p.id === i.productId)?.category === cat)
-        .reduce((s, i) => s + i.price * i.qty * cediMultiplier, 0),
+        .flatMap((o) => o.items || [])
+        .filter((i) => i && prods.find((p) => p.id === i.productId)?.category === cat)
+        .reduce((s, i) => s + (i.price || 0) * (i.qty || 0) * cediMultiplier, 0),
     }),
   );
 
