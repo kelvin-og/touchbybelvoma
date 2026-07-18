@@ -46,7 +46,7 @@ function SectionHeader({ icon: Icon, title, subtitle, actions }: {
 
 export function ReviewsSection() {
   const [reviews, setReviews] = useState<Review[]>(() => {
-    const stored = localStorage.getItem("tbb_reviews");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_reviews") : null;
     return stored ? JSON.parse(stored) : seedReviews;
   });
   const [search, setSearch] = useState("");

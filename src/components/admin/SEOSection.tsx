@@ -47,7 +47,7 @@ function SectionHeader({ icon: Icon, title, subtitle, actions }: {
 
 export function SEOSection({ addLog }: { addLog: (l: { category: "Config"; action: string; user: string; ip: string }) => void }) {
   const [settings, setSettings] = useState<SEOSettings>(() => {
-    const stored = localStorage.getItem("tbb_seo_settings");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_seo_settings") : null;
     if (stored) return JSON.parse(stored);
     return {
       siteTitle: "Touch by Bel'voma | Luxury Jewelry in Ghana",
@@ -66,7 +66,7 @@ export function SEOSection({ addLog }: { addLog: (l: { category: "Config"; actio
   });
 
   const [redirects, setRedirects] = useState<Redirect[]>(() => {
-    const stored = localStorage.getItem("tbb_seo_redirects");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_seo_redirects") : null;
     return stored ? JSON.parse(stored) : [];
   });
 

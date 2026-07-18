@@ -50,7 +50,7 @@ export function PaymentsSection({
   addLog: (l: { category: "Config"; action: string; user: string; ip: string }) => void;
 }) {
   const [gateways, setGateways] = useState<PaymentGateway[]>(() => {
-    const stored = localStorage.getItem("tbb_payment_gateways");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_payment_gateways") : null;
     if (stored) return JSON.parse(stored);
     return [
       { id: "paystack", name: "Paystack", description: "Accept cards, mobile money & bank transfers via Paystack", enabled: true, publicKey: "", secretKey: "", testMode: true, icon: "💳" },
@@ -63,13 +63,13 @@ export function PaymentsSection({
   });
 
   const [tax, setTax] = useState<TaxSetting>(() => {
-    const stored = localStorage.getItem("tbb_tax_settings");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_tax_settings") : null;
     if (stored) return JSON.parse(stored);
     return { name: "Ghana VAT", rate: 12.5, enabled: false, appliesTo: "all" };
   });
 
   const [bankDetails, setBankDetails] = useState(() => {
-    const stored = localStorage.getItem("tbb_bank_details");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_bank_details") : null;
     if (stored) return JSON.parse(stored);
     return { bankName: "", accountName: "", accountNumber: "", branch: "", instructions: "Please transfer the exact order amount and send your payment receipt to our WhatsApp number." };
   });

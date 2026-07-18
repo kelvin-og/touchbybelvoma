@@ -50,7 +50,7 @@ const ghanaRegions = [
 
 export function ShippingSection({ addLog }: { addLog: (l: { category: "Config"; action: string; user: string; ip: string }) => void }) {
   const [zones, setZones] = useState<ShippingZone[]>(() => {
-    const stored = localStorage.getItem("tbb_shipping_zones");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_shipping_zones") : null;
     if (stored) return JSON.parse(stored);
     return [
       { id: "z1", name: "Accra Metro", regions: ["Greater Accra"], fee: 15, freeThreshold: 500, estimatedDays: "1-2 days", active: true },
@@ -60,7 +60,7 @@ export function ShippingSection({ addLog }: { addLog: (l: { category: "Config"; 
   });
 
   const [pickups, setPickups] = useState<PickupLocation[]>(() => {
-    const stored = localStorage.getItem("tbb_pickup_locations");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_pickup_locations") : null;
     if (stored) return JSON.parse(stored);
     return [
       { id: "p1", name: "Accra Main Office", address: "Ring Road East, Danquah Circle, Accra", phone: "+233 24 123 4567", hours: "Mon-Sat 9am-6pm", active: true },

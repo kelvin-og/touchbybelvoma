@@ -2211,7 +2211,7 @@ function CustomersSection({
 
 function MarketingSection({ addLog }: { addLog: (l: Omit<AuditLog, "id" | "timestamp">) => void }) {
   const [promos, setPromos] = useState<PromoCode[]>(() => {
-    const stored = localStorage.getItem("tbb_admin_promos_v2");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_admin_promos_v2") : null;
     if (stored) return JSON.parse(stored);
     return [
       {
@@ -2827,7 +2827,7 @@ function ContentSection({ addLog }: { addLog: (l: Omit<AuditLog, "id" | "timesta
   };
 
   const [settings, setSettings] = useState<SiteSettings>(() => {
-    const stored = localStorage.getItem("tbb_site_settings");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_site_settings") : null;
     return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
   });
   const [activeTab, setActiveTab] = useState<"homepage" | "pages" | "general" | "integrations">(
@@ -3912,7 +3912,7 @@ function SuperAdminDashboardComponent() {
 
   // Product state (seeded from products.ts + local storage)
   const [adminProducts, setAdminProducts] = useState<AdminProduct[]>(() => {
-    const stored = localStorage.getItem("tbb_admin_products_v2");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_admin_products_v2") : null;
     if (stored) return JSON.parse(stored);
     return initialProducts.map((p) => ({
       id: p.id,

@@ -36,7 +36,7 @@ function SectionHeader({ icon: Icon, title, subtitle, actions }: {
 
 export function MediaLibrarySection() {
   const [files, setFiles] = useState<MediaFile[]>(() => {
-    const stored = localStorage.getItem("tbb_media_library");
+    const stored = typeof window !== "undefined" ? localStorage.getItem("tbb_media_library") : null;
     return stored ? JSON.parse(stored) : [];
   });
   const [search, setSearch] = useState("");
